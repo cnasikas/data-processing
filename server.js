@@ -1,16 +1,14 @@
-const express = require('express')
+import express from 'express'
+import Web3 from 'web3'
+import routes from './routes/routes.js'
+
 const app = express()
-const Web3 = require('web3')
 const web3 = new Web3()
 
 const port = process.env.PORT || 3000
 
-console.log(port);
+routes(app)
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
-
-app.listen(3000, function () {
-  console.log('Listening on port ')
+app.listen(port, () => {
+  console.log('Listening on port ' + port)
 })
