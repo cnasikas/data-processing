@@ -1,7 +1,7 @@
-##mpc-api
+## mpc-api
 
 An MPC Framework on Blockchain
 
-##Licence
+## Licence
 
 MIT
