@@ -1,15 +1,16 @@
 import express from 'express'
-import Web3 from 'web3'
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import controllers from './controllers/controllers.js'
 import config from './config.json';
+import { Web3Service } from './services/web3.js'
 
-const app = express()
-const web3 = new Web3()
-const router = express.Router();
+let app = express()
+let router = express.Router()
+
+new Web3Service()
 
 // logger
 app.use(morgan('dev'));
