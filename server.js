@@ -4,14 +4,12 @@ import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import routes from './routes/routes.js'
+import controllers from './controllers/controllers.js'
 import config from './config.json';
 
 const app = express()
 const web3 = new Web3()
 const router = express.Router();
-
-const port = process.env.PORT || config
 
 // logger
 app.use(morgan('dev'));
@@ -25,9 +23,7 @@ app.use(bodyParser.json({
 	limit : config.bodyLimit
 }));
 
-routes(router)
-
-app.use('/api', router);
+app.use('/api', controllers({config}));
 
 app.listen(process.env.PORT || config.port, function () {
 	console.log(`Started on port ${this.address().port}`);
