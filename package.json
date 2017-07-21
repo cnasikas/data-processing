@@ -22,6 +22,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.3",
+    "sjcl": "^1.0.7",
     "web3": "^0.20.1"
   },
   "devDependencies": {

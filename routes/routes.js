@@ -1,9 +1,15 @@
-'use strict';
+export default function (router) {
 
-export default function (app) {
+	/* Middleware */
 
-	app.get('/', (req, res) => {
-  		res.send('Hello World!')
+	router.use((req, res, next) => {
+	    next();
+	});
+
+	/* Routes */
+
+	router.get('/', (req, res) => {
+  		res.json({msg: 'Hello World!'})
 	})
 
 }
