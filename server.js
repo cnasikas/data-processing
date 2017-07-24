@@ -5,12 +5,19 @@ import cors from 'cors';
 
 import controllers from './controllers/controllers.js'
 import config from './config.json';
-import { Web3Service } from './services/web3.js'
 
 let app = express()
 let router = express.Router()
 
-new Web3Service()
+const backends = {
+	'ethereum': 'EthereumNode',
+	'cardano': 'CardanoNode'
+};
+
+const nodePath = backends[config.backend];
+const NodeClass = require('./backends/' + nodePath).default;
+
+const Node = new NodeClass();
 
 // logger
 app.use(morgan('dev'));

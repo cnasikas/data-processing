@@ -1,7 +1,7 @@
 import Web3 from 'web3'
 import truffle from '../truffle.js'
 
-export class Web3Service {
+export default class EthereumNode {
 
 	constructor(){
 		this.web3 = new Web3()
