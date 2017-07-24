@@ -9,16 +9,6 @@ import config from './config.json';
 let app = express()
 let router = express.Router()
 
-const backends = {
-	'ethereum': 'EthereumNode',
-	'cardano': 'CardanoNode'
-};
-
-const nodePath = backends[config.backend];
-const NodeClass = require('./backends/' + nodePath).default;
-
-const Node = new NodeClass();
-
 // logger
 app.use(morgan('dev'));
 
