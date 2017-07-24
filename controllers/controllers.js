@@ -4,7 +4,7 @@ import Node from '../services/NodeBuilder.js'
 
 export default ({config}) => {
     
-    let router = Router()
+    const router = Router()
     let node = Node()
     
 	/* Routes */

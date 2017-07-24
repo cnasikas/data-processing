@@ -6,7 +6,7 @@ import cors from 'cors';
 import controllers from './controllers/controllers.js'
 import config from './config.json';
 
-let app = express()
+const app = express()
 let router = express.Router()
 
 // logger
