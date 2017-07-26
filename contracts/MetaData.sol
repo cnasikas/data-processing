@@ -16,7 +16,7 @@ contract MetaData {
 		message = _message;
 	}
 	
-	function get() constant returns (uint[]) {
+	function get() constant returns (bytes32) {
         return message;
     }
 }
