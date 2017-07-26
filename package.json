@@ -26,6 +26,7 @@
     "express": "^4.15.3",
     "morgan": "^1.8.2",
     "sjcl": "^1.0.7",
+    "truffle-contract": "^2.0.4",
     "web3": "^0.20.1"
   },
   "devDependencies": {
