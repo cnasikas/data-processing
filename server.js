@@ -7,7 +7,6 @@ import controllers from './controllers/controllers.js'
 import config from './config.json';
 
 const app = express()
-let router = express.Router()
 
 // logger
 app.use(morgan('dev'));

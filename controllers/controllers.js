@@ -1,11 +1,11 @@
 import { Router } from 'express'
 import contracts from './contracts'
-import Node from '../services/NodeBuilder.js'
+import node from '../services/Node.js'
+
 
 export default ({config}) => {
     
     const router = Router()
-    let node = Node()
     
 	/* Routes */
 
