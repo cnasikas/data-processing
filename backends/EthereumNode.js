@@ -7,6 +7,15 @@ export default class EthereumNode {
 		this.web3 = new Web3()
 		this.providerURL = 'http://' + truffle.networks.development.host + ':' + truffle.networks.development.port
 		this.setProvider()
+		this.setDefaultAccount()
+	}
+
+	isConnected() {
+		return this.web3.isConnected()
+	}
+
+	getProvider(){
+		return this.web3.currentProvider
 	}
 
 	setProvider(){
@@ -15,5 +24,24 @@ export default class EthereumNode {
 
 	getBalance(address){
 		return this.web3.fromWei(this.web3.eth.getBalance(address), 'ether').toString(10)
+	}
+
+	setDefaultAccount(account){
+
+		this.web3.eth.getAccounts( (error, accounts) => {
+
+				if(!error)
+					this.web3.eth.defaultAccount = accounts[0]
+			}
+		)
+
+	}
+
+	getDefaultAccount(){
+		return this.web3.eth.defaultAccount
+	}
+
+	getLibInstance(){
+		return this.web3
 	}
 }
