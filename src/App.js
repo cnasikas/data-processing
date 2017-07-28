@@ -3,7 +3,7 @@ import AppHeader from './components/Header'
 import AppMain from './components/Main'
 import AppFooter from './components/Footer'
 
-import './App.css';
+import './css/App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default class App extends React.Component {
