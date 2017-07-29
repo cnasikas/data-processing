@@ -1,4 +1,7 @@
 import { Router } from 'express'
+import artifactor from 'truffle-artifactor'
+import low from 'lowdb'
+
 import contracts from '../services/Contracts.js'
 import node from '../services/Node.js'
 
@@ -6,25 +9,31 @@ export default ({config}) => {
     
     let router = Router();
 
+    const db = low('./db/contracts.js')
+
 	/* Contract Routes */
 
 	router.get('/', (req, res) => {
 
-		//let response = Object.assign({}, ...Object.keys(contracts).map(k => ({ [k]:  })));
+		let dbContracts = db.get('contracts').filter({owner: node.getDefaultAccount()}).take(20).value()
+  		res.json({contracts: dbContracts})
 
-		//const {contract, ...result } = contracts;
+	})
+	.get('/types', (req, res) => {
 
   		res.json({contracts: contracts})
 
 	}).post('/', (req, res) => {
 
-		let bytecode = contracts.metadata.unlinked_binary;
-		let gasEstimate = node.getLibInstance().eth.estimateGas({data: bytecode}) + 20000
+		let arg = 'enc_value'
 
-		contracts.metadata.new('message!', {gas: gasEstimate}).then((instance) => {
-			res.json({msg: 'new contract succesfully created'})
+		contracts.metadata.contract.new(arg, {gas: 200000})
+		.then((instance) => {
+			
+			db.get('contracts').push({ id: instance.address, owner: node.getDefaultAccount()}).write()
+			res.json({id: instance.address})
 		})
-		.catch(function(err) {
+		.catch( (err) => {
   			res.json({error: err.message})
 		})
 	})
