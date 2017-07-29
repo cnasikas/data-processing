@@ -33,9 +33,10 @@ export default class Contracts extends React.Component {
 
     	if(this.state.contracts){
 
-    		contracts = this.state.contracts.map( (contract) => {
-    			return <Contract key={contract.id} title={contract.title} desc={contract.desc} id={contract.id}></Contract>
-    		})
+            contracts = [...Object.keys(this.state.contracts)].map((key) => {
+                let contract = this.state.contracts[key]
+                return <Contract key={contract.id} id={contract.id}></Contract>
+            })
 
     	}
 
