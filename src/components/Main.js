@@ -11,7 +11,7 @@ export default class Main extends React.Component {
 
 	render() {
     	return (
-        <main className="container">
+        <main className="container pt-3">
         	<Switch>
               <Route exact path='/' component={Home}/>
               <Route path='/contracts' component={Contracts}/>
