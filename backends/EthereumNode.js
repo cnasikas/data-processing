@@ -30,7 +30,7 @@ export default class EthereumNode {
 
 		this.web3.eth.getAccounts( (error, accounts) => {
 
-				if(!error)
+				if(!error && accounts.length > 0)
 					this.web3.eth.defaultAccount = accounts[0]
 			}
 		)
