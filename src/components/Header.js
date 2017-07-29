@@ -1,7 +1,7 @@
 import React from 'react';
 import AppNav from './Nav'
 
-export default class Nav extends React.Component {
+export default class Header extends React.Component {
 
 	constructor(props) {
     	super(props);
@@ -9,7 +9,8 @@ export default class Nav extends React.Component {
     		title: 'MPC',
     		menuItems: [
           {id: 'contracts', title: 'Contracts', url: '/contracts'},
-          {id: 'requests', title: 'Requests', url: '/requests'}
+          {id: 'requests', title: 'Requests', url: '/requests'},
+          {id: 'account', title: 'Account', url: '/account'},
         ]
     	}
   	}
