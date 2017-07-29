@@ -24,8 +24,10 @@
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "express": "^4.15.3",
+    "lowdb": "^0.16.2",
     "morgan": "^1.8.2",
     "sjcl": "^1.0.7",
+    "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
     "web3": "^0.20.1"
   },
