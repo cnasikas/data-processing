@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default class Contract extends React.Component {
+	
     render() {
         return(
             <div className="contract card text-center">
