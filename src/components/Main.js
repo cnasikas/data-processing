@@ -1,11 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Login from './Login.js'
-
 import Home from '../pages/Home.js'
 import Contracts from '../pages/Contracts.js'
 import Requests from '../pages/Requests.js'
+import Login from './Login.js'
+import NewContract from '../pages/NewContract.js'
 
 export default class Main extends React.Component {
 
@@ -14,9 +14,10 @@ export default class Main extends React.Component {
         <main className="container pt-3">
         	<Switch>
               <Route exact path='/' component={Home}/>
-              <Route path='/contracts' component={Contracts}/>
+              <Route exact path='/contracts' component={Contracts}/>
               <Route path='/requests' component={Requests}/>
               <Route path='/login' component={Login}/>
+              <Route exact path='/contracts/:name/new' component={NewContract}/>
           </Switch>
         </main> 
     	)
