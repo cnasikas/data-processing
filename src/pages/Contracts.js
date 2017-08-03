@@ -1,43 +1,31 @@
 import React from 'react'
-import axios from 'axios'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux'
+import moment from 'moment'
 
+import { getContracts } from "../actions/ActionCreators";
 import Contract from '../components/Contract.js'
 
 import '../css/Contracts.css'
 
-export default class Contracts extends React.Component {
-
-	constructor(props) {
-		super(props)
-		this.state = {
-			contracts: null
-		}
-	}
+class Contracts extends React.Component {
 
 	componentDidMount(){
-
-		axios.get('http://localhost:3001/api/contracts').then( (response) => {
-
-			this.setState((prevState, props) => {
-			  return {contracts: response.data.contracts};
-			})
-
-		}).catch( (error) => {
-   			console.log(error)
-  		});
+        this.props.actions.getContracts()
 	}
 
     render() {
 
     	let contracts = ''
 
-    	if(this.state.contracts){
+    	if(this.props.contracts.length > 0){
 
-            contracts = [...Object.keys(this.state.contracts)].map((key) => {
-                let contract = this.state.contracts[key]
-                return <Contract key={contract.id} id={contract.id}></Contract>
+            contracts = this.props.contracts.map ((contract) => {
+
+                let date = !isNaN(new Date(contract.timestamp)) ? moment(new Date(contract.timestamp)).format('DD/MM/YYYY') : 'No date provided'
+
+                return <Contract {...contract} key={contract.id} date={date}></Contract>
             })
-
     	}
 
         return(
@@ -48,3 +36,13 @@ export default class Contracts extends React.Component {
         );
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ getContracts }, dispatch)
+});
+
+const mapStateToProps = state => ({
+  contracts: state.contracts
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
