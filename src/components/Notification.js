@@ -6,7 +6,7 @@ export default class Notification extends React.Component {
 
         return(
             <div className={"alert alert-" + this.props.type} role="alert">
-                <strong>Oh snap!</strong>
+                <strong>Oh snap! {this.props.message}</strong>
             </div>
         );
     }
