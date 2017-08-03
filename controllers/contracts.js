@@ -21,7 +21,14 @@ export default ({config}) => {
 	})
 	.get('/types', (req, res) => {
 
-  		res.json({contracts: contracts})
+		let types = []
+
+		for (let key of Object.keys(contracts)) {
+			let temp = {id: contracts[key].id, title: contracts[key].title, desc: contracts[key].desc}
+		    types.push(temp)
+		}
+
+  		res.json({types: types})
 
 	}).post('/', (req, res) => {
 
@@ -30,8 +37,15 @@ export default ({config}) => {
 		contracts.metadata.contract.new(arg, {gas: 200000})
 		.then((instance) => {
 			
-			db.get('contracts').push({ id: instance.address, owner: node.getDefaultAccount()}).write()
-			res.json({id: instance.address})
+			let contract = {
+				id: instance.address,
+				hash: instance.transactionHash,
+				owner: node.getDefaultAccount(),
+				timestamp: Date.now()
+			}
+
+			db.get('contracts').push(contract).write()
+			res.json(contract)
 		})
 		.catch( (err) => {
   			res.json({error: err.message})
