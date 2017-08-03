@@ -1,14 +1,48 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import axios from 'axios';
+import axiosMiddleware from 'redux-axios-middleware';
+
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import reducers from './reducers/'
+
+import { addNotification } from "./actions/ActionCreators";
+
+const middlewareConfig = {
+    interceptors: {
+        response: [
+          {
+            error: ({getState, dispatch, getSourceAction}, error) => {
+            	dispatch(addNotification(error))
+            	return Promise.reject(error)
+            }
+          }
+        ]
+      }
+  };
+
+const client = axios.create({
+  baseURL:'http://localhost:3001/api',
+  responseType: 'json'
+})
+
+let store = createStore(
+	reducers,
+	applyMiddleware(axiosMiddleware(client/*, middlewareConfig*/)) /* BUG on ERR_NET_FAILURE */
+)
 
 ReactDOM.render(
-	<BrowserRouter>
-		<App />
-	</BrowserRouter>,
+	<Provider store={store}>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</Provider>
+	,
 	document.getElementById('app')
 );
 
