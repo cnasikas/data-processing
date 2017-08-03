@@ -4,3 +4,5 @@ dist
 build
 migrations
 db
+
+.node-xml*
