@@ -2,7 +2,8 @@ import {
 	ADD_NOTIFICATION,
 	REMOVE_NOTIFICATION,
 	GET_CONTRACT_TYPES,
-	GET_CONTRACTS,
+  GET_CONTRACTS,
+	GET_CONTRACT,
   NEW_CONTRACT
 } from './ActionTypes'
 
@@ -40,6 +41,19 @@ export function getContracts() {
         }
     },
     type: GET_CONTRACTS
+  }
+}
+
+export function getContract(id) {
+  
+  return {
+    payload: {
+        request: {
+          method: 'get',
+            url: '/contracts/' + id
+        }
+    },
+    type: GET_CONTRACT
   }
 }
 

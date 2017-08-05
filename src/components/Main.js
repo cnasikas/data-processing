@@ -7,6 +7,7 @@ import Requests from '../pages/Requests.js'
 import Login from './Login.js'
 import NewContract from '../pages/NewContract.js'
 import Notifications from '../components/Notifications'
+import ContractDetails from '../components/ContractDetails'
 
 export default class Main extends React.Component {
 
@@ -20,6 +21,7 @@ export default class Main extends React.Component {
               <Route path='/requests' component={Requests}/>
               <Route path='/login' component={Login}/>
               <Route exact path='/contracts/:name/new' component={NewContract}/>
+              <Route exact path='/contracts/:id' component={ContractDetails}/>
           </Switch>
         </main> 
     	)
