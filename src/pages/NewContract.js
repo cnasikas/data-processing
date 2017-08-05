@@ -2,13 +2,19 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 
-import { newContract } from "../actions/ActionCreators";
+import { newContract, addNotification } from "../actions/ActionCreators";
 import NewContractForm from '../components/NewContractForm'
 
 class NewContract extends React.Component {
 
   submit = (values) => {
-    this.props.actions.newContract(values)
+    this.props.actions.newContract(values).then((response) => {
+
+      let message = 'Contract successfully deployed! Address: ' + response.payload.data.id
+
+      this.props.actions.addNotification({type: 'success', message: message, class: 'success'})
+
+    }).catch(e => console.log(e))
   }
 
 	render() {
@@ -22,7 +28,7 @@ class NewContract extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ newContract }, dispatch)
+  actions: bindActionCreators({ newContract, addNotification }, dispatch)
 });
 
 const mapStateToProps = state => ({
