@@ -1,4 +1,4 @@
-import { ADD_NOTIFICATION } from '../actions/ActionTypes'
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from '../actions/ActionTypes'
 
 export default function notifications(state = [], action) {
 	
@@ -8,6 +8,9 @@ export default function notifications(state = [], action) {
 
   	case ADD_NOTIFICATION:
   		return [payload, ...state]
+
+  	case REMOVE_NOTIFICATION:
+      return state.filter((notification, index)  => index !== payload)
 
     default:
       return state;
