@@ -11,7 +11,7 @@ import '../css/Contracts.css'
 class Contracts extends React.Component {
 
 	componentDidMount(){
-        this.props.actions.getContracts()
+        this.props.actions.getContracts().catch(e => console.log(e))
 	}
 
     render() {

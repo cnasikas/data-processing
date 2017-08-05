@@ -10,7 +10,7 @@ import '../css/Contracts.css'
 class ContractTypes extends React.Component {
 
     componentDidMount(){
-        this.props.actions.getContractTypes()
+        this.props.actions.getContractTypes().catch(e => console.log(e))
     }
 
     render() {
