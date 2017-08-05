@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 import { newContract, addNotification } from "../actions/ActionCreators";
 import NewContractForm from '../components/NewContractForm'
@@ -10,7 +11,7 @@ class NewContract extends React.Component {
   submit = (values) => {
     this.props.actions.newContract(values).then((response) => {
 
-      let message = 'Contract successfully deployed! Address: ' + response.payload.data.id
+      let message = <Link to={'/contracts/' + response.payload.data.id} >{'Contract successfully deployed. Address: ' + response.payload.data.id}</Link>
 
       this.props.actions.addNotification({type: 'success', message: message, class: 'success'})
 
