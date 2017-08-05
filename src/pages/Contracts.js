@@ -2,6 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux'
 import moment from 'moment'
+import { Link } from 'react-router-dom';
 
 import { getContracts } from "../actions/ActionCreators";
 import Contract from '../components/Contract.js'
@@ -31,6 +32,11 @@ class Contracts extends React.Component {
         return(
 
             <section id="contracts">
+                <ul className="nav">
+                  <li className="nav-item">
+                    <Link to="/contracts/metadata/new" className="nav-link">New contract</Link>
+                  </li>
+                </ul>
             	{contracts}	
             </section>
         );
