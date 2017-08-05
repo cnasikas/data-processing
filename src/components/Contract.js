@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 export default class Contract extends React.Component {
 	
@@ -6,7 +7,7 @@ export default class Contract extends React.Component {
         return(
             <div className="contract card">
                 <div className="card-header">
-                    Address: {this.props.id}
+                    <Link to={"/contracts/" + this.props.id}> Address: {this.props.id}</Link>
                 </div>
             	<div className="card-block">
             		<h4 className="card-title">Info</h4>
