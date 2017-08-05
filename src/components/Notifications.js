@@ -8,8 +8,9 @@ import Notification from './Notification'
 class Notifications extends React.Component {
 
     render() {
-
-        let notifications = this.props.notifications.map(notif => <Notification message={notif.message}></Notification>)
+        let notifications = this.props.notifications.map((notif, index) => 
+        	<Notification key={index} id={index} {...notif} onDismissClick={() => this.props.actions.removeNotification(index)}></Notification>
+        )
 
         return(
             <div className="notifications">{notifications}</div>
