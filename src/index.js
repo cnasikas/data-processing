@@ -14,11 +14,12 @@ import reducers from './reducers/'
 import { addNotification } from "./actions/ActionCreators";
 
 const middlewareConfig = {
+  returnRejectedPromiseOnError: true,
     interceptors: {
         response: [
           {
             error: ({getState, dispatch, getSourceAction}, error) => {
-            	dispatch(addNotification(error))
+            	dispatch(addNotification({type: 'error', message: error.message, class: 'danger'}))
             	return Promise.reject(error)
             }
           }
@@ -33,7 +34,7 @@ const client = axios.create({
 
 let store = createStore(
 	reducers,
-	applyMiddleware(axiosMiddleware(client/*, middlewareConfig*/)) /* BUG on ERR_NET_FAILURE */
+	applyMiddleware(axiosMiddleware(client, middlewareConfig)) /* BUG on ERR_NET_FAILURE */
 )
 
 ReactDOM.render(
