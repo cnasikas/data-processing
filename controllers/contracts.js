@@ -51,6 +51,14 @@ export default ({config}) => {
   			res.json({error: err.message})
 		})
 	})
+	.get('/:id', (req, res) => {
+
+		let id = req.params.id || -1
+
+		let contract = db.get('contracts').find({ id: id }).value()
+
+		res.json(contract)
+    })
 
 	return router
 
