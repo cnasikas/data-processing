@@ -18,7 +18,6 @@ export default function contracts(state = [], action) {
   		return [...payload.data.contracts]
 
     case GET_CONTRACT_SUCCESS:
-      console.log(action)
       return [{...payload.data}]
 
 
