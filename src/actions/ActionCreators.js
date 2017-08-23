@@ -4,7 +4,8 @@ import {
 	GET_CONTRACT_TYPES,
   GET_CONTRACTS,
 	GET_CONTRACT,
-  NEW_CONTRACT
+  NEW_CONTRACT,
+  GET_ACCOUNT
 } from './ActionTypes'
 
 export function addNotification(notification = {}) {
@@ -70,3 +71,18 @@ export function newContract(data) {
     type: NEW_CONTRACT
   }
 }
+
+export function getAccount() {
+  
+  return {
+    payload: {
+        request: {
+          method: 'get',
+            url: '/account'
+        }
+    },
+    type: GET_ACCOUNT
+  }
+}
+
+
