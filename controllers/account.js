@@ -10,7 +10,10 @@ export default ({config}) => {
 
 	router.get('/', (req, res) => {
 
-		let account = { address: node.getDefaultAccount() }
+		let account = { 
+			address: node.getDefaultAccount(),
+			balance: node.getBalance(node.getDefaultAccount())
+		}
 
   		res.json(account)
 	})
