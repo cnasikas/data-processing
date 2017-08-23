@@ -7,7 +7,7 @@ export default class Nav extends React.Component {
     render() {
 
 	    const menuItems = this.props.menuItems.map((item) =>
-		  <li className="nav-item"><NavLink className="nav-link" key={item.id} to={item.url}>{item.title}</NavLink></li>
+		  <li className="nav-item" key={item.id}><NavLink className="nav-link" to={item.url}>{item.title}</NavLink></li>
 		);
 
         return(
