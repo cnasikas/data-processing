@@ -15,7 +15,7 @@ class NewContractForm extends React.Component {
             <div className="form-group row">
               <label htmlFor="example-text-input" className="col-2 col-form-label">Hash</label>
               <div className="col-10">
-                <Field className="form-control" name="hash-pointer" component="input" type="text" />
+                <Field className="form-control" name="hash_pointer" component="input" type="text" />
               </div>
             </div>
             <div className="form-group row">
