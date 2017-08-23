@@ -22,6 +22,6 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "bootstrap": "4.0.0-alpha.6"
+    "bootstrap": "^4.0.0-beta"
   }
 }
