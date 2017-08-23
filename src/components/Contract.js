@@ -9,7 +9,7 @@ export default class Contract extends React.Component {
                 <div className="card-header">
                     <Link to={"/contracts/" + this.props.id}> Address: {this.props.id}</Link>
                 </div>
-            	<div className="card-block">
+            	<div className="card-body">
             		<h4 className="card-title">Info</h4>
                      <h6 className="card-subtitle text-muted">Tx Hash: {this.props.hash}</h6>
             	</div>
