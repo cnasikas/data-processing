@@ -32,16 +32,19 @@ export default ({config}) => {
 
 	}).post('/', (req, res) => {
 
-		let arg = 'enc_value'
+		let hash_pointer = req.body.hash_pointer
 
-		contracts.metadata.contract.new(arg, {gas: 200000})
+		contracts.metadata.contract.new(hash_pointer, {gas: 200000})
 		.then((instance) => {
 			
 			let contract = {
 				id: instance.address,
 				hash: instance.transactionHash,
 				owner: node.getDefaultAccount(),
-				timestamp: Date.now()
+				timestamp: Date.now(),
+				data: {
+					hash_pointer: hash_pointer
+				}
 			}
 
 			db.get('contracts').push(contract).write()
@@ -56,6 +59,9 @@ export default ({config}) => {
 		let id = req.params.id || -1
 
 		let contract = db.get('contracts').find({ id: id }).value()
+		
+		//let instance = contracts.metadata.contract.at(id)
+		//instance.get().then(result => {console.log(node.getLibInstance().toUtf8(result))})
 
 		res.json(contract)
     })
