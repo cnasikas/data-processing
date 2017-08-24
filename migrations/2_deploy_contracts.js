@@ -1,5 +1,7 @@
-var MetaData = artifacts.require("../contracts/MetaData.sol");
+var DataStore = artifacts.require("../contracts/DataStore.sol");
+var DataDump = artifacts.require("../contracts/DataDump.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(MetaData);
+  deployer.deploy(DataStore);
+  deployer.deploy(DataDump);
 };
