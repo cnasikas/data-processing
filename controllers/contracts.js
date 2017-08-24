@@ -58,7 +58,7 @@ export default ({config}) => {
 
 		let id = req.params.id || -1
 
-		let contract = db.get('contracts').find({ id: id }).value()
+		let contract = db.get('contracts').find({ id: id }).value() || {}
 		
 		//let instance = contracts.metadata.contract.at(id)
 		//instance.get().then(result => {console.log(node.getLibInstance().toUtf8(result))})
