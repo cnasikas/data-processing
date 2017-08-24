@@ -1,7 +1,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 
-class NewContractForm extends React.Component {
+class AddDataForm extends React.Component {
 
   constructor(props){
     super(props)
@@ -27,8 +27,8 @@ class NewContractForm extends React.Component {
     }
 }
 
-NewContractForm = reduxForm({
+AddDataForm = reduxForm({
   form: 'contract'
-})(NewContractForm)
+})(AddDataForm)
 
-export default NewContractForm;
+export default AddDataForm;

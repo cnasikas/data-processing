@@ -2,9 +2,8 @@ import {
 	ADD_NOTIFICATION,
 	REMOVE_NOTIFICATION,
 	GET_CONTRACT_TYPES,
-  GET_CONTRACTS,
-	GET_CONTRACT,
-  NEW_CONTRACT,
+  GET_DATA,
+  ADD_DATA,
   GET_ACCOUNT
 } from './ActionTypes'
 
@@ -25,50 +24,37 @@ export function getContractTypes() {
     payload: {
         request: {
         	method: 'get',
-            url: '/contracts/types'
+            url: '/contracts'
         }
     },
     type: GET_CONTRACT_TYPES
   }
 }
 
-export function getContracts() {
+export function getData() {
 	
   return {
     payload: {
         request: {
         	method: 'get',
-            url: '/contracts'
+            url: '/datastore'
         }
     },
-    type: GET_CONTRACTS
+    type: GET_DATA
   }
 }
 
-export function getContract(id) {
-  
-  return {
-    payload: {
-        request: {
-          method: 'get',
-            url: '/contracts/' + id
-        }
-    },
-    type: GET_CONTRACT
-  }
-}
-
-export function newContract(data) {
+export function addData(data) {
 
   return {
     payload: {
         request: {
           method: 'post',
-            url: '/contracts',
+            url: '/datastore',
             data
         }
     },
-    type: NEW_CONTRACT
+    type: ADD_DATA
   }
 }
 

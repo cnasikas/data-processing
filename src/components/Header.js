@@ -8,7 +8,7 @@ export default class Header extends React.Component {
     	this.state = {
     		title: 'MPC',
     		menuItems: [
-          {id: 'contracts', title: 'Contracts', url: '/contracts'},
+          {id: 'datastore', title: 'Datastore', url: '/datastore'},
           {id: 'requests', title: 'Requests', url: '/requests'},
           {id: 'account', title: 'Account', url: '/account'},
         ]

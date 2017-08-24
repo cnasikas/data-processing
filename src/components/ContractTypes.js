@@ -5,8 +5,6 @@ import { connect } from 'react-redux'
 import { getContractTypes } from "../actions/ActionCreators";
 import ContractType from '../components/ContractType.js'
 
-import '../css/Contracts.css'
-
 class ContractTypes extends React.Component {
 
     componentDidMount(){
@@ -16,7 +14,7 @@ class ContractTypes extends React.Component {
     render() {
 
         let types = ''
-        
+
         if(this.props.types.length > 0){
             types = this.props.types.map ((type, index) => <ContractType key={index} {...type}></ContractType>)
         }
