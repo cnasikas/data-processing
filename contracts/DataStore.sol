@@ -1,4 +1,4 @@
-pragma solidity ^0.4.2;
+pragma solidity ^0.4.11;
 
 /**
  * Contract responsible for handling the metaData
@@ -12,7 +12,7 @@ contract DataStore {
     mapping (address => string) public dataStore;
 
 	function DataStore () {
-		owner = msg.sender
+		owner = msg.sender;
 	}
 
 	function publishData(address userAddr, string dataHash) {
