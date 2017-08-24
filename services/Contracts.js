@@ -1,19 +1,20 @@
 import contract from 'truffle-contract'
-import MetaDataArtifact from '../build/contracts/MetaData.json'
+import DataStoreArtifact from '../build/contracts/DataStore.json'
+import RequestArtifact from '../build/contracts/Request.json'
 import node from '../services/Node.js'
 
 let contracts = {
-	metadata: {	
-		id: 'metadata',
-		title: 'MetaData',
-		desc: 'In this type of contract you can put an encrypted hash pointer (metadata) pointing to the data',
-		contract: contract(MetaDataArtifact)
+	datastore: {	
+		id: 'datastore',
+		title: 'Data Store',
+		desc: 'A data store contract.',
+		contract: contract(DataStoreArtifact)
 	},
 	request: {	
 		id: 'request',
 		title: 'Request',
-		desc: 'In this type of contract you can request for a computation over some data',
-		contract: contract(MetaDataArtifact)
+		desc: 'A data processing request contract',
+		contract: contract(RequestArtifact)
 	}
 }
 

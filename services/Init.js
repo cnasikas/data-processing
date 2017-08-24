@@ -10,7 +10,7 @@ function db() {
 	
     if(_.isEmpty(contracts.getState())){
 
-    	contracts.defaults({ contracts: [], user: {} }).write()
+    	contracts.defaults({ contracts: {datastore: [], requests: []}, user: {} }).write()
     }
 }
 
