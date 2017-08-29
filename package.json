@@ -27,6 +27,7 @@
     "express": "^4.15.3",
     "lowdb": "^0.16.2",
     "morgan": "^1.8.2",
+    "secp256k1": "^3.3.0",
     "sjcl": "^1.0.7",
     "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
