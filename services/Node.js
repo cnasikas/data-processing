@@ -1,17 +1,15 @@
-import config from '../config.json';
+import config from '../config.json'
 
-function createNode() {
+function createNode () {
+  const backends = {
+    'ethereum': 'EthereumNode',
+    'cardano': 'CardanoNode'
+  }
 
-	const backends = {
-		'ethereum': 'EthereumNode',
-		'cardano': 'CardanoNode'
-	};
+  const nodePath = backends[config.backend]
+  const NodeClass = require('../backends/' + nodePath).default
 
-	const nodePath = backends[config.backend];
-	const NodeClass = require('../backends/' + nodePath).default;
-
-
-	return new NodeClass();
+  return new NodeClass()
 }
 
-export default createNode();
+export default createNode()
