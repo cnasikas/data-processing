@@ -36,7 +36,7 @@ export default ({config}) => {
 			res.json({datastore: [response]})
 		})
 		.catch( (err) => {
-  			res.json({error: err.message})
+  			res.status(500).json({error: err.message})
 		})
 
 	})
@@ -68,7 +68,7 @@ export default ({config}) => {
 			res.json(response)
 		})
 		.catch( (err) => {
-  			res.json({error: err.message})
+  			res.status(500).json({error: err.message})
 		})
 	})
 	.get('/:address', (req, res) => {
@@ -86,7 +86,7 @@ export default ({config}) => {
 			res.json({data: data})
 		})
 		.catch( (err) => {
-  			res.json({error: err.message})
+  			res.status(500).json({error: err.message})
 		})
     })
 
