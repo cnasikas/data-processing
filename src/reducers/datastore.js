@@ -4,17 +4,19 @@ import {
 
 } from '../actions/ActionTypes'
 
-export default function contracts(state = [], action) {
+export default function datastore(state = [], action) {
 	
   const { payload, type } = action;
 
   switch (type) {
 
   	case GET_DATA_SUCCESS:
-  		return [...payload.data.datastore]
+      let datastore = payload.data.datastore || []
+  		return [...datastore]
 
   	case ADD_DATA_SUCCESS:
-  		return [{...payload.data}]
+      let data = payload.data || {}
+  		return [{...data}]
 
     default:
       return state;
