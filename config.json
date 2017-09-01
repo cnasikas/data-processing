@@ -1,3 +1,11 @@
 {
 	"privateKey": null,
+  "port": 8080,
+  "networks": {
+    "development": {
+      "host": "localhost",
+      "port": 8545,
+      "network_id": "*"
+    }
+  }
 }
