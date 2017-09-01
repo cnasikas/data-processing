@@ -1,27 +1,22 @@
 import { Router } from 'express'
-import artifactor from 'truffle-artifactor'
 
 import contracts from '../services/Contracts.js'
 
 export default ({config}) => {
-    
-    let router = Router();
+  let router = Router()
 
-	/* Contract Routes */
+  /* Contract Routes */
 
-	router.get('/', (req, res) => {
+  router.get('/', (req, res) => {
+    let types = []
 
-		let types = []
+    for (let key of Object.keys(contracts)) {
+      let temp = {id: contracts[key].id, title: contracts[key].title, desc: contracts[key].desc}
+      types.push(temp)
+    }
 
-		for (let key of Object.keys(contracts)) {
-			let temp = {id: contracts[key].id, title: contracts[key].title, desc: contracts[key].desc}
-		    types.push(temp)
-		}
+    res.json({types: types})
+  })
 
-  		res.json({types: types})
-
-	})
-
-	return router
-
+  return router
 }
