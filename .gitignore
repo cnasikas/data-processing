@@ -6,3 +6,5 @@ migrations
 db
 
 .node-xml*
+
+.DS_Store
