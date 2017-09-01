@@ -6,10 +6,10 @@ pragma solidity ^0.4.11;
  */
 
 contract DataStore {
-    
-    address public owner;
 
-    mapping (address => string) public dataStore;
+  address public owner;
+
+  mapping (address => string) public dataStore;
 
 	function DataStore () {
 		owner = msg.sender;
@@ -18,8 +18,8 @@ contract DataStore {
 	function publishData(address userAddr, string dataHash) {
     	dataStore[userAddr] = dataHash;
 	}
-	
+
 	function getData(address userAddr) constant returns (string) {
         return dataStore[userAddr];
-    }
+  }
 }
