@@ -9,6 +9,10 @@
     "build": "babel server.js -d dist/build.js",
     "serve": "node dist/build.js"
   },
+  "repository" :
+  { "type" : "git",
+    "url" : "https://github.com/cnasikas/mpc-api.git"
+  },
   "keywords": [
     "mpc",
     "dapp",
