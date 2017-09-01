@@ -9,6 +9,10 @@
     "build": "babel server.js -d dist/build.js",
     "serve": "node dist/build.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/mpc-processor.git"
+  },
   "keywords": [
     "mpc",
     "processor",
