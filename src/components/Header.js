@@ -1,25 +1,25 @@
-import React from 'react';
+import React from 'react'
 import AppNav from './Nav'
 
 export default class Header extends React.Component {
 
-	constructor(props) {
-    	super(props);
+  constructor (props) {
+    	super(props)
     	this.state = {
     		title: 'MPC',
     		menuItems: [
           {id: 'datastore', title: 'Datastore', url: '/datastore'},
           {id: 'requests', title: 'Requests', url: '/requests'},
-          {id: 'account', title: 'Account', url: '/account'},
+          {id: 'account', title: 'Account', url: '/account'}
         ]
     	}
   	}
 
-	render() {
+  render () {
     	return (
       		<header>
-      			<AppNav title={this.state.title} menuItems={this.state.menuItems}></AppNav>
+            <AppNav title={this.state.title} menuItems={this.state.menuItems} />
       		</header>
-    	);
+    	)
   	}
 }
