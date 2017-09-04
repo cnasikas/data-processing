@@ -26,6 +26,7 @@ export default class EthereumNode {
   }
 
   setDefaultAccount (account) {
+    /* Should return a promise https://ethereum.stackexchange.com/questions/11444/web3-js-with-promisified-api */
     this.web3.eth.getAccounts((error, accounts) => {
       if (!error && accounts.length > 0) {
         this.web3.eth.defaultAccount = accounts[0]
