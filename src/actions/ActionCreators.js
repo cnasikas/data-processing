@@ -6,7 +6,8 @@ import {
   ADD_DATA,
   GET_REQUESTS,
   ADD_REQUEST,
-  GET_ACCOUNT
+  GET_ACCOUNT,
+  SET_DEFAULT_ACCOUNT
 } from './ActionTypes'
 
 export function addNotification (notification = {}) {
@@ -91,5 +92,18 @@ export function getAccount () {
       }
     },
     type: GET_ACCOUNT
+  }
+}
+
+export function setDefaultAccount (data) {
+  return {
+    payload: {
+      request: {
+        method: 'post',
+        url: '/account',
+        data
+      }
+    },
+    type: SET_DEFAULT_ACCOUNT
   }
 }

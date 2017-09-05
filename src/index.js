@@ -19,7 +19,8 @@ const middlewareConfig = {
         response: [
           {
             error: ({getState, dispatch, getSourceAction}, error) => {
-              let msg = error.message + ": " + error.response.data.error
+              let errorResponse = error.response ? error.response.data.error : error.message
+              let msg = error.name + ": " + errorResponse
             	dispatch(addNotification({type: 'error', message: msg, class: 'danger'}))
             	return Promise.reject(error)
             }
