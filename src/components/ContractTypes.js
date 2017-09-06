@@ -6,7 +6,6 @@ import { getContractTypes } from '../actions/ActionCreators'
 import ContractType from '../components/ContractType.js'
 
 class ContractTypes extends React.Component {
-
   componentDidMount () {
     this.props.actions.getContractTypes().catch(e => console.log(e))
   }

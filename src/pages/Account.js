@@ -19,6 +19,7 @@ class Account extends React.Component {
   }
 
   render () {
+    console.log(this.props)
     return (
       <section id='account'>
         <div className='card border-dark text-dark mb-3'>
@@ -32,7 +33,7 @@ class Account extends React.Component {
             </ul>
           </div>
         </div>
-        <ul className='nav'>
+        <ul className='nav button-nav'>
           <li className='nav-item'>
             <button className='nav-link btn btn-primary' onClick={this.setDefaultAccount}>
               Set to default account
@@ -49,7 +50,8 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  account: state.account
+  account: state.account,
+  ecc: state.ecc
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Account)
