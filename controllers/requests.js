@@ -1,13 +1,10 @@
 import { Router } from 'express'
-import low from 'lowdb'
 
 import contracts from '../services/Contracts.js'
 import node from '../services/Node.js'
 
-export default ({config}) => {
+export default ({config, db}) => {
   let router = Router()
-
-  const db = low('./db/contracts.js')
 
   /* Contract Routes */
 
