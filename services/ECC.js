@@ -1,5 +1,4 @@
 import sjcl from '../lib/sjcl.js'
-import low from 'lowdb'
 import _ from 'lodash'
 
 const DEFAULT_CURVE = 192
@@ -9,12 +8,8 @@ class ECC {
     this.keys = {}
     this.hexKeys = {}
     this.pubKem = {}
-    this.db = null
   }
 
-  _isDB () {
-    return this.db !== null
-  }
   _getPubKey () {
     return this.keys.pub.get()
   }
@@ -44,25 +39,12 @@ class ECC {
     this.keys.sec = new sjcl.ecc.elGamal.secretKey(sjcl.ecc.curves['c192'], new sjcl.bn(secHex))
   }
 
-  _dbHasKeys () {
-    if (!this._isDB()) {
-      return false
-    }
+  _hasKeys () {
 
-    const cryptoKeys = this.db.get('keys').value()
-
-    if (!cryptoKeys) {
-      return false
-    }
-
-    return !(_.isEmpty(cryptoKeys.pub) || _.isEmpty(cryptoKeys.sec))
+    return !(_.isEmpty(process.env.PUB_KEY) || _.isEmpty(process.env.SEC_KEY))
   }
 
-  setDB () {
-    this.db = low('./db/keys.js')
-  }
-
-  generateKeys () {
+  _generateKeys () {
     this.keys = sjcl.ecc.elGamal.generateKeys(DEFAULT_CURVE)
     this._setKem()
     this._keysToHex()
@@ -90,30 +72,15 @@ class ECC {
   }
 
   loadKeys () {
-    if (this._dbHasKeys()) {
-      this.importKeys(this.db.get('keys').value())
+    if (this._hasKeys()) {
+      this.importKeys({pub: process.env.PUB_KEY, sec: process.env.SEC_KEY})
     } else {
-      this.generateKeys()
-      this.saveKeys()
+      this._generateKeys()
+      let errorMsg = `Missing crypto keys: \n I generate those keys for you: {pub: ${this.getKeys().pub}, sec: ${this.getKeys().sec}}`
+      throw new Error(errorMsg)
     }
 
     return this
-  }
-
-  saveKeys () {
-    if (this._isDB() && !this._dbHasKeys()) {
-      let timestamp = Date.now()
-      let cryptoKeys = this.getKeys()
-      this.db
-          .get('keys')
-          .set('pub', cryptoKeys.pub)
-          .set('sec', cryptoKeys.sec)
-          .set('created_at', timestamp)
-          .set('update_at', timestamp)
-          .write()
-    } else {
-      throw Error('Something wrong with db')
-    }
   }
 }
 

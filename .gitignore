@@ -5,6 +5,7 @@ build
 migrations
 db
 
+.env
 .node-xml*
 
 .DS_Store
