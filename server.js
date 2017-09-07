@@ -3,7 +3,7 @@ import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import init from './services/Init.js'
+import bootstrap from './services/Bootstrap.js'
 
 import nodeMiddleware from './middlewares/NodeMiddleware.js'
 
@@ -31,7 +31,7 @@ app.use(nodeMiddleware())
 
 app.use('/api', controllers({config}))
 
-init()
+bootstrap()
 
 app.listen(process.env.PORT || config.port, function () {
   console.log(`Started on port ${this.address().port}`)
