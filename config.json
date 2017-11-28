@@ -1,5 +1,6 @@
 {
 	"bodyLimit": "100kb",
 	"corsHeaders": ["Link"],
-	"backend": "ethereum"
+	"backend": "ethereum",
+  "processors": []
 }

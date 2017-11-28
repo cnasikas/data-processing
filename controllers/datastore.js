@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 import contracts from '../services/Contracts.js'
 import node from '../services/Node.js'
-import ecc from '../services/ECC.js'
 
 export default ({config, db}) => {
   let router = Router()
@@ -39,7 +38,7 @@ export default ({config, db}) => {
     /* TODO: Hanlde null values on post */
 
     let hashPointer = req.body.hash_pointer || ''
-    let ciphertext = JSON.parse(ecc.encrypt(hashPointer))
+    let ciphertext = 'a' // JSON.parse(ecc.encrypt(hashPointer))
 
     let strignify = Object.keys(ciphertext).map(function (k) { return ciphertext[k] }).join(':')
 

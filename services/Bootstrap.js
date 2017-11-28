@@ -6,17 +6,21 @@ import low from 'lowdb'
 import _ from 'lodash'
 import dotenv from 'dotenv'
 
-import ecc from './ECC.js'
 import nodeMiddleware from '../middlewares/NodeMiddleware.js'
 import controllers from '../controllers/controllers.js'
 import config from '../config.json'
 
-function setENV(){
+function setENV () {
   dotenv.config()
 }
 
-function setMiddlewares(app){
+function validateENV () {
+  if (_.isEmpty(process.env.SYM_KEY) || _.isEmpty(process.env.HMAC_KEY)) {
+    throw new Error('Please set your symmetric and hmac key.')
+  }
+}
 
+function setMiddlewares (app) {
   // logger
   app.use(morgan('dev'))
 
@@ -45,13 +49,13 @@ function db () {
   }
 }
 
-function loadKeys () {
-  ecc.loadKeys()
-}
+/* TODO: Bootstrap with promises .
+* All promises should be resolved for successfully bootstrap
+*/
 
 export default ({app}) => {
   setENV()
+  validateENV()
   db()
-  loadKeys()
   setMiddlewares(app)
 }

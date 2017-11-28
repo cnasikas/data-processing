@@ -3,7 +3,8 @@ bower_components
 dist
 build
 migrations
-db
+db/*.js
+keys
 
 .env
 .node-xml*
