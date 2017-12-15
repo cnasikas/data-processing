@@ -2,6 +2,7 @@
 /* Code from: https://github.com/sec51/nodejs-aes-ctr/blob/master/key.js */
 
 import crypto from 'crypto' // Node.js Crypto library
+import errors from '../errors/errors.js'
 
 const encoding = 'hex'
 
@@ -13,12 +14,12 @@ export default class Key {
   constructor (keyBuffer) {
     // check thay the key size is KEY_SIZE
     if (keyBuffer.length !== 16 && keyBuffer.length !== KEY_SIZE) {
-      throw new Error('Key is shorter than the expected size')
+      throw errors.cryptoErrors.wrongKeyLength
     }
 
     // Make sure the key is not empty
     if (emptyBuffer.equals(keyBuffer)) {
-      throw new Error('Key buffer cannot be empty.')
+      throw errors.cryptoErrors.emptyKey
     }
 
     this.buffer = keyBuffer
