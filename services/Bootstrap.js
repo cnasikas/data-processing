@@ -1,10 +1,10 @@
-
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import low from 'lowdb'
 import _ from 'lodash'
 import dotenv from 'dotenv'
+import errors from '../errors/errors.js'
 
 import nodeMiddleware from '../middlewares/NodeMiddleware.js'
 import controllers from '../controllers/controllers.js'
@@ -16,7 +16,7 @@ function setENV () {
 
 function validateENV () {
   if (_.isEmpty(process.env.SYM_KEY) || _.isEmpty(process.env.HMAC_KEY)) {
-    throw new Error('Please set your symmetric and hmac key.')
+    throw errors.cryptoErrors.keysNoEnvSet
   }
 }
 
