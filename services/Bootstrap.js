@@ -1,7 +1,6 @@
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import low from 'lowdb'
 import _ from 'lodash'
 import dotenv from 'dotenv'
 import errors from '../errors/errors.js'
@@ -41,12 +40,6 @@ function setMiddlewares (app) {
 function db () {
   /* Write returns a promise. Fix it. */
   /* Start server listen afterd db init and hanlde errors */
-
-  let contracts = low('./db/contracts.js')
-
-  if (_.isEmpty(contracts.getState())) {
-    contracts.defaults({ contracts: {datastore: [], requests: []}, user: {} }).write()
-  }
 }
 
 /* TODO: Bootstrap with promises .

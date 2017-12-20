@@ -9,8 +9,8 @@ export default ({config, db}) => {
   /* Contract Routes */
 
   router.get('/', (req, res) => {
-    let requests = db.get('contracts').get('requests').filter({user_addr: node.getDefaultAccount()})
-    res.json({requests: requests})
+    // let requests = db.get('contracts').get('requests').filter({user_addr: node.getDefaultAccount()})
+    res.json({requests: []})
   })
   .post('/', (req, res) => {
     let dataAddr = req.body.data_addr || ''
@@ -30,7 +30,7 @@ export default ({config, db}) => {
           proof: false
         }
       }
-      db.get('contracts').get('requests').push(response).write()
+      // db.get('contracts').get('requests').push(response).write()
       res.json(response)
     })
     .catch((err) => {

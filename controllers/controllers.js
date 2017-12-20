@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import low from 'lowdb'
 
 import contracts from './contracts'
 import datastore from './datastore'
@@ -8,7 +7,7 @@ import requests from './requests'
 
 export default ({config}) => {
   const router = Router()
-  const db = low('./db/contracts.js')
+  const db = {}
   /* Routes */
 
   router.use('/contracts', contracts({config}))

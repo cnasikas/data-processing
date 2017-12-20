@@ -16,10 +16,12 @@ export default ({config, db}) => {
       return instance.getData.call(address)
     })
     .then((data) => {
-      let defaults = { iv: '', v: 1, iter: 10000, ks: 128, ts: 64, mode: 'ccm', adata: '', cipher: 'aes', ct: '' }
-      let dataArr = data.split(':')
+      // let defaults = { iv: '', v: 1, iter: 10000, ks: 128, ts: 64, mode: 'ccm', adata: '', cipher: 'aes', ct: '' }
+      // let dataArr = data.split(':')
 
-      let ciphertext = Object.assign(...Object.keys(defaults).map(function (k, index) { return {[k]: dataArr[index]} }))
+      // let ciphertext = Object.assign(...Object.keys(defaults).map(function (k, index) { return {[k]: dataArr[index]} }))
+
+      let ciphertext = 'cipher'
 
       let response = {
         contract_address: contracts.datastore.contract.address,
@@ -38,7 +40,7 @@ export default ({config, db}) => {
     /* TODO: Hanlde null values on post */
 
     let hashPointer = req.body.hash_pointer || ''
-    let ciphertext = 'a' // JSON.parse(ecc.encrypt(hashPointer))
+    let ciphertext = 'ciphertex' // JSON.parse(ecc.encrypt(hashPointer))
 
     let strignify = Object.keys(ciphertext).map(function (k) { return ciphertext[k] }).join(':')
 
@@ -56,6 +58,7 @@ export default ({config, db}) => {
         }
       }
 
+      /*
       let data = db.get('contracts').get('datastore')
 
       if (_.isEmpty(data.value())) {
@@ -63,7 +66,7 @@ export default ({config, db}) => {
       } else {
         data.first().assign(response).write()
       }
-
+      */
       res.json(response)
     })
     .catch((err) => {
