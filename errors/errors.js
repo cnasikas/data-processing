@@ -1,5 +1,7 @@
-import cryptoErrors from './cryptoErrors.js'
+import crypto from './cryptoErrors.js'
+import db from './dbErrors.js'
 
 export default {
-  cryptoErrors
+  crypto,
+  db
 }
