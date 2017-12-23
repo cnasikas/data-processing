@@ -2,5 +2,9 @@
 	"bodyLimit": "100kb",
 	"corsHeaders": ["Link"],
 	"backend": "ethereum",
-  "processors": []
+  "processors": [],
+  "db": {
+    "host": "127.0.0.1",
+    "name": "mhmd"
+  }
 }
