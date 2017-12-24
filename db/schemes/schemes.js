@@ -43,10 +43,22 @@ const contract = new Schema({
   ...defaults
 })
 
+const request = new Schema({
+  contract: Schema.Types.ObjectId,
+  tx: String,
+  user: Schema.Types.ObjectId,
+  account: Schema.Types.ObjectId,
+  data: Schema.Types.ObjectId,
+  processed: Boolean,
+  proof: Boolean,
+  ...defaults
+})
+
 export default {
   datastore,
   user,
   data,
   account,
-  contract
+  contract,
+  request
 }
