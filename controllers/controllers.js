@@ -1,19 +1,20 @@
 import { Router } from 'express'
 
-import contracts from './contracts'
-import datastore from './datastore'
-import account from './account'
-import requests from './requests'
+import DataStoreController from './DataStoreController'
+import AccountController from './AccountController'
+import UserController from './UserController'
+import ContractController from './ContractController'
+import RequestController from './RequestController'
 
-export default ({config}) => {
+export default ({config, db}) => {
   const router = Router()
-  const db = {}
   /* Routes */
 
-  router.use('/contracts', contracts({config}))
-  router.use('/datastore', datastore({config, db}))
-  router.use('/account', account({config}))
-  router.use('/requests', requests({config, db}))
+  router.use('/contracts', new ContractController().router())
+  router.use('/datastore', new DataStoreController().router())
+  router.use('/account', new AccountController().router())
+  router.use('/user', new UserController().router())
+  router.use('/requests', new RequestController().router())
 
   router.get('/', (req, res) => {
     res.json({msg: 'Hello World!'})
