@@ -34,9 +34,19 @@ const account = new Schema({
   ...defaults
 })
 
+const contract = new Schema({
+  id: String,
+  title: String,
+  desc: String,
+  artifact: String,
+  address: String,
+  ...defaults
+})
+
 export default {
   datastore,
   user,
   data,
-  account
+  account,
+  contract
 }
