@@ -3,8 +3,8 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import _ from 'lodash'
 import dotenv from 'dotenv'
-import errors from '../errors/errors.js'
 
+import errors from '../errors/errors.js'
 import nodeMiddleware from '../middlewares/NodeMiddleware.js'
 import controllers from '../controllers/controllers.js'
 import config from '../config.json'
@@ -15,7 +15,7 @@ function setENV () {
 
 function validateENV () {
   if (_.isEmpty(process.env.SYM_KEY) || _.isEmpty(process.env.HMAC_KEY)) {
-    throw errors.cryptoErrors.keysNoEnvSet
+    throw errors.crypto.keysNoEnvSet
   }
 }
 
