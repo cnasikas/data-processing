@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 
 const defaults = {
   created_at: { type: Date, default: Date.now },
-  updated: { type: Date, default: Date.now }
+  updated_at: { type: Date, default: Date.now }
 }
 
 const datastore = new Schema({
