@@ -19,7 +19,7 @@ function validateENV () {
   }
 }
 
-function setMiddlewares (app) {
+function setMiddlewares (app, db) {
   // logger
   app.use(morgan('dev'))
 
@@ -34,21 +34,26 @@ function setMiddlewares (app) {
 
   app.use(nodeMiddleware())
 
-  app.use('/api', controllers({config}))
+  app.use('/api', controllers({config, db}))
 }
 
-function db () {
+function setDB (db) {
   /* Write returns a promise. Fix it. */
   /* Start server listen afterd db init and hanlde errors */
+
+  db.connect().catch((err) => {
+    console.error(err) // TODO: pass err to errors.db.connection
+    throw errors.db.connection
+  })
 }
 
 /* TODO: Bootstrap with promises .
 * All promises should be resolved for successfully bootstrap
 */
 
-export default ({app}) => {
+export default ({app, db}) => {
   setENV()
   validateENV()
-  db()
-  setMiddlewares(app)
+  setDB(db)
+  setMiddlewares(app, db)
 }
