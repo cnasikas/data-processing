@@ -17,6 +17,10 @@ export default class DB {
     return mongoose.connect(this.uri, {useMongoClient: true})
   }
 
+  isConnected () {
+    return mongoose.connection.readyState === 1 ? true : false
+  }
+
   listeners () {
     this.db.on('error', console.error.bind(console, 'connection error:'))
     this.db.once('open', () => console.log('mongodb connected'))
