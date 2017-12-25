@@ -33,6 +33,7 @@ function setMiddlewares (app, db) {
   }))
 
   app.use(nodeMiddleware())
+  app.use(db.middleware())
 
   app.use('/api', controllers({config, db}))
 }

@@ -25,4 +25,14 @@ export default class DB {
     this.db.on('error', console.error.bind(console, 'connection error:'))
     this.db.once('open', () => console.log('mongodb connected'))
   }
+
+  middleware () {
+    return (req, res, next) => {
+      if(!this.isConnected()){
+        res.status(500).json({ error: 'DB Conncection error' })
+        return
+      }
+      next()
+    }
+  }
 }
