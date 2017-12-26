@@ -14,8 +14,6 @@ export default class EthereumNode {
   constructor () {
     this.web3 = new Web3()
     this.providerURL = 'http://' + truffle.networks.development.host + ':' + truffle.networks.development.port
-    this.setProvider()
-    this.setDefaultAccount()
   }
 
   isConnected () {
