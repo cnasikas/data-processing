@@ -49,13 +49,9 @@ function setMiddlewares (app, db) {
 }
 
 function setDB (db) {
-  /* Write returns a promise. Fix it. */
-  /* Start server listen afterd db init and hanlde errors */
+  /* DB init returns a promise */
 
-  db.connect().catch((err) => {
-    console.error(err) // TODO: pass err to errors.db.connection
-    throw errors.db.connection
-  })
+  return db.init()
 }
 
 /* TODO: Bootstrap with promises .
