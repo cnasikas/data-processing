@@ -8,8 +8,8 @@ const defaults = {
 }
 
 const datastore = new Schema({
-  user: Schema.Types.ObjectId,
-  data: [Schema.Types.ObjectId],
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  data: [{ type: Schema.Types.ObjectId, ref: 'Data' }],
   ...defaults
 })
 
@@ -18,14 +18,14 @@ const data = new Schema({
   contract_address: String,
   tx: String,
   enc: String,
-  user: Schema.Types.ObjectId,
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
   ...defaults
 })
 
 const user = new Schema({
   username: String,
   password: String,
-  accounts: [Schema.Types.ObjectId],
+  accounts: [{ type: Schema.Types.ObjectId, ref: 'Account' }],
   ...defaults
 })
 
@@ -44,11 +44,11 @@ const contract = new Schema({
 })
 
 const request = new Schema({
-  contract: Schema.Types.ObjectId,
+  contract: { type: Schema.Types.ObjectId, ref: 'Contract' },
   tx: String,
-  user: Schema.Types.ObjectId,
-  account: Schema.Types.ObjectId,
-  data: Schema.Types.ObjectId,
+  user: { type: Schema.Types.ObjectId, ref: 'User' },
+  account: { type: Schema.Types.ObjectId, ref: 'Account' },
+  data: { type: Schema.Types.ObjectId, ref: 'Data' },
   processed: Boolean,
   proof: Boolean,
   ...defaults
