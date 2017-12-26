@@ -18,7 +18,7 @@ export default class DB {
   }
 
   isConnected () {
-    return mongoose.connection.readyState === 1 ? true : false
+    return mongoose.connection.readyState === 1
   }
 
   listeners () {
