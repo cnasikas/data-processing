@@ -8,8 +8,14 @@ import config from './config.json'
 
 const app = express()
 const db = new DB(config.db.host, config.db.name)
-bootstrap({app, db})
 
-app.listen(process.env.PORT || 3001, function () {
-  console.log(`Started on port ${this.address().port}`)
+bootstrap({app, db})
+.then((value) => {
+  app.listen(process.env.PORT || 3001, function () {
+    console.log(`Started on port ${this.address().port}`)
+  })
+})
+.catch((err) => {
+  console.error('Server error!')
+  console.error(err)
 })
