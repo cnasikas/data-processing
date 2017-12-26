@@ -54,13 +54,20 @@ function setDB (db) {
   return db.init()
 }
 
-/* TODO: Bootstrap with promises .
-* All promises should be resolved for successfully bootstrap
-*/
-
 export default ({app, db}) => {
   setENV()
   validateENV()
-  setDB(db)
-  setMiddlewares(app, db)
+
+  return new Promise((resolve, reject) => {
+    initNode()
+    .then((value) => {
+      return setDB(db)
+    })
+    .then((value) => {
+      console.log(value)
+      setMiddlewares(app, db)
+      resolve(value)
+    })
+    .catch((err) => { reject(err) })
+  })
 }
