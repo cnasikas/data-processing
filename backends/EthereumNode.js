@@ -35,10 +35,18 @@ export default class EthereumNode {
   }
 
   setDefaultAccount (account) {
-    this.web3.eth.getAccounts((error, accounts) => {
-      if (!error && accounts.length > 0) {
-        this.web3.eth.defaultAccount = accounts[0]
-      }
+    return new Promise((resolve, reject) => {
+      this.web3.eth.getAccounts((error, accounts) => {
+        if (error) {
+          reject(error)
+        }
+
+        if (accounts.length > 0) {
+          this.web3.eth.defaultAccount = accounts[0]
+        }
+
+        resolve(accounts)
+      })
     })
   }
 
