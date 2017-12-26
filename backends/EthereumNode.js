@@ -24,7 +24,9 @@ export default class EthereumNode {
   }
 
   setProvider () {
-    this.web3.setProvider(new this.web3.providers.HttpProvider(this.providerURL))
+    if (!this.web3.currentProvider) {
+      this.web3.setProvider(new this.web3.providers.HttpProvider(this.providerURL))
+    }
   }
 
   getBalance (address) {
