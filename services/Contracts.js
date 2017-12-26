@@ -17,9 +17,9 @@ let contracts = {
     contract: contract(RequestsArtifact)
   }
 }
-
+/*
 for (let key of Object.keys(contracts)) {
   contracts[key].contract.setProvider(node.getProvider())
-}
+}*/
 
 export default contracts
