@@ -54,6 +54,18 @@ export default class EthereumNode {
     return this.web3.eth.defaultAccount
   }
 
+  getAccounts () {
+    return new Promise((resolve, reject) => {
+      this.web3.eth.getAccounts((error, accounts = []) => {
+        if (error) {
+          reject(error)
+        }
+
+        resolve(accounts)
+      })
+    })
+  }
+
   getLibInstance () {
     return this.web3
   }
