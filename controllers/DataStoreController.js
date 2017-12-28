@@ -1,11 +1,11 @@
 import BaseController from './BaseController'
-import DataStore from '../db/models/DataStore'
+import Data from '../db/models/Data'
 import contracts from '../services/Contracts.js'
 import node from '../services/Node.js'
 
-export default class DataStoreController extends BaseController {
+export default class DataController extends BaseController {
   constructor () {
-    super(DataStore, '_id')
+    super(Data, '_id')
   }
 
   list (req, res) {

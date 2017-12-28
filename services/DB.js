@@ -1,8 +1,4 @@
 import mongoose from 'mongoose'
-import DataStore from '../db/models/DataStore'
-import User from '../db/models/User'
-import Account from '../db/models/Account'
-import node from './Node.js'
 import errors from '../errors/errors.js'
 
 export default class DB {
@@ -33,27 +29,9 @@ export default class DB {
 
   init () {
     return this.connect()
-    .then((conn) => {
-      return this.createUser()
-    })
-    .then((user) => {
-      return this.createDataStore(user)
-    })
     .catch((err) => {
       Promise.reject(err)
       throw errors.db.connection
-    })
-  }
-
-  createDataStore (user) {
-    return new DataStore({user: user, data: []}).save()
-  }
-
-  createUser () {
-    return new Account({address: node.getDefaultAccount()})
-    .save()
-    .then((account) => {
-      return new User({username: 'admin', password: 'admin', accounts: [account]}).save()
     })
   }
 
