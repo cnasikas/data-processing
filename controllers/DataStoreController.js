@@ -22,34 +22,23 @@ export default class DataController extends BaseController {
     /* TODO: Hanlde null values on post */
 
     let hashPointer = req.body.hash_pointer || ''
-    let ciphertext = 'ciphertex' // JSON.parse(ecc.encrypt(hashPointer))
-
-    let strignify = Object.keys(ciphertext).map(function (k) { return ciphertext[k] }).join(':')
-
+    contracts.datastore.contract.setProvider(node.getProvider())
     contracts.datastore.contract.deployed().then((instance) => {
-      return instance.publishData(node.getDefaultAccount(), strignify)
+      return instance.publishData(node.getDefaultAccount(), hashPointer)
     })
     .then((result) => {
-      let response = {
+      let o = {
+        hash_ptr: hashPointer,
         contract_address: contracts.datastore.contract.address,
         tx: result.tx,
-        user_addr: node.getDefaultAccount(),
-        timestamp: Date.now(),
-        data: {
-          ciphertext
-        }
+        enc: ''
       }
 
-      /*
-      let data = db.get('contracts').get('datastore')
-
-      if (_.isEmpty(data.value())) {
-        data.push(response).write()
-      } else {
-        data.first().assign(response).write()
-      }
-      */
-      res.json(response)
+      return new Data(o)
+      .save()
+      .then((data) => {
+        res.json(data)
+      })
     })
     .catch((err) => {
       res.status(500).json({error: err.message})
