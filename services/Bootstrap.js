@@ -23,6 +23,9 @@ function validateENV () {
 function initNode () {
   return new Promise((resolve, reject) => {
     node.setProvider()
+    if (!node.isConnected()) {
+      reject(errors.node.connection)
+    }
     node.setDefaultAccount()
     .then((value) => { resolve(value) })
     .catch((err) => { reject(err) })
@@ -64,7 +67,6 @@ export default ({app, db}) => {
       return setDB(db)
     })
     .then((value) => {
-      console.log(value)
       setMiddlewares(app, db)
       resolve(value)
     })
