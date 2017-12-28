@@ -8,9 +8,16 @@ export default class AccountController extends BaseController {
   }
 
   list (req, res) {
+    node.getAccounts()
+    .then((accounts) => {
+      return res.json(accounts)
+    })
+  }
+
+  read (req, res, address) {
     let account = {
-      address: node.getDefaultAccount(),
-      balance: node.getBalance(node.getDefaultAccount())
+      address,
+      balance: node.getBalance(address)
     }
 
     return res.json(account)
