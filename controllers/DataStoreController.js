@@ -9,27 +9,9 @@ export default class DataController extends BaseController {
   }
 
   list (req, res) {
-    let address = node.getDefaultAccount()
-
-    contracts.datastore.contract.deployed().then((instance) => {
-      return instance.getData.call(address)
-    })
+    return Data.find().limit(10)
     .then((data) => {
-      // let defaults = { iv: '', v: 1, iter: 10000, ks: 128, ts: 64, mode: 'ccm', adata: '', cipher: 'aes', ct: '' }
-      // let dataArr = data.split(':')
-
-      // let ciphertext = Object.assign(...Object.keys(defaults).map(function (k, index) { return {[k]: dataArr[index]} }))
-
-      let ciphertext = 'cipher'
-
-      let response = {
-        contract_address: contracts.datastore.contract.address,
-        user_addr: address,
-        data: {
-          ciphertext
-        }
-      }
-      res.json({datastore: [response]})
+      res.json({datastore: data})
     })
     .catch((err) => {
       res.status(500).json({error: err.message})
