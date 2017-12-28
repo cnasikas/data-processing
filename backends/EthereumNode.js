@@ -35,7 +35,8 @@ export default class EthereumNode {
 
   setDefaultAccount (account) {
     return new Promise((resolve, reject) => {
-      this.web3.eth.getAccounts((error, accounts) => {
+      this.web3.eth.getAccounts((error, accounts = []) => {
+        /* TODO: Is it possible to get empty accounts without an error ?? */
         if (error) {
           reject(error)
         }
