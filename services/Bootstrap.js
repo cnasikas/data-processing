@@ -9,6 +9,7 @@ import nodeMiddleware from '../middlewares/NodeMiddleware.js'
 import controllers from '../controllers/controllers.js'
 import config from '../config.json'
 import node from './Node.js'
+import ContractService from '../services/Contracts.js'
 
 function setENV () {
   dotenv.config()
@@ -64,6 +65,7 @@ export default ({app, db}) => {
   return new Promise((resolve, reject) => {
     initNode()
     .then((value) => {
+      new ContractService().initContracts()
       return setDB(db)
     })
     .then((value) => {
