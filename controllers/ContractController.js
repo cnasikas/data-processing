@@ -1,6 +1,6 @@
 import BaseController from './BaseController'
 import Contract from '../db/models/Contract'
-import contracts from '../services/Contracts.js'
+import ContractService from '../services/Contracts.js'
 
 export default class ContractController extends BaseController {
   constructor () {
@@ -9,6 +9,8 @@ export default class ContractController extends BaseController {
 
   list (req, res) {
     let types = []
+
+    let contracts = new ContractService().getContracts()
 
     for (let key of Object.keys(contracts)) {
       let temp = {id: contracts[key].id, title: contracts[key].title, desc: contracts[key].desc}
