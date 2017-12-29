@@ -37,6 +37,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "bootstrap": "^4.0.0-beta"
+    "bootstrap": "^4.0.0-beta",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0"
   }
 }
