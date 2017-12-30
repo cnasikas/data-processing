@@ -16,17 +16,17 @@ class DataStore extends React.Component {
 
   render () {
     let datastore = ''
-
+    console.log(this.props.datastore)
     if (this.props.datastore.length > 0) {
       datastore = this.props.datastore.map((data, index) => {
-        let date = !isNaN(new Date(data.timestamp)) ? moment(new Date(data.timestamp)).format('DD/MM/YYYY') : 'No date provided'
-        return <Data {...data} key={index} date={date} />
+        let date = !isNaN(new Date(data.created_at)) ? moment(new Date(data.created_at)).format('DD/MM/YYYY') : 'No date provided'
+        return <Data {...data} key={data._id} date={date} index={index + 1} />
       })
     }
 
     return (
 
-      <section id='datastore'>
+      <section id='datastore' className='list-group'>
         {datastore}
         <ul className='nav'>
           <li className='nav-item'>

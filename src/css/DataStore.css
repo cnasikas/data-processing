@@ -5,3 +5,7 @@
 .contract-body{
 	margin-top: 25px;
 }
+
+#datastore .data{
+  cursor: pointer;
+}
