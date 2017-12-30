@@ -1,11 +1,12 @@
 import BaseController from './BaseController'
 import Data from '../db/models/Data'
-import contracts from '../services/Contracts.js'
+import ContractService from '../services/Contracts.js'
 import node from '../services/Node.js'
 
 export default class DataController extends BaseController {
   constructor () {
     super(Data, '_id')
+    this.contracts = new ContractService().getContracts()
   }
 
   list (req, res) {
@@ -20,18 +21,20 @@ export default class DataController extends BaseController {
 
   create (req, res) {
     /* TODO: Hanlde null values on post */
-
+    let account = node.getDefaultAccount()
     let hashPointer = req.body.hash_pointer || ''
-    contracts.datastore.contract.setProvider(node.getProvider())
-    contracts.datastore.contract.deployed().then((instance) => {
-      return instance.publishData(node.getDefaultAccount(), hashPointer)
+
+    this.contracts.datastore.contract.setProvider(node.getProvider())
+    this.contracts.datastore.contract.deployed().then((instance) => {
+      return instance.publishData(account, hashPointer)
     })
     .then((result) => {
       let o = {
         hash_ptr: hashPointer,
-        contract_address: contracts.datastore.contract.address,
+        contract_address: this.contracts.datastore.contract.address,
         tx: result.tx,
-        enc: ''
+        enc: '',
+        account
       }
 
       return new Data(o)
@@ -48,7 +51,7 @@ export default class DataController extends BaseController {
   read (req, res, address) {
     address = address || -1
 
-    contracts.datastore.contract.deployed().then((instance) => {
+    this.contracts.datastore.contract.deployed().then((instance) => {
       return instance.getData.call(address)
     })
     .then((data) => {
