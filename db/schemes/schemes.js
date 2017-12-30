@@ -12,6 +12,7 @@ const data = new Schema({
   contract_address: String,
   tx: String,
   enc: String,
+  account: String,
   ...defaults
 })
 
