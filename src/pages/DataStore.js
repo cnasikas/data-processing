@@ -4,19 +4,18 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 
-import { getData } from '../actions/ActionCreators'
+import { getDataStore } from '../actions/ActionCreators'
 import Data from '../components/Data.js'
 
 import '../css/DataStore.css'
 
 class DataStore extends React.Component {
   componentDidMount () {
-    this.props.actions.getData().catch(e => console.log(e))
+    this.props.actions.getDataStore().catch(e => console.log(e))
   }
 
   render () {
     let datastore = ''
-    console.log(this.props.datastore)
     if (this.props.datastore.length > 0) {
       datastore = this.props.datastore.map((data, index) => {
         let date = !isNaN(new Date(data.created_at)) ? moment(new Date(data.created_at)).format('DD/MM/YYYY') : 'No date provided'
@@ -39,7 +38,7 @@ class DataStore extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ getData }, dispatch)
+  actions: bindActionCreators({ getDataStore }, dispatch)
 })
 
 const mapStateToProps = state => ({
