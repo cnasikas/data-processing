@@ -48,14 +48,10 @@ export default class DataController extends BaseController {
     })
   }
 
-  read (req, res, address) {
-    address = address || -1
-
-    this.contracts.datastore.contract.deployed().then((instance) => {
-      return instance.getData.call(address)
-    })
+  read (req, res, id) {
+    Data.findById(id)
     .then((data) => {
-      res.json({data: data})
+      res.json(data)
     })
     .catch((err) => {
       res.status(500).json({error: err.message})
