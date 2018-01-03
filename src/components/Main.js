@@ -9,6 +9,7 @@ import Login from './Login.js'
 import AddData from '../pages/AddData.js'
 import AddRequest from '../pages/AddRequest.js'
 import Notifications from '../components/Notifications'
+import DataDetails from '../components/DataDetails'
 
 export default class Main extends React.Component {
   render () {
@@ -18,6 +19,7 @@ export default class Main extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/datastore' component={DataStore} />
+          <Route exact path='/datastore/:id' component={DataDetails} />
           <Route exact path='/requests' component={Requests} />
           <Route exact path='/account' component={Account} />
           <Route path='/login' component={Login} />
