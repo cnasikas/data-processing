@@ -6,6 +6,8 @@
 	margin-top: 25px;
 }
 
-#datastore .data{
-  cursor: pointer;
+#datastore .data a{
+  display: block;
+  color: #000;
+  text-decoration: none;
 }
