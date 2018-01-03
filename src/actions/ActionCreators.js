@@ -2,6 +2,7 @@ import {
   ADD_NOTIFICATION,
   REMOVE_NOTIFICATION,
   GET_CONTRACT_TYPES,
+  GET_DATASTORE,
   GET_DATA,
   ADD_DATA,
   GET_REQUESTS,
@@ -33,12 +34,24 @@ export function getContractTypes () {
   }
 }
 
-export function getData () {
+export function getDataStore () {
   return {
     payload: {
       request: {
         method: 'get',
         url: '/datastore'
+      }
+    },
+    type: GET_DATASTORE
+  }
+}
+
+export function getData (key) {
+  return {
+    payload: {
+      request: {
+        method: 'get',
+        url: '/datastore/' + key
       }
     },
     type: GET_DATA
