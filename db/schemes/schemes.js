@@ -13,6 +13,7 @@ const data = new Schema({
   tx: String,
   enc: String,
   account: String,
+  gasUsed: Number,
   ...defaults
 })
 
@@ -31,12 +32,13 @@ const account = new Schema({
 })
 
 const request = new Schema({
-  contract: { type: Schema.Types.ObjectId, ref: 'Contract' },
+  contract_address: String,
   tx: String,
-  account: { type: Schema.Types.ObjectId, ref: 'Account' },
-  data: { type: Schema.Types.ObjectId, ref: 'Data' },
+  account: String,
+  data: String,
   processed: Boolean,
   proof: Boolean,
+  gasUsed: Number,
   ...defaults
 })
 
