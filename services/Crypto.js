@@ -1,4 +1,5 @@
 import crypto from 'crypto' // Node.js Crypto library
+import fs from 'fs'
 import _ from 'lodash'
 import Key from './Key.js'
 import FileCrypto from './FileCrypto.js'
@@ -26,6 +27,22 @@ export default class Crypto {
     return Key.generate(keySize)
   }
 
+  _readFile (filename, encoding = null) {
+    return new Promise((resolve, reject) => {
+      try {
+        fs.readFile(filename, encoding, (err, buffer) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(buffer)
+          }
+        })
+      } catch (err) {
+        reject(err)
+      }
+    })
+  }
+
   encrypt () {
     return new Promise((resolve, reject) => {
       this._genKey(16).then((iv) => {
@@ -38,9 +55,18 @@ export default class Crypto {
 
   }
 
-  encryptKeys () {
+  encryptKey () {
     return new Promise((resolve, reject) => {
-
+      this._readFile('../keys/public.pem', 'utf8')
+      .then((pubKey) => {
+        // we encrypt the symmetric key with the public key of the processor
+        let encBuffer = crypto.publicEncrypt(pubKey, Buffer.from(this.symKey, 'hex'))
+        resolve(encBuffer.toString('base64'))
+      })
+      .catch((err) => {
+        console.log(err)
+        reject(err)
+      })
     })
   }
 
