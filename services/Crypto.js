@@ -13,11 +13,11 @@ export default class Crypto {
     this.hmacKey = hmacKey
 
     if (_.isEmpty(this.symKey) || _.isEmpty(this.hmacKey)) {
-      throw errors.cryptoErrors.wrongKeyLength
+      throw errors.crypto.wrongKeyLength
     }
 
     if (this.symKey === this.hmacKey) {
-      throw errors.cryptoErrors.diffKeys
+      throw errors.crypto.diffKeys
     }
   }
 
