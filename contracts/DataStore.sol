@@ -7,19 +7,19 @@ pragma solidity ^0.4.11;
 
 contract DataStore {
 
-  address public owner;
+    address public owner;
 
-  mapping (address => string) public dataStore;
+    mapping (address => string) public dataStore;
 
-	function DataStore () {
-		owner = msg.sender;
-	}
+    function DataStore () public {
+        owner = msg.sender;
+    }
 
-	function publishData(address userAddr, string dataHash) {
-    	dataStore[userAddr] = dataHash;
-	}
+    function publishData(address userAddr, string dataHash) public {
+        dataStore[userAddr] = dataHash;
+    }
 
-	function getData(address userAddr) constant returns (string) {
+    function getData(address userAddr) public constant returns (string) {
         return dataStore[userAddr];
-  }
+    }
 }
