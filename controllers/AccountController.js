@@ -10,7 +10,15 @@ export default class AccountController extends BaseController {
   list (req, res) {
     node.getAccounts()
     .then((accounts) => {
-      return res.json(accounts)
+      let address = node.getDefaultAccount()
+      let balance = node.getBalance(address)
+
+      let response = {
+        accounts,
+        default: {address, balance}
+      }
+
+      return res.json(response)
     })
   }
 
