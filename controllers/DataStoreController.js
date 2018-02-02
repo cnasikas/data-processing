@@ -35,7 +35,7 @@ export default class DataController extends BaseController {
     try {
       let encKey = await this.crypto.encryptKey()
       let instance = await this.contracts.datastore.contract.deployed()
-      let result = await instance.publishData(account, hashPointer)
+      let result = await instance.publishData(account, hashPointer, encKey, {gas: 180000})
 
       let o = {
         hash_ptr: hashPointer,

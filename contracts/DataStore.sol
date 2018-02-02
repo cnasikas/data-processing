@@ -9,17 +9,30 @@ contract DataStore {
 
     address public owner;
 
-    mapping (address => string) public dataStore;
+    struct Data {
+        bytes32 hashPointer;
+        string cipher;
+    }
+
+    mapping (address => Data) public dataStore;
 
     function DataStore () public {
         owner = msg.sender;
     }
 
-    function publishData(address userAddr, string dataHash) public {
-        dataStore[userAddr] = dataHash;
+    function publishData(address userAddr, bytes32 hashPointer, string cipher) public {
+
+        dataStore[userAddr] = Data({
+            hashPointer: hashPointer,
+            cipher: cipher
+        });
     }
 
-    function getData(address userAddr) public constant returns (string) {
-        return dataStore[userAddr];
+    function getDataPointer(address userAddr) public constant returns (bytes32) {
+        return dataStore[userAddr].hashPointer;
+    }
+
+    function getKey(address userAddr) public constant returns (string) {
+        return dataStore[userAddr].cipher;
     }
 }
