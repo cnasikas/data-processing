@@ -6,6 +6,7 @@ import {
   GET_DATA,
   ADD_DATA,
   GET_REQUESTS,
+  GET_REQUEST,
   ADD_REQUEST,
   GET_ACCOUNT,
   SET_DEFAULT_ACCOUNT
@@ -80,6 +81,18 @@ export function getRequests () {
       }
     },
     type: GET_REQUESTS
+  }
+}
+
+export function getRequest (key) {
+  return {
+    payload: {
+      request: {
+        method: 'get',
+        url: '/requests/' + key
+      }
+    },
+    type: GET_REQUEST
   }
 }
 
