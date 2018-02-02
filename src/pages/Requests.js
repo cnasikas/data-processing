@@ -2,10 +2,10 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
 
 import { getRequests } from '../actions/ActionCreators'
 import Request from '../components/Request.js'
+import AddResourceBtn from '../components/AddResourceBtn.js'
 
 import '../css/Requests.css'
 
@@ -26,11 +26,7 @@ class Requests extends React.Component {
     return (
       <section id='requests' className='list-group'>
         {requests}
-        <ul className='nav mt-3'>
-          <li className='nav-item'>
-            <Link to='/requests/add' className='nav-link btn btn-primary'>Add request</Link>
-          </li>
-        </ul>
+        <AddResourceBtn to='/requests/add' text='Add Request' />
       </section>
     )
   }
