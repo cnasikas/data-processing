@@ -26,19 +26,31 @@ export default class RequestController extends BaseController {
       return instance.requestForProcess(node.getDefaultAccount(), dataAddr)
     })
     .then((result) => {
-      let response = {
+      let req = {
         contract_address: this.contracts.request.contract.address,
         tx: result.tx,
-        user_addr: node.getDefaultAccount(),
-        timestamp: Date.now(),
-        data: {
-          data_addr: dataAddr,
-          processed: false,
-          proof: false
-        }
+        account: node.getDefaultAccount(),
+        data: dataAddr,
+        processed: false,
+        proof: false,
+        gasUsed: result.receipt.gasUsed
       }
-      // db.get('contracts').get('requests').push(response).write()
-      res.json(response)
+
+      return new Request(req)
+      .save()
+      .then((data) => {
+        res.json(data)
+      })
+    })
+    .catch((err) => {
+      res.status(500).json({error: err.message})
+    })
+  }
+
+  read (req, res, id) {
+    Request.findById(id)
+    .then((request) => {
+      res.json(request)
     })
     .catch((err) => {
       res.status(500).json({error: err.message})
