@@ -11,7 +11,7 @@ export default function datastore (state = [], action) {
 
   switch (type) {
     case GET_DATASTORE_SUCCESS:
-      let datastore = payload.data.datastore || []
+      let datastore = payload.data || []
       return [...datastore]
 
     case GET_DATA_SUCCESS:
