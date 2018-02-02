@@ -19,11 +19,11 @@ export default class Main extends React.Component {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route exact path='/datastore' component={DataStore} />
+          <Route exact path='/datastore/add' component={AddData} />
           <Route exact path='/datastore/:id' component={DataDetails} />
           <Route exact path='/requests' component={Requests} />
           <Route exact path='/account' component={Account} />
           <Route path='/login' component={Login} />
-          <Route exact path='/datastore/add' component={AddData} />
           <Route exact path='/requests/add' component={AddRequest} />
         </Switch>
       </main>
