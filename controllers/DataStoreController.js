@@ -1,12 +1,16 @@
+import _ from 'lodash'
 import BaseController from './BaseController'
 import Data from '../db/models/Data'
 import ContractService from '../services/Contracts.js'
+import Crypto from '../services/Crypto.js'
 import node from '../services/Node.js'
 
 export default class DataController extends BaseController {
   constructor () {
     super(Data, '_id')
     this.contracts = new ContractService().getContracts()
+    // the keys are checked for existence at bootstrap
+    this.crypto = new Crypto(process.env.SYM_KEY, process.env.HMAC_KEY)
   }
 
   list (req, res) {
