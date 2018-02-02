@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import Home from '../pages/Home.js'
 import DataStore from '../pages/DataStore.js'
 import Requests from '../pages/Requests.js'
-import Account from '../pages/Account.js'
+import Accounts from '../pages/Accounts.js'
 import Login from './Login.js'
 import AddData from '../pages/AddData.js'
 import AddRequest from '../pages/AddRequest.js'
@@ -22,9 +22,9 @@ export default class Main extends React.Component {
           <Route exact path='/datastore/add' component={AddData} />
           <Route exact path='/datastore/:id' component={DataDetails} />
           <Route exact path='/requests' component={Requests} />
-          <Route exact path='/account' component={Account} />
-          <Route path='/login' component={Login} />
           <Route exact path='/requests/add' component={AddRequest} />
+          <Route exact path='/account' component={Accounts} />
+          <Route path='/login' component={Login} />
         </Switch>
       </main>
     )
