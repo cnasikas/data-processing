@@ -8,6 +8,7 @@ import {
   GET_REQUESTS,
   GET_REQUEST,
   ADD_REQUEST,
+  GET_ACCOUNTS,
   GET_ACCOUNT,
   SET_DEFAULT_ACCOUNT
 } from './ActionTypes'
@@ -109,12 +110,24 @@ export function addRequest (data) {
   }
 }
 
-export function getAccount () {
+export function getAccounts () {
   return {
     payload: {
       request: {
         method: 'get',
         url: '/account'
+      }
+    },
+    type: GET_ACCOUNTS
+  }
+}
+
+export function getAccount (key) {
+  return {
+    payload: {
+      request: {
+        method: 'get',
+        url: '/account' + key
       }
     },
     type: GET_ACCOUNT
