@@ -2,10 +2,10 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { Link } from 'react-router-dom'
 
 import { getDataStore } from '../actions/ActionCreators'
 import Data from '../components/Data.js'
+import AddResourceBtn from '../components/AddResourceBtn.js'
 
 import '../css/DataStore.css'
 
@@ -27,11 +27,7 @@ class DataStore extends React.Component {
 
       <section id='datastore' className='list-group'>
         {datastore}
-        <ul className='nav'>
-          <li className='nav-item'>
-            <Link to='/datastore/add' className='nav-link btn btn-primary'>Add data</Link>
-          </li>
-        </ul>
+        <AddResourceBtn to='/datastore/add' text='Add Data' />
       </section>
     )
   }
