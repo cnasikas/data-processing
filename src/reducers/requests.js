@@ -13,6 +13,10 @@ export default function requests (state = [], action) {
       let requests = payload.data || []
       return [...requests]
 
+    case GET_REQUEST_SUCCESS:
+      let request = payload.data || {}
+      return [{...request}]
+
     case ADD_REQUEST_SUCCESS:
       request = payload.data || {}
       return [{...request}]
