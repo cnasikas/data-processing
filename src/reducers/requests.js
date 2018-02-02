@@ -1,20 +1,21 @@
 import {
   GET_REQUESTS_SUCCESS,
+  GET_REQUEST_SUCCESS,
   ADD_REQUEST_SUCCESS
 
 } from '../actions/ActionTypes'
 
-export default function datastore (state = [], action) {
+export default function requests (state = [], action) {
   const { payload, type } = action
 
   switch (type) {
     case GET_REQUESTS_SUCCESS:
-      let datastore = payload.data.requests || []
-      return [...datastore]
+      let requests = payload.data || []
+      return [...requests]
 
     case ADD_REQUEST_SUCCESS:
-      let data = payload.data || {}
-      return [{...data}]
+      request = payload.data || {}
+      return [{...request}]
 
     default:
       return state
