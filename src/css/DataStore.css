@@ -1,13 +1,7 @@
-.contract{
-	margin-bottom: 15px;
+.contract {
+  margin-bottom: 15px;
 }
 
-.contract-body{
-	margin-top: 25px;
-}
-
-#datastore .data a{
-  display: block;
-  color: #000;
-  text-decoration: none;
+.contract-body {
+  margin-top: 25px;
 }
