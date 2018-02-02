@@ -23,33 +23,35 @@ export default class DataController extends BaseController {
     })
   }
 
-  create (req, res) {
+  async create (req, res) {
     /* TODO: Hanlde null values on post */
     let account = node.getDefaultAccount()
     let hashPointer = req.body.hash_pointer || ''
 
-    this.contracts.datastore.contract.setProvider(node.getProvider())
-    this.contracts.datastore.contract.deployed().then((instance) => {
-      return instance.publishData(account, hashPointer)
-    })
-    .then((result) => {
+    if (_.isEmpty(hashPointer)) {
+      return res.status(500).json({error: 'Empty hash pointer is not allowed'})
+    }
+
+    try {
+      let encKey = await this.crypto.encryptKey()
+      let instance = await this.contracts.datastore.contract.deployed()
+      let result = await instance.publishData(account, hashPointer)
+
       let o = {
         hash_ptr: hashPointer,
         contract_address: this.contracts.datastore.contract.address,
         tx: result.tx,
-        enc: '',
-        account
+        enc: encKey,
+        account,
+        gasUsed: result.receipt.gasUsed
       }
 
-      return new Data(o)
-      .save()
-      .then((data) => {
-        res.json(data)
-      })
-    })
-    .catch((err) => {
+      let data = await new Data(o).save()
+
+      return res.json(data)
+    } catch (err) {
       res.status(500).json({error: err.message})
-    })
+    }
   }
 
   read (req, res, id) {
