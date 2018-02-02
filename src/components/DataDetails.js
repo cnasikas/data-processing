@@ -31,6 +31,9 @@ class DataDetails extends React.Component {
           <h6 className='card-subtitle mb-2'>Account:
             <span className='text-muted'> {this.props.data.account}</span>
           </h6>
+          <h6 className='card-subtitle mb-2'>Gas Used:
+            <span className='text-muted'> {this.props.data.gasUsed}</span>
+          </h6>
         </div>
         <div className='card-footer text-muted'>
           Created at: {date}
