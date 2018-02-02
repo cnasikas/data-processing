@@ -18,7 +18,7 @@ class Requests extends React.Component {
     let requests = ''
     if (this.props.requests.length > 0) {
       requests = this.props.requests.map((data, index) => {
-        let date = !isNaN(new Date(data.timestamp)) ? moment(new Date(data.timestamp)).format('DD/MM/YYYY') : 'No date provided'
+        let date = !isNaN(new Date(data.created_at)) ? moment(new Date(data.created_at)).format('DD/MM/YYYY') : 'No date provided'
         return <Request {...data} key={index} date={date} id={index} />
       })
     }
