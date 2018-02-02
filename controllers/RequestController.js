@@ -10,8 +10,13 @@ export default class RequestController extends BaseController {
   }
 
   list (req, res) {
-    // let requests = db.get('contracts').get('requests').filter({user_addr: node.getDefaultAccount()})
-    res.json({requests: []})
+    return Request.find().limit(10).sort({created_at: 'desc'})
+    .then((response) => {
+      res.json(response)
+    })
+    .catch((err) => {
+      res.status(500).json({error: err.message})
+    })
   }
 
   create (req, res) {
