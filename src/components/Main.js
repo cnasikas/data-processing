@@ -10,6 +10,7 @@ import AddData from '../pages/AddData.js'
 import AddRequest from '../pages/AddRequest.js'
 import Notifications from '../components/Notifications'
 import DataDetails from '../components/DataDetails'
+import RequestDetails from '../components/RequestDetails'
 
 export default class Main extends React.Component {
   render () {
@@ -23,6 +24,7 @@ export default class Main extends React.Component {
           <Route exact path='/datastore/:id' component={DataDetails} />
           <Route exact path='/requests' component={Requests} />
           <Route exact path='/requests/add' component={AddRequest} />
+          <Route exact path='/requests/:id' component={RequestDetails} />
           <Route exact path='/account' component={Accounts} />
           <Route path='/login' component={Login} />
         </Switch>
