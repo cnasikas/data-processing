@@ -14,7 +14,7 @@ export default class DataController extends BaseController {
   }
 
   list (req, res) {
-    return Data.find().limit(10)
+    return Data.find().limit(10).sort({created_at: 'desc'})
     .then((data) => {
       res.json({datastore: data})
     })
