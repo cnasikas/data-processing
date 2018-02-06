@@ -1,7 +1,7 @@
 import crypto from 'crypto' // Node.js Crypto library
 import fs from 'fs'
 import _ from 'lodash'
-import Key from './Key.js'
+import SymmetricKey from './SymmetricKey.js'
 import FileCrypto from './FileCrypto.js'
 import errors from '../errors/errors.js'
 
@@ -20,11 +20,6 @@ export default class Crypto {
     if (this.symKey === this.hmacKey) {
       throw errors.crypto.diffKeys
     }
-  }
-
-  _genKey (keySize) {
-    /* Returns a promise */
-    return Key.generate(keySize)
   }
 
   _readFile (filename, encoding = null) {
@@ -71,7 +66,7 @@ export default class Crypto {
   }
 
   encryptFile (file) {
-    Key.generate(16).then(iv => {
+    SymmetricKey.generate(16).then(iv => {
       const fileCrypto = new FileCrypto(this.symKey, iv)
       /* The file should be encrypted to chungs of 16 bytes */
       fileCrypto.encryptChunk(Buffer.from('YELLOW_SUBMARINE', INPUT_ENCODING), this.hmacKey)
