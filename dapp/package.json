@@ -1,0 +1,44 @@
+{
+  "name": "dapp",
+  "version": "0.1.0",
+  "private": true,
+  "keywords": [
+    "mpc",
+    "dapp",
+    "rest",
+    "ethereum",
+    "solidity",
+    "smart",
+    "contract"
+  ],
+  "author": "Christos Nasikas",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.16.2",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
+    "react-scripts": "1.0.10",
+    "redux": "^3.7.2",
+    "redux-axios-middleware": "^4.0.0",
+    "redux-form": "^7.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/mpc-dapp.git"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "bootstrap": "^4.0.0-beta",
+    "stylelint": "^8.4.0",
+    "stylelint-config-standard": "^18.0.0"
+  }
+}

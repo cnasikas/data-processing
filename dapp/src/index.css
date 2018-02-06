@@ -1,0 +1,7 @@
+.button-nav li {
+  margin-right: 5px;
+}
+
+.button-nav button {
+  cursor: pointer;
+}
