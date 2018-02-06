@@ -1,0 +1,36 @@
+{
+  "name": "mpc-processor",
+  "version": "1.0.0",
+  "description": "A data request processor",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js --exec babel-node",
+    "build": "babel server.js -d dist/build.js",
+    "serve": "node dist/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/mpc-processor.git"
+  },
+  "keywords": [
+    "mpc",
+    "processor",
+    "ethereum",
+    "solidity",
+    "smart",
+    "contract"
+  ],
+  "author": "Christos Nasikas",
+  "license": "MIT",
+  "dependencies": {
+    "secp256k1": "^3.3.0",
+    "web3": "^0.20.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "nodemon": "^1.11.0"
+  }
+}
