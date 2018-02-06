@@ -1,4 +1,4 @@
-import node from '../services/Node.js'
+import {node} from 'blockchain'
 
 export default () => {
   return (req, res, next) => {

@@ -1,0 +1,22 @@
+{
+  "name": "blockchain",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "author": "Christos Nasikas",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-watch src/index.js",
+    "build": "babel src --out-dir dist"
+  },
+  "dependencies": {
+    "web3": "^0.20.3",
+    "truffle-artifactor": "^2.1.5",
+    "truffle-contract": "^2.0.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-watch": "^2.0.7"
+  }
+}

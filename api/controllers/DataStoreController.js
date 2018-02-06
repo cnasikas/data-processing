@@ -1,9 +1,8 @@
 import _ from 'lodash'
 import BaseController from './BaseController'
 import Data from '../db/models/Data'
-import ContractService from '../services/Contracts.js'
+import {node, ContractService} from 'blockchain'
 import Crypto from '../services/Crypto.js'
-import node from '../services/Node.js'
 
 export default class DataController extends BaseController {
   constructor () {

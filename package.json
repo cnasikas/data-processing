@@ -1,33 +1,35 @@
 {
-  "name": "mpc-api",
+  "name": "data-sharing",
   "version": "1.0.0",
-  "description": "A RESTful API for MPC Dapp",
-  "main": "server.js",
+  "description": "A data sharing market on blockchain",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prestart": "cd ../lib/blockchain && truffle migrate",
+    "prestart": "cd ./lib/blockchain && truffle migrate",
     "start": "nodemon server.js --exec babel-node",
     "build": "babel server.js -d dist/build.js",
     "serve": "node dist/build.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cnasikas/mpc-api.git"
+    "url": "https://github.com/cnasikas/data-market"
   },
   "keywords": [
-    "mpc",
     "dapp",
     "rest",
     "ethereum",
     "solidity",
     "smart",
-    "contract"
+    "contract",
+    "data",
+    "data market",
+    "blockchain"
   ],
   "author": "Christos Nasikas",
   "license": "MIT",
   "dependencies": {
-    "blockchain": "../lib/blockchain",
     "body-parser": "^1.17.2",
+    "bootstrap": "^4.0.0-alpha.6",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",

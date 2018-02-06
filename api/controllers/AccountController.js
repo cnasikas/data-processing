@@ -1,5 +1,5 @@
 import BaseController from './BaseController'
-import node from '../services/Node.js'
+import {node} from 'blockchain'
 import Account from '../db/models/Account'
 
 export default class AccountController extends BaseController {

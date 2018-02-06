@@ -3,13 +3,12 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import _ from 'lodash'
 import dotenv from 'dotenv'
+import {node, ContractService} from 'blockchain'
 
 import errors from '../errors/errors.js'
 import nodeMiddleware from '../middlewares/NodeMiddleware.js'
 import controllers from '../controllers/controllers.js'
 import config from '../config.json'
-import node from './Node.js'
-import ContractService from '../services/Contracts.js'
 
 function setENV () {
   dotenv.config()

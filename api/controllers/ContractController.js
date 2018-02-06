@@ -1,6 +1,6 @@
 import BaseController from './BaseController'
 import Contract from '../db/models/Contract'
-import ContractService from '../services/Contracts.js'
+import {ContractService} from 'blockchain'
 
 export default class ContractController extends BaseController {
   constructor () {
