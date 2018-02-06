@@ -1,11 +1,12 @@
 import BaseController from './BaseController'
-import {node, ContractService} from 'blockchain'
+import blockchain from 'blockchain'
 import Request from '../db/models/Request'
 
 export default class RequestController extends BaseController {
   constructor () {
     super(Request, '_id')
-    this.contracts = new ContractService().getContracts()
+    this.blockchain = blockchain()
+    this.contracts = new this.blockchain.ContractService().getContracts()
   }
 
   list (req, res) {
@@ -22,13 +23,13 @@ export default class RequestController extends BaseController {
     let dataAddr = req.body.data_addr || ''
 
     this.contracts.request.contract.deployed().then((instance) => {
-      return instance.requestForProcess(node.getDefaultAccount(), dataAddr)
+      return instance.requestForProcess(this.blockchain.node.getDefaultAccount(), dataAddr)
     })
     .then((result) => {
       let req = {
         contract_address: this.contracts.request.contract.address,
         tx: result.tx,
-        account: node.getDefaultAccount(),
+        account: this.blockchain.node.getDefaultAccount(),
         data: dataAddr,
         processed: false,
         proof: false,

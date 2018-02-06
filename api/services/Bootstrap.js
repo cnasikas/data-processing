@@ -3,7 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import _ from 'lodash'
 import dotenv from 'dotenv'
-import {node, ContractService} from 'blockchain'
+import blockchain from 'blockchain'
 
 import errors from '../errors/errors.js'
 import nodeMiddleware from '../middlewares/NodeMiddleware.js'
@@ -20,13 +20,13 @@ function validateENV () {
   }
 }
 
-function initNode () {
+function initNode (bl) {
   return new Promise((resolve, reject) => {
-    node.setProvider()
-    if (!node.isConnected()) {
-      reject(errors.node.connection)
+    bl.node.setProvider()
+    if (!bl.node.isConnected()) {
+      reject(errors.bl.node.connection)
     }
-    node.setDefaultAccount()
+    bl.node.setDefaultAccount()
     .then((value) => { resolve(value) })
     .catch((err) => { reject(err) })
   })
@@ -60,11 +60,12 @@ function setDB (db) {
 export default ({app, db}) => {
   setENV()
   validateENV()
+  const bl = blockchain()
 
   return new Promise((resolve, reject) => {
-    initNode()
+    initNode(bl)
     .then((value) => {
-      new ContractService().initContracts()
+      new bl.ContractService().initContracts()
       return setDB(db)
     })
     .then((value) => {

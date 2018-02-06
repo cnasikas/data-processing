@@ -1,13 +1,14 @@
 import _ from 'lodash'
 import BaseController from './BaseController'
 import Data from '../db/models/Data'
-import {node, ContractService} from 'blockchain'
+import blockchain from 'blockchain'
 import Crypto from '../services/Crypto.js'
 
 export default class DataController extends BaseController {
   constructor () {
     super(Data, '_id')
-    this.contracts = new ContractService().getContracts()
+    this.blockchain = blockchain()
+    this.contracts = new this.blockchain.ContractService().getContracts()
     // the keys are checked for existence at bootstrap
     this.crypto = new Crypto(process.env.SYM_KEY, process.env.HMAC_KEY)
   }
@@ -24,7 +25,7 @@ export default class DataController extends BaseController {
 
   async create (req, res) {
     /* TODO: Hanlde null values on post */
-    let account = node.getDefaultAccount()
+    let account = this.blockchain.node.getDefaultAccount()
     let hashPointer = req.body.hash_pointer || ''
 
     if (_.isEmpty(hashPointer)) {

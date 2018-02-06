@@ -1,17 +1,18 @@
 import BaseController from './BaseController'
-import {node} from 'blockchain'
+import blockchain from 'blockchain'
 import Account from '../db/models/Account'
 
 export default class AccountController extends BaseController {
   constructor () {
     super(Account, '_id')
+    this.blockchain = blockchain()
   }
 
   list (req, res) {
-    node.getAccounts()
+    this.blockchain.node.getAccounts()
     .then((accounts) => {
-      let address = node.getDefaultAccount()
-      let balance = node.getBalance(address)
+      let address = this.blockchain.node.getDefaultAccount()
+      let balance = this.blockchain.node.getBalance(address)
 
       let response = {
         accounts,
@@ -25,7 +26,7 @@ export default class AccountController extends BaseController {
   read (req, res, address) {
     let account = {
       address,
-      balance: node.getBalance(address)
+      balance: this.blockchain.node.getBalance(address)
     }
 
     return res.json(account)
