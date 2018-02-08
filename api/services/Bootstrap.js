@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 import blockchain from 'blockchain'
 
 import errors from '../errors/errors.js'
-import nodeMiddleware from '../middlewares/NodeMiddleware.js'
+import middlewares from '../middlewares/middlewares.js'
 import controllers from '../controllers/controllers.js'
 import config from '../config.json'
 
@@ -45,8 +45,8 @@ function setMiddlewares (app, db) {
     limit: config.bodyLimit
   }))
 
-  app.use(nodeMiddleware())
-  app.use(db.middleware())
+  app.use(middlewares.node())
+  app.use(middlewares.db())
 
   app.use('/api', controllers({config, db}))
 }
