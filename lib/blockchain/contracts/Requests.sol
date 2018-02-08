@@ -6,19 +6,19 @@ contract Requests {
     address public owner;
 
     struct Request {
-        bytes32 addr;
+        string addr;
         bool proof;
     }
 
     mapping(address => Request) public requests;
 
-    event RequestProcess(address indexed reqAddr, bytes32 dataAddr);
+    event RequestProcess(address indexed reqAddr, string dataAddr);
 
     function Requests () public {
         owner = msg.sender;
     }
 
-    function requestForProcess(address reqAddr, bytes32 dataAddr) public {
+    function requestForProcess(address reqAddr, string dataAddr) public {
 
         requests[reqAddr] = Request({
             addr: dataAddr,
@@ -28,7 +28,7 @@ contract Requests {
         RequestProcess(reqAddr, dataAddr);
     }
 
-    function getRequestDataAddr(address reqAddr) public constant returns (bytes32) {
+    function getRequestDataAddr(address reqAddr) public constant returns (string) {
         return requests[reqAddr].addr;
     }
 }

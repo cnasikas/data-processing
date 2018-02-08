@@ -10,7 +10,7 @@ contract DataStore {
     address public owner;
 
     struct Data {
-        bytes32 hashPointer;
+        string hashPointer;
         string cipher;
     }
 
@@ -20,7 +20,7 @@ contract DataStore {
         owner = msg.sender;
     }
 
-    function publishData(address userAddr, bytes32 hashPointer, string cipher) public {
+    function publishData(address userAddr, string hashPointer, string cipher) public {
 
         dataStore[userAddr] = Data({
             hashPointer: hashPointer,
@@ -28,7 +28,7 @@ contract DataStore {
         });
     }
 
-    function getDataPointer(address userAddr) public constant returns (bytes32) {
+    function getDataPointer(address userAddr) public constant returns (string) {
         return dataStore[userAddr].hashPointer;
     }
 
