@@ -2,7 +2,7 @@ import _ from 'lodash'
 import BaseController from './BaseController'
 import Data from '../db/models/Data'
 import blockchain from 'blockchain'
-import Crypto from '../services/Crypto.js'
+import Crypto from 'total-crypto'
 
 export default class DataController extends BaseController {
   constructor () {
@@ -10,7 +10,7 @@ export default class DataController extends BaseController {
     this.blockchain = blockchain()
     this.contracts = new this.blockchain.ContractService().getContracts()
     // the keys are checked for existence at bootstrap
-    this.crypto = new Crypto(process.env.SYM_KEY, process.env.HMAC_KEY)
+    this.crypto = new Crypto()
   }
 
   list (req, res) {
@@ -33,9 +33,11 @@ export default class DataController extends BaseController {
     }
 
     try {
-      let encKey = await this.crypto.encryptKey()
+      let encKey = this.crypto.pubEncrypt(process.env.PR_PUB_KEY, process.env.SYM_KEY)
+      let {iv, kemtag, ct} = JSON.parse(encKey)
+      encKey = JSON.stringify({iv, kemtag, ct})
       let instance = await this.contracts.datastore.contract.deployed()
-      let result = await instance.publishData(account, hashPointer, encKey, {gas: 180000})
+      let result = await instance.publishData(account, hashPointer, encKey, {gas: 500000})
 
       let o = {
         hash_ptr: hashPointer,
