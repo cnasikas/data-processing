@@ -24,7 +24,7 @@ function initNode (bl) {
   return new Promise((resolve, reject) => {
     bl.node.setProvider()
     if (!bl.node.isConnected()) {
-      reject(errors.bl.node.connection)
+      reject(errors.node.connection)
     }
     bl.node.setDefaultAccount()
     .then((value) => { resolve(value) })
