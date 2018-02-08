@@ -9,7 +9,6 @@
     "build": "babel src --out-dir dist"
   },
   "dependencies": {
-    "sjcl-all": "../sjcl-all",
     "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
     "web3": "^0.20.3"
