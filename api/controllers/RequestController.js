@@ -23,7 +23,7 @@ export default class RequestController extends BaseController {
     let dataAddr = req.body.data_addr || ''
 
     this.contracts.request.contract.deployed().then((instance) => {
-      return instance.requestForProcess(this.blockchain.node.getDefaultAccount(), dataAddr)
+      return instance.requestForProcess(this.blockchain.node.getDefaultAccount(), dataAddr, {gas: 500000})
     })
     .then((result) => {
       let req = {
