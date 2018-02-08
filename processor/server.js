@@ -1,17 +1,14 @@
-import Web3 from 'web3'
-import config from './config.json'
-import contracts from '../api/services/Contracts.js'
+/* Processor should be autonomous from api.
+* Contracts migration and deploy would be permanent on blockchain
+*/
 
-const provider = 'http://' + config.networks.development.host + ':' + config.networks.development.port
-const web3 = new Web3(new Web3.providers.HttpProvider(provider))
+import bootstrap from './services/Bootstrap.js'
 
-contracts.request.contract.deployed().then(instance => {
-  return instance.RequestProcess().watch((error, result) => {
-    if (!error) {
-      let reqAddr = result.args.reqAddr
-      let dataAddr = result.args.dataAddr
-
-      console.log('Processing request from ' + reqAddr + ' for data ' + dataAddr)
-    }
-  })
+bootstrap()
+.then((value) => {
+  console.log('Bootstrap normally executed')
+})
+.catch((err) => {
+  console.error('Server error!')
+  console.error(err)
 })
