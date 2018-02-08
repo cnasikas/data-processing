@@ -1,5 +1,5 @@
 {
-  "name": "sjcl",
+  "name": "sjcl-all",
   "version": "1.0.7",
   "description": "Stanford Javascript Crypto Library",
   "main": "sjcl.js",
