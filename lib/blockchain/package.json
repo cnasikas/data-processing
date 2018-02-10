@@ -8,6 +8,10 @@
     "start": "babel-watch src/index.js",
     "build": "babel src --out-dir dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/data-market.git"
+  },
   "dependencies": {
     "web3": "^0.20.3",
     "truffle-artifactor": "^2.1.5",

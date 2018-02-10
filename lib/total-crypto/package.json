@@ -8,6 +8,10 @@
     "start": "babel-watch src/index.js",
     "build": "babel src --out-dir dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/mpc-api.git"
+  },
   "dependencies": {
     "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
