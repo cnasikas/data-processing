@@ -23,6 +23,7 @@ program
   .usage('[options]')
   .description('data-exec is a js node app runner that lets you run specific commands for data sharing app')
   .option('-g, --generate-keys', 'Generate an assymetric key pair')
+  .option('-s, --generate-key', 'Generate a symetric key')
   .on('--help', () => {
     console.log(`\
     Examples:
@@ -45,5 +46,15 @@ if (program.generateKeys) {
 
     Public key: ${pair.pub}
     Secret key: ${pair.sec}
+    `)
+}
+
+if (program.generateKey) {
+  let key = new Crypto().generateKey()
+  console.log(`\
+    Key for symmetric encryption generated (256 bit).
+    Save your key to a secure place!!
+
+    Key: ${key}
     `)
 }
