@@ -10,7 +10,7 @@ const util = require('util')
 const fork = require('child_process').fork
 const execSync = require('child_process').execSync
 const commander = require('commander')
-const Crypto = require('total-crypto').default
+const Crypto = require('total-crypto')
 
 const RESTART_COMMAND = 'rs'
 
