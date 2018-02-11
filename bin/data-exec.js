@@ -25,6 +25,7 @@ program
   .option('-g, --generate-keys', 'Generate an assymetric key pair')
   .option('-s, --generate-key', 'Generate a symetric key')
   .option('-d, --dummy-file <file>', 'Generate a big dummy file')
+  .option('-e, --encrypt-file <file>', 'Encrypt a file')
   .on('--help', () => {
     console.log(`\
     Examples:
@@ -63,7 +64,7 @@ if (program.generateKey) {
 if (program.dummyFile) {
   const file = fs.createWriteStream(program.dummyFile)
 
-  for (let i = 0; i <= 1e6; i++) {
+  for (let i = 0; i <= 1e5; i++) {
     file.write(`Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
       eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
       quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -74,3 +75,21 @@ if (program.dummyFile) {
   file.end()
 }
 
+if (program.encryptFile) {
+  if (program.args.length !== 2) {
+    console.error('Please proving a symmetric and hmac key')
+    process.exit(1)
+  }
+
+  if (program.args[0].length !== 64 || program.args[1].length !== 64) {
+    console.error('Key size must be 256 bit')
+    process.exit(1)
+  }
+
+  let cr = new Crypto()
+
+  let key = program.args[0]
+  let hmac = program.args[1]
+
+  cr.encryptFile(key, hmac, program.encryptFile)
+}
