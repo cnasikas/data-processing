@@ -11,6 +11,7 @@ const fork = require('child_process').fork
 const execSync = require('child_process').execSync
 const commander = require('commander')
 const Crypto = require('total-crypto')
+const blockchain = require('blockchain')
 
 const RESTART_COMMAND = 'rs'
 
@@ -26,6 +27,7 @@ program
   .option('-s, --generate-key', 'Generate a symetric key')
   .option('-d, --dummy-file <file>', 'Generate a big dummy file')
   .option('-e, --encrypt-file <file>', 'Encrypt a file')
+  .option('-a, --evaluation <bytes>', 'Evaluate cost of bytes on Ethereum')
   .on('--help', () => {
     console.log(`\
     Examples:
@@ -35,6 +37,36 @@ program
     `)
   })
   .parse(process.argv)
+
+async function evaluate (size) {
+  try {
+    const bl = blockchain()
+    bl.node.setProvider()
+
+    if (!bl.node.isConnected()) {
+      throw new Error('Blockchain node conncection error')
+    }
+
+    await bl.node.setDefaultAccount()
+    const c = new bl.ContractService()
+    const contracts = c.initContracts().getContracts(true)
+    let instance = await contracts.evaluation.contract.deployed()
+
+    let bytes = ''
+    for (let i = 0; i < (size / 32); i++) {
+      bytes += `9f86d081884c7d659a2feaa0c55ad015` // 32 bytes
+    }
+
+    bytes = bl.node.getLibInstance().fromAscii(bytes)
+
+    console.log(bytes.length)
+
+    let result = await instance.storeData(bytes, {gas: 1000000000})
+    return result
+  } catch (e) {
+    throw new Error(e)
+  }
+}
 
 if (!process.argv.slice(2).length) {
   program.outputHelp()
@@ -92,4 +124,15 @@ if (program.encryptFile) {
   let hmac = program.args[1]
 
   cr.encryptFile(key, hmac, program.encryptFile)
+}
+
+if (program.evaluation) {
+  const size = parseInt(program.evaluation)
+
+  if (isNaN(size) || size > 1000000) {
+    console.error('Max byte size: 1mb')
+    process.exit(1)
+  }
+
+  evaluate(size)
 }
