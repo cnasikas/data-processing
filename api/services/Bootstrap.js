@@ -10,26 +10,20 @@ import middlewares from '../middlewares/middlewares.js'
 import controllers from '../controllers/controllers.js'
 import config from '../config.json'
 
-function setENV () {
-  dotenv.config()
-}
-
 function validateENV () {
   if (_.isEmpty(process.env.SYM_KEY) || _.isEmpty(process.env.HMAC_KEY)) {
     throw errors.crypto.keysNoEnvSet
   }
 }
 
-function initNode (bl) {
-  return new Promise((resolve, reject) => {
-    bl.node.setProvider()
-    if (!bl.node.isConnected()) {
-      reject(errors.node.connection)
-    }
-    bl.node.setDefaultAccount()
-    .then((value) => { resolve(value) })
-    .catch((err) => { reject(err) })
-  })
+async function initNode (bl) {
+  bl.node.setProvider()
+
+  if (!bl.node.isConnected()) {
+    throw new Error('Blockchain node conncection error')
+  }
+
+  await bl.node.setDefaultAccount()
 }
 
 function setMiddlewares (app, db) {
@@ -51,27 +45,13 @@ function setMiddlewares (app, db) {
   app.use('/api', controllers({config, db}))
 }
 
-function setDB (db) {
-  /* DB init returns a promise */
-
-  return db.init()
-}
-
-export default ({app, db}) => {
-  setENV()
+export default async ({app, db}) => {
+  dotenv.config()
   validateENV()
   const bl = blockchain()
 
-  return new Promise((resolve, reject) => {
-    initNode(bl)
-    .then((value) => {
-      new bl.ContractService().initContracts()
-      return setDB(db)
-    })
-    .then((value) => {
-      setMiddlewares(app, db)
-      resolve(value)
-    })
-    .catch((err) => { reject(err) })
-  })
+  await initNode(bl)
+  new bl.ContractService().initContracts()
+  await db.init()
+  setMiddlewares(app, db)
 }

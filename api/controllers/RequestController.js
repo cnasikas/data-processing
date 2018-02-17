@@ -9,23 +9,22 @@ export default class RequestController extends BaseController {
     this.contracts = new this.blockchain.ContractService().getContracts()
   }
 
-  list (req, res) {
-    return Request.find().limit(10).sort({created_at: 'desc'})
-    .then((response) => {
-      res.json(response)
-    })
-    .catch((err) => {
+  async list (req, res) {
+    try {
+      let request = await Request.find().limit(10).sort({created_at: 'desc'})
+      res.json(request)
+    } catch (err) {
       res.status(500).json({error: err.message})
-    })
+    }
   }
 
-  create (req, res) {
+  async create (req, res) {
     let dataAddr = req.body.data_addr || ''
 
-    this.contracts.request.contract.deployed().then((instance) => {
-      return instance.requestForProcess(this.blockchain.node.getDefaultAccount(), dataAddr, {gas: 500000})
-    })
-    .then((result) => {
+    try {
+      let instance = await this.contracts.request.contract.deployed()
+      let result = await instance.requestForProcess(this.blockchain.node.getDefaultAccount(), dataAddr, {gas: 500000})
+
       let req = {
         contract_address: this.contracts.request.contract.address,
         tx: result.tx,
@@ -36,24 +35,19 @@ export default class RequestController extends BaseController {
         gasUsed: result.receipt.gasUsed
       }
 
-      return new Request(req)
-      .save()
-      .then((data) => {
-        res.json(data)
-      })
-    })
-    .catch((err) => {
+      let data = await new Request(req).save()
+      res.json(data)
+    } catch (err) {
       res.status(500).json({error: err.message})
-    })
+    }
   }
 
-  read (req, res, id) {
-    Request.findById(id)
-    .then((request) => {
+  async read (req, res, id) {
+    try {
+      let request = await Request.findById(id)
       res.json(request)
-    })
-    .catch((err) => {
+    } catch (err) {
       res.status(500).json({error: err.message})
-    })
+    }
   }
 }

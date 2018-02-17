@@ -27,12 +27,8 @@ export default class DB {
     this.db.once('open', () => console.log('mongodb connected'))
   }
 
-  init () {
-    return this.connect()
-    .catch((err) => {
-      Promise.reject(err)
-      throw errors.db.connection
-    })
+  async init () {
+    await this.connect()
   }
 
   middleware () {

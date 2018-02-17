@@ -13,14 +13,13 @@ export default class DataController extends BaseController {
     this.crypto = new Crypto()
   }
 
-  list (req, res) {
-    return Data.find().limit(10).sort({created_at: 'desc'})
-    .then((data) => {
+  async list (req, res) {
+    try {
+      let data = await Data.find().limit(10).sort({created_at: 'desc'})
       res.json(data)
-    })
-    .catch((err) => {
+    } catch (err) {
       res.status(500).json({error: err.message})
-    })
+    }
   }
 
   async create (req, res) {
@@ -56,13 +55,12 @@ export default class DataController extends BaseController {
     }
   }
 
-  read (req, res, id) {
-    Data.findById(id)
-    .then((data) => {
+  async read (req, res, id) {
+    try {
+      let data = await Data.findById(id)
       res.json(data)
-    })
-    .catch((err) => {
+    } catch (err) {
       res.status(500).json({error: err.message})
-    })
+    }
   }
 }
