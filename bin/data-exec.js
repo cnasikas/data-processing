@@ -54,10 +54,10 @@ async function evaluate (size) {
 
     let data = ''
     for (let i = 0; i < (size / 32); i++) {
-      data += `9f86d081884c7d659a2feaa0c55ad015` // 32 bytes
+      data += `9f86d081884c7d659a2feaa0c55ad015` // 32 bytes ASCII
     }
 
-    let hash = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
+    let hash = '9f86d081884c7d659a2feaa0c55ad015'
 
     data = bl.node.getLibInstance().fromAscii(data)
     hash = bl.node.getLibInstance().fromAscii(hash)
@@ -133,7 +133,7 @@ if (program.encryptFile) {
 if (program.evaluation) {
   const size = parseInt(program.evaluation)
 
-  if (isNaN(size) || size > 1000000) {
+  if (isNaN(size) || size > 10240000) {
     console.error('Max byte size: 1mb')
     process.exit(1)
   }
