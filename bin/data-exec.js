@@ -52,15 +52,21 @@ async function evaluate (size) {
     const contracts = c.initContracts().getContracts(true)
     let instance = await contracts.evaluation.contract.deployed()
 
-    let bytes = ''
+    let data = ''
     for (let i = 0; i < (size / 32); i++) {
-      bytes += `9f86d081884c7d659a2feaa0c55ad015` // 32 bytes
+      data += `9f86d081884c7d659a2feaa0c55ad015` // 32 bytes
     }
 
-    bytes = bl.node.getLibInstance().fromAscii(bytes)
+    let hash = '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08'
 
-    let result = await instance.storeData(bytes, {gas: 1000000000})
-    return result
+    data = bl.node.getLibInstance().fromAscii(data)
+    hash = bl.node.getLibInstance().fromAscii(hash)
+
+    let resData = await instance.storeData(data, {gas: 1000000000})
+    let resHash = await instance.storeHash(hash, {gas: 1000000000})
+    let resEventData = await instance.storeEvent(data, {gas: 1000000000})
+    let resEventHash = await instance.storeEvent(hash, {gas: 1000000000})
+    return {resData, resHash, resEventData, resEventHash}
   } catch (e) {
     throw new Error(e)
   }
@@ -133,6 +139,11 @@ if (program.evaluation) {
   }
 
   evaluate(size)
-  .then((value) => { console.log('Gas Used: ' + value.receipt.gasUsed) })
+  .then((value) => {
+    console.log('Gas used with data: ' + value.resData.receipt.gasUsed)
+    console.log('Gas used with hash: ' + value.resHash.receipt.gasUsed)
+    console.log('Gas used with event data: ' + value.resEventData.receipt.gasUsed)
+    console.log('Gas used with event hash: ' + value.resEventHash.receipt.gasUsed)
+  })
   .catch((err) => { console.log(err) })
 }
