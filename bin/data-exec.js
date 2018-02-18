@@ -59,8 +59,6 @@ async function evaluate (size) {
 
     bytes = bl.node.getLibInstance().fromAscii(bytes)
 
-    console.log(bytes.length)
-
     let result = await instance.storeData(bytes, {gas: 1000000000})
     return result
   } catch (e) {
@@ -135,4 +133,6 @@ if (program.evaluation) {
   }
 
   evaluate(size)
+  .then((value) => { console.log('Gas Used: ' + value.receipt.gasUsed) })
+  .catch((err) => { console.log(err) })
 }
