@@ -5,6 +5,12 @@ contract Evaluation {
     bytes public data;
     bytes public hash;
 
+    struct Data {
+        bytes hashPointer;
+    }
+
+    mapping (address => Data) public dataStore;
+
     event StoreLog(bytes _data);
 
     function storeData(bytes _data) public {
@@ -17,5 +23,12 @@ contract Evaluation {
 
     function storeEvent(bytes _data) public {
         StoreLog(_data);
+    }
+
+    function storeToHashMap(bytes _hash) public {
+
+        dataStore[msg.sender] = Data({
+            hashPointer: _hash
+        });
     }
 }
