@@ -115,7 +115,7 @@ export function getAccounts () {
     payload: {
       request: {
         method: 'get',
-        url: '/account'
+        url: '/accounts'
       }
     },
     type: GET_ACCOUNTS
@@ -127,7 +127,7 @@ export function getAccount (key) {
     payload: {
       request: {
         method: 'get',
-        url: '/account' + key
+        url: '/accounts/' + key
       }
     },
     type: GET_ACCOUNT
@@ -139,7 +139,7 @@ export function setDefaultAccount (data) {
     payload: {
       request: {
         method: 'post',
-        url: '/account',
+        url: '/accounts',
         data
       }
     },

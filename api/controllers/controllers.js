@@ -11,7 +11,7 @@ export default ({config, db}) => {
 
   router.use('/contracts', new ContractController().router())
   router.use('/datastore', new DataStoreController().router())
-  router.use('/account', new AccountController().router())
+  router.use('/accounts', new AccountController().router())
   router.use('/requests', new RequestController().router())
 
   router.get('/', (req, res) => {
