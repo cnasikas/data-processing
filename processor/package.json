@@ -1,5 +1,5 @@
 {
-  "name": "mpc-processor",
+  "name": "data-processor",
   "version": "1.0.0",
   "description": "A data request processor",
   "main": "server.js",
