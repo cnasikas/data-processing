@@ -33,3 +33,8 @@ cd ../processor
 yarn install
 yarn link "blockchain"
 yarn link "total-crypto"
+
+cd ../controller
+yarn install
+yarn link "blockchain"
+yarn link "total-crypto"

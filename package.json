@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "api": "cd ./api && yarn start",
     "dapp": "cd ./dapp && yarn start",
-    "processor": "cd ./processor && yarn start"
+    "processor": "cd ./processor && yarn start",
+    "controller": "cd ./controller && yarn start"
   },
   "repository": {
     "type": "git",
