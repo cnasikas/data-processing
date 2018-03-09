@@ -1,0 +1,20 @@
+pragma solidity ^0.4.18;
+
+/* Based on: https://github.com/enigmampc/ */
+
+contract BaseDataStoreInterface {
+
+    function getDataSetInfo(bytes32 _dataSetID) public view returns(
+        address owner,
+        string name,
+        string location,
+        string category,
+        string hashMeta
+    );
+
+    function getDataProviderInfo(address provider) public view returns(
+        address owner,
+        bytes32 name,
+        string pubKey
+    );
+}
