@@ -19,6 +19,10 @@ const program = new commander.Command('data-exec')
 
 const pkg = require('./package.json')
 
+function list (val) {
+  return val.split(',')
+}
+
 program
   .version(pkg.version, '-v, --version')
   .usage('[options]')
@@ -28,6 +32,7 @@ program
   .option('-d, --dummy-file <file>', 'Generate a big dummy file')
   .option('-e, --encrypt-file <file>', 'Encrypt a file')
   .option('-a, --evaluation <bytes>', 'Evaluate cost of bytes on Ethereum')
+  .option('-h, --hash <hash>', 'SHA256 an array of arguments', list)
   .on('--help', () => {
     console.log(`\
     Examples:
@@ -158,4 +163,9 @@ if (program.evaluation) {
     console.log('Gas used with data store of 100 entries: ' + value.totalGas)
   })
   .catch((err) => { console.log(err) })
+}
+
+if (program.hash) {
+  let cr = new Crypto()
+  console.log(cr.hash(program.hash))
 }
