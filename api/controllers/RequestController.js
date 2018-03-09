@@ -6,6 +6,7 @@ export default class RequestController extends BaseController {
   constructor () {
     super(Request, '_id')
     this.blockchain = blockchain()
+    this.node = this.blockchain.node
     this.contracts = new this.blockchain.ContractService().getContracts()
   }
 
@@ -19,17 +20,20 @@ export default class RequestController extends BaseController {
   }
 
   async create (req, res) {
-    let dataAddr = req.body.data_addr || ''
+    let datasetSlug = req.body.dataset || ''
+    let account = this.blockchain.node.getDefaultAccount()
 
     try {
-      let instance = await this.contracts.request.contract.deployed()
-      let result = await instance.requestForProcess(this.blockchain.node.getDefaultAccount(), dataAddr, {gas: 500000})
+      let instance = await this.contracts.datastore.contract.deployed()
+      let dataset = await instance.getDataSetInfo(this.node.toBytes(datasetSlug), {gas: 500000})
+      let result = await instance.requestProcessing(this.node.toBytes(datasetSlug), account, {gas: 500000})
 
       let req = {
-        contract_address: this.contracts.request.contract.address,
+        contract_address: this.contracts.datastore.contract.address,
         tx: result.tx,
         account: this.blockchain.node.getDefaultAccount(),
-        data: dataAddr,
+        data: datasetSlug,
+        provider: dataset[0],
         processed: false,
         proof: false,
         gasUsed: result.receipt.gasUsed

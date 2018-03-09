@@ -11,13 +11,19 @@ class AddDataForm extends React.Component {
     return (
       <section id='new-contract'>
         <form onSubmit={this.handleSubmit}>
-          <div className='form-group row'>
-            <label htmlFor='example-text-input' className='col-2 col-form-label'>Hash</label>
-            <div className='col-10'>
-              <Field className='form-control' name='hash_pointer' component='input' type='text' />
-            </div>
+          <div className='form-group'>
+            <label htmlFor='name'>Name</label>
+            <Field className='form-control' name='name' component='input' type='text' id='name' />
           </div>
-          <div className='form-group row'>
+          <div className='form-group'>
+            <label htmlFor='location'>Location</label>
+            <Field className='form-control' name='location' component='input' type='text' id='location' />
+          </div>
+          <div className='form-group'>
+            <label htmlFor='location'>Category</label>
+            <Field className='form-control' name='category' component='input' type='text' id='category' />
+          </div>
+          <div className='form-group'>
             <button type='submit' className='btn btn-primary'>Submit</button>
           </div>
         </form>

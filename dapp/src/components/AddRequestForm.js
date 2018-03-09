@@ -11,13 +11,17 @@ class AddRequestForm extends React.Component {
     return (
       <section id='new-request'>
         <form onSubmit={this.handleSubmit}>
-          <div className='form-group row'>
-            <label htmlFor='example-text-input' className='col-2 col-form-label'>Data Address</label>
-            <div className='col-10'>
-              <Field className='form-control' name='data_addr' component='input' type='text' />
-            </div>
+          <div className='form-group'>
+            <label htmlFor='dataset' className='col-form-label'>Data Set</label>
+            <Field name='dataset' component='select' className='form-control'>
+              {
+                this.props.datastore.map((data) => {
+                  return <option value={data.slug}>{data.name}</option>
+                })
+              }
+            </Field>
           </div>
-          <div className='form-group row'>
+          <div className='form-group'>
             <button type='submit' className='btn btn-primary'>Submit</button>
           </div>
         </form>

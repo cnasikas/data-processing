@@ -8,12 +8,29 @@ const defaults = {
 }
 
 const data = new Schema({
-  hash_ptr: String,
+  slug: String,
+  name: String,
+  location: String,
+  category: String,
+  hash: String,
   contract_address: String,
   tx: String,
-  enc: String,
   account: String,
   gasUsed: Number,
+  ...defaults
+})
+
+const provider = new Schema({
+  name: String,
+  address: String,
+  pubKey: String,
+  ...defaults
+})
+
+const processor = new Schema({
+  name: String,
+  address: String,
+  pubKey: String,
   ...defaults
 })
 
@@ -36,6 +53,7 @@ const request = new Schema({
   tx: String,
   account: String,
   data: String,
+  provider: String,
   processed: Boolean,
   proof: Boolean,
   gasUsed: Number,
@@ -46,5 +64,7 @@ export default {
   data,
   contract,
   request,
-  account
+  account,
+  provider,
+  processor
 }

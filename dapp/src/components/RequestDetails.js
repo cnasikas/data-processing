@@ -33,15 +33,18 @@ class RequestDetails extends React.Component {
           <Badge type={prClass} msg={prMsg} />
         </h5>
         <div className='card-body'>
-          <h5 className='card-title'>Data Hash Pointer: {this.props.request.data}</h5>
+          <h5 className='card-title'>Data set: {this.props.request.data}</h5>
           <h6 className='card-subtitle mb-2'>Contract address:
             <span className='text-muted'> {this.props.request.contract_address}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Tx:
             <span className='text-muted'> {this.props.request.tx}</span>
           </h6>
-          <h6 className='card-subtitle mb-2'>Account:
+          <h6 className='card-subtitle mb-2'>Requestor:
             <span className='text-muted'> {this.props.request.account}</span>
+          </h6>
+          <h6 className='card-subtitle mb-2'>Data provider:
+            <span className='text-muted'> {this.props.request.provider}</span>
           </h6>
         </div>
         <div className='card-footer text-muted'>

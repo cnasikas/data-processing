@@ -24,9 +24,9 @@ export default class Request extends React.Component {
             <small>{this.props.date}</small>
           </div>
           <p className='mb-1'>
-            Data: {this.props.data}
+            Data set: {this.props.data}
           </p>
-          <small>Request Address: {this.props.account}</small>
+          <small>Requestor: {this.props.account}</small>
         </Link>
       </article>
     )

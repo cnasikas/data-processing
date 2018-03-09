@@ -5,3 +5,7 @@
 .contract-body {
   margin-top: 25px;
 }
+
+.list-group-item.data {
+  margin-bottom: 0.75rem;
+}
