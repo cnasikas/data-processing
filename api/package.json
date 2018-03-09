@@ -1,5 +1,5 @@
 {
-  "name": "mpc-api",
+  "name": "data-api",
   "version": "1.0.0",
   "description": "A RESTful API for MPC Dapp",
   "main": "server.js",
