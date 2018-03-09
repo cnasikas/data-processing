@@ -1,38 +1,75 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.18;
 
-/**
- * Contract responsible for handling the metaData
- * In the future will be hash pointers to a db
- */
+/* Based on: https://github.com/enigmampc/ */
 
-contract DataStore {
+import "./DataStoreInterface.sol";
+import "./BaseDataStore.sol";
 
-    address public owner;
 
-    struct Data {
-        string hashPointer;
-        string cipher;
-    }
+contract DataStore is BaseDataStore, DataStoreInterface {
 
-    mapping (address => Data) public dataStore;
-
-    function DataStore () public {
-        owner = msg.sender;
-    }
-
-    function publishData(address userAddr, string hashPointer, string cipher) public {
-
-        dataStore[userAddr] = Data({
-            hashPointer: hashPointer,
-            cipher: cipher
+    function registerDataSet(
+        bytes32 _id,
+        string name,
+        string location,
+        string category,
+        string hashMeta,
+        address _dataOwner
+    )
+    public
+    uniqueDataSet(_id) // providerExist (?)
+    returns (bool success)
+    {
+        require(_dataOwner != address(0));
+        dataStore[_id] = DataSet({
+            _id: _id,
+            name: name,
+            category: category,
+            location: location,
+            hashMeta: hashMeta,
+            owner: _dataOwner,
+            isDataSet: true
         });
+
+        totalData++;
+        NewDataSet(_id, name, location, category, hashMeta, _dataOwner);
+        success = true;
     }
 
-    function getDataPointer(address userAddr) public constant returns (string) {
-        return dataStore[userAddr].hashPointer;
+    function registerProvider(address _providerAddress, bytes32 name, string pubKey)
+    public
+    returns (bool success)
+    {
+        require(_providerAddress != address(0));
+        providers[_providerAddress] = Provider({
+            owner: _providerAddress,
+            name: name,
+            isProvider: true,
+            pubKey: pubKey
+        });
+
+        totalProviders++;
+        NewProvider(_providerAddress, name);
+        success = true;
     }
 
-    function getKey(address userAddr) public constant returns (string) {
-        return dataStore[userAddr].cipher;
+    function requestProcessing(bytes32 _dataSetID, address _subscriber)
+    public
+    dataSetExist(_dataSetID)
+    returns (bool success)
+    {
+        require(msg.sender != address(0));
+
+        requests[_subscriber] = Request({
+            dataSetID: _dataSetID,
+            subscriber: _subscriber,
+            provider: dataStore[_dataSetID].owner,
+            hasProof: false,
+            processed: false
+        });
+
+        totalRequests++;
+        NewRequest(_dataSetID, dataStore[_dataSetID].owner, _subscriber);
+        success = true;
     }
 }
