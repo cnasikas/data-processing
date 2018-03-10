@@ -1,0 +1,17 @@
+{
+  "name": "data-market-utils",
+  "version": "0.0.1",
+  "main": "util.js",
+  "author": "Christos Nasikas",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/data-market.git"
+  },
+  "dependencies": {
+    "validator": "^9.4.1"
+  }
+}
