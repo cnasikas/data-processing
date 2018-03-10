@@ -1,16 +1,14 @@
 import _ from 'lodash'
 import BaseController from './BaseController'
 import Data from '../db/models/Data'
-import blockchain from 'blockchain'
 import Crypto from 'total-crypto'
 import {escapeObject, slugify} from 'data-market-utils'
 
 export default class DataController extends BaseController {
-  constructor () {
-    super(Data, '_id')
-    this.blockchain = blockchain()
+  constructor (blockchain) {
+    super(Data, '_id', blockchain)
     this.node = this.blockchain.node
-    this.contracts = new this.blockchain.ContractService().getContracts()
+    this.contracts = this.blockchain.contracts
     // the keys are checked for existence at bootstrap
     this.crypto = new Crypto()
   }

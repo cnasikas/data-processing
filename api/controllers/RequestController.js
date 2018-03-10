@@ -1,14 +1,12 @@
 import BaseController from './BaseController'
-import blockchain from 'blockchain'
 import Request from '../db/models/Request'
 import {escapeObject} from 'data-market-utils'
 
 export default class RequestController extends BaseController {
-  constructor () {
-    super(Request, '_id')
-    this.blockchain = blockchain()
+  constructor (blockchain) {
+    super(Request, '_id', blockchain)
     this.node = this.blockchain.node
-    this.contracts = new this.blockchain.ContractService().getContracts()
+    this.contracts = this.blockchain.contracts
   }
 
   async list (req, res) {

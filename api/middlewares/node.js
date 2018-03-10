@@ -1,10 +1,6 @@
-import blockchain from 'blockchain'
-
-const bl = blockchain()
-
-export default () => {
+export default (blockchain) => {
   return (req, res, next) => {
-    if (!bl.node.isConnected()) {
+    if (!blockchain.node.isConnected()) {
       res.status(500).json({ error: 'Ethereum node is not running!' })
       return
     }
@@ -13,7 +9,7 @@ export default () => {
       next()
     }
 
-    if (!bl.node.getDefaultAccount()) {
+    if (!blockchain.node.getDefaultAccount()) {
       res.status(500).json({ error: 'Account not provided!' })
       return
     }

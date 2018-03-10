@@ -1,11 +1,7 @@
-/* Processor should be autonomous from api.
-* Contracts migration and deploy would be permanent on blockchain
-*/
-
 import bootstrap from './services/Bootstrap.js'
 
 bootstrap()
-.then((value) => {
+.then((blockchain) => {
   console.log('Bootstrap normally executed')
 })
 .catch((err) => {

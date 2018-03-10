@@ -1,10 +1,11 @@
 import { Router } from 'express'
 
 export default class BaseController {
-  constructor (model, key) {
+  constructor (model, key, blockchain) {
     this.model = model
     this.modelName = model.modelName.toLowerCase()
     this.key = key
+    this.blockchain = blockchain
   }
 
   /**

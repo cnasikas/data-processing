@@ -5,14 +5,13 @@ import AccountController from './AccountController'
 import ContractController from './ContractController'
 import RequestController from './RequestController'
 
-export default ({config, db}) => {
+export default (config, db, blockchain) => {
   const router = Router()
   /* Routes */
-
-  router.use('/contracts', new ContractController().router())
-  router.use('/datastore', new DataStoreController().router())
-  router.use('/accounts', new AccountController().router())
-  router.use('/requests', new RequestController().router())
+  router.use('/contracts', new ContractController(blockchain).router())
+  router.use('/datastore', new DataStoreController(blockchain).router())
+  router.use('/accounts', new AccountController(blockchain).router())
+  router.use('/requests', new RequestController(blockchain).router())
 
   router.get('/', (req, res) => {
     res.json({msg: 'Hello World!'})

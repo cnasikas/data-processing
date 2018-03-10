@@ -17,17 +17,7 @@ function validateENV () {
   }
 }
 
-async function initNode (bl) {
-  bl.node.setProvider()
-
-  if (!bl.node.isConnected()) {
-    throw new Error('Blockchain node conncection error')
-  }
-
-  await bl.node.setDefaultAccount()
-}
-
-function setMiddlewares (app, db) {
+function setMiddlewares (app, db, bl) {
   app.use(morgan('dev'))
   app.use(cors({
     exposedHeaders: config.corsHeaders
@@ -41,19 +31,16 @@ function setMiddlewares (app, db) {
   app.disable('x-powered-by')
   app.use(sanitizer())
   app.use(helmet())
-  app.use(middlewares.node())
+  app.use(middlewares.node(bl))
   app.use(middlewares.db())
 
-  app.use('/api', controllers({config, db}))
+  app.use('/api', controllers(config, db, bl))
 }
 
 export default async ({app, db}) => {
   dotenv.config()
   validateENV()
-  const bl = blockchain()
-
-  await initNode(bl)
-  new bl.ContractService().initContracts()
+  const bl = await blockchain()
   await db.init()
-  setMiddlewares(app, db)
+  setMiddlewares(app, db, bl)
 }

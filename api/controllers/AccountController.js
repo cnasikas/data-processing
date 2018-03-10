@@ -1,11 +1,10 @@
 import BaseController from './BaseController'
-import blockchain from 'blockchain'
 import Account from '../db/models/Account'
 
 export default class AccountController extends BaseController {
-  constructor () {
+  constructor (blockchain) {
     super(Account, '_id')
-    this.blockchain = blockchain()
+    this.blockchain = blockchain
   }
 
   list (req, res) {

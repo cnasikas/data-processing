@@ -6,9 +6,9 @@ import FordwardService from './services/FordwardService.js'
 import bootstrap from './services/Bootstrap.js'
 
 bootstrap()
-.then((value) => {
+.then((blockchain) => {
   console.log('Bootstrap normally executed')
-  const worker = new FordwardService()
+  const worker = new FordwardService(blockchain.listener)
 })
 .catch((err) => {
   console.error('Server error!')

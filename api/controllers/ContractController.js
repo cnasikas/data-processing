@@ -1,11 +1,9 @@
 import BaseController from './BaseController'
 import Contract from '../db/models/Contract'
-import blockchain from 'blockchain'
 
 export default class ContractController extends BaseController {
-  constructor () {
-    super(Contract, '_id')
-    this.blockchain = blockchain()
+  constructor (blockchain) {
+    super(Contract, '_id', blockchain)
   }
 
   list (req, res) {

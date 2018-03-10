@@ -1,9 +1,6 @@
-import Listener from 'blockchain-listeners'
-
 export default class FordwardService {
-  constructor (blockchain) {
-    this.blockchain = blockchain
-    this.listener = new Listener()
+  constructor (listener) {
+    this.listener = listener
     this.registerToEvents()
   }
 
