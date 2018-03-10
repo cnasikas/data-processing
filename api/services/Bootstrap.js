@@ -1,5 +1,7 @@
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
+import helmet from 'helmet'
+import sanitizer from 'express-sanitizer'
 import cors from 'cors'
 import _ from 'lodash'
 import dotenv from 'dotenv'
@@ -26,18 +28,19 @@ async function initNode (bl) {
 }
 
 function setMiddlewares (app, db) {
-  // logger
   app.use(morgan('dev'))
-
-  // 3rd party middleware
   app.use(cors({
     exposedHeaders: config.corsHeaders
   }))
 
   app.use(bodyParser.json({
-    limit: config.bodyLimit
+    limit: config.bodyLimit,
+    extended: false
   }))
 
+  app.disable('x-powered-by')
+  app.use(sanitizer())
+  app.use(helmet())
   app.use(middlewares.node())
   app.use(middlewares.db())
 
