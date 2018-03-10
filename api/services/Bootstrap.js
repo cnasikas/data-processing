@@ -5,14 +5,13 @@ import _ from 'lodash'
 import dotenv from 'dotenv'
 import blockchain from 'blockchain'
 
-import errors from '../errors/errors.js'
 import middlewares from '../middlewares/middlewares.js'
 import controllers from '../controllers/controllers.js'
 import config from '../config.json'
 
 function validateENV () {
   if (_.isEmpty(process.env.SYM_KEY) || _.isEmpty(process.env.HMAC_KEY)) {
-    throw errors.crypto.keysNoEnvSet
+    throw new Error('Please set your symmetric and hmac key')
   }
 }
 
