@@ -1,6 +1,4 @@
-/* TODO: Fix dependency on api. Create local modules. */
-
-import Listener from './Listener.js'
+import Listener from 'blockchain-listeners'
 
 export default class FordwardService {
   constructor (blockchain) {
