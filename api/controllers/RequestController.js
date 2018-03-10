@@ -1,6 +1,7 @@
 import BaseController from './BaseController'
 import blockchain from 'blockchain'
 import Request from '../db/models/Request'
+import {escapeObject} from 'data-market-utils'
 
 export default class RequestController extends BaseController {
   constructor () {
@@ -21,6 +22,7 @@ export default class RequestController extends BaseController {
 
   async create (req, res) {
     let datasetSlug = req.body.dataset || ''
+    datasetSlug = req.sanitize(datasetSlug)
     let account = this.blockchain.node.getDefaultAccount()
 
     try {
@@ -28,7 +30,7 @@ export default class RequestController extends BaseController {
       let dataset = await instance.getDataSetInfo(this.node.toBytes(datasetSlug), {gas: 500000})
       let result = await instance.requestProcessing(this.node.toBytes(datasetSlug), account, {gas: 500000})
 
-      let req = {
+      let out = {
         contract_address: this.contracts.datastore.contract.address,
         tx: result.tx,
         account: this.blockchain.node.getDefaultAccount(),
@@ -39,7 +41,7 @@ export default class RequestController extends BaseController {
         gasUsed: result.receipt.gasUsed
       }
 
-      let data = await new Request(req).save()
+      let data = await new Request(escapeObject(out)).save()
       res.json(data)
     } catch (err) {
       res.status(500).json({error: err.message})
@@ -49,7 +51,7 @@ export default class RequestController extends BaseController {
   async read (req, res, id) {
     try {
       let request = await Request.findById(id)
-      res.json(request)
+      res.json(escapeObject(request))
     } catch (err) {
       res.status(500).json({error: err.message})
     }
