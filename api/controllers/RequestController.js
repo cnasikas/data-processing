@@ -41,8 +41,8 @@ export default class RequestController extends BaseController {
         gasUsed: result.receipt.gasUsed
       }
 
-      let data = await new Request(escapeObject(out)).save()
-      res.json(data)
+      let data = await new Request(out).save()
+      res.json(escapeObject(data))
     } catch (err) {
       res.status(500).json({error: err.message})
     }

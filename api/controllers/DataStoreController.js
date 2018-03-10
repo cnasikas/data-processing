@@ -35,7 +35,7 @@ export default class DataController extends BaseController {
     }
 
     let name = req.sanitize(req.body.name)
-    let slug = slugify(req.sanitize(name))
+    let slug = slugify(name)
     let category = req.sanitize(req.body.category)
     let hash = this.crypto.hash([name, location, category, account])
 
@@ -58,9 +58,9 @@ export default class DataController extends BaseController {
         gasUsed: result.receipt.gasUsed
       }
 
-      let data = await new Data(escapeObject(out)).save()
+      let data = await new Data(out).save()
 
-      return res.json(data)
+      return res.json(escapeObject(data))
     } catch (err) {
       res.status(500).json({error: err.message})
     }
