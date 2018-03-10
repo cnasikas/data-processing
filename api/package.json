@@ -37,6 +37,7 @@
     "morgan": "^1.8.2",
     "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
+    "validator": "^9.4.1",
     "web3": "^0.20.1"
   },
   "devDependencies": {
