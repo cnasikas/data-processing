@@ -1,39 +1,19 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom';
+import React from 'react'
+import withReduxForm from '../components/ReduxFormHOC'
+import withNewItem from '../components/NewItemHOC'
 
-import { addData, addNotification } from "../actions/ActionCreators";
-import AddDataForm from '../components/AddDataForm'
+import { addData } from '../actions/ActionCreators'
+import AddDataFormFields from '../components/AddDataForm'
 
-class AddData extends React.Component {
+const DataForm = withReduxForm(AddDataFormFields, 'add-data')
+const AddDataForm = withNewItem(DataForm, {addItem: addData}, {to: '/datastore/', text: 'Data successuflly added. Return to Data Store'})
 
-  submit = (values) => {
-    this.props.actions.addData(values).then((response) => {
-
-      let message = <Link to={'/datastore/'} >{'Data successuflly added. Return to Data Store'}</Link>
-
-      this.props.actions.addNotification({type: 'success', message: message, class: 'success'})
-
-    }).catch(e => console.log(e))
+export default class AddData extends React.Component {
+  render () {
+    return (
+      <div>
+        <AddDataForm />
+      </div>
+    )
   }
-
-	render() {
-
-    	return (
-        <div>
-          <AddDataForm onSubmit={this.submit} />
-        </div>
-    	)
-  	}
 }
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ addData, addNotification }, dispatch)
-});
-
-const mapStateToProps = state => ({
-  contract: state.contracts
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddData);
