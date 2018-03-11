@@ -7,19 +7,23 @@ export default class AccountController extends BaseController {
     this.blockchain = blockchain
   }
 
-  list (req, res) {
-    this.blockchain.node.getAccounts()
-    .then((accounts) => {
-      let address = this.blockchain.node.getDefaultAccount()
-      let balance = this.blockchain.node.getBalance(address)
+  async list (req, res) {
+    const accounts = await this.blockchain.node.getAccounts()
+    let defaultAccount = this.blockchain.node.getDefaultAccount()
+    let balance = this.blockchain.node.getBalance(defaultAccount)
+    let accountWithBalance = []
 
-      let response = {
-        accounts,
-        default: {address, balance}
-      }
+    for (let address of accounts) {
+      let account = {address: address, balance: this.blockchain.node.getBalance(address)}
+      accountWithBalance.push(account)
+    }
 
-      return res.json(response)
-    })
+    let response = {
+      accounts: accountWithBalance,
+      default: {address: defaultAccount, balance}
+    }
+
+    return res.json(response)
   }
 
   read (req, res, address) {

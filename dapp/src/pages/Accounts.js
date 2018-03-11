@@ -20,6 +20,7 @@ class Accounts extends React.Component {
   }
 
   render () {
+    console.log(this.props.accounts)
     if (!('default' in this.props.accounts && 'accounts' in this.props.accounts)) {
       return null
     }
@@ -27,11 +28,10 @@ class Accounts extends React.Component {
     let accounts = ''
     if (this.props.accounts.accounts.length > 0) {
       accounts = this.props.accounts.accounts.map((account, index) => {
-        return <Account address={account} key={index} index={index + 1} />
+        return <Account account={account} key={index} index={index + 1} />
       })
     }
 
-    console.log(accounts)
     return (
       <section id='account'>
         <div className='card border-dark text-dark mb-3'>
@@ -45,9 +45,20 @@ class Accounts extends React.Component {
             </ul>
           </div>
         </div>
-        <ul className='list-group' >
-          {accounts}
-        </ul>
+        <div className='table-responsive'>
+          <table className='table table-bordered'>
+            <thead>
+              <tr>
+                <th scope='col'>#</th>
+                <th scope='col'>Account</th>
+                <th scope='col'>Balance</th>
+              </tr>
+            </thead>
+            <tbody>
+              {accounts}
+            </tbody>
+          </table>
+        </div>
       </section>
     )
   }
