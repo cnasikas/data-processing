@@ -57,6 +57,7 @@ const request = new Schema({
   processed: Boolean,
   proof: Boolean,
   gasUsed: Number,
+  queryID: String,
   ...defaults
 })
 
