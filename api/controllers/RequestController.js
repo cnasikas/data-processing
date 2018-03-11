@@ -9,24 +9,15 @@ export default class RequestController extends BaseController {
     this.contracts = this.blockchain.contracts
   }
 
-  async list (req, res) {
-    try {
-      let request = await Request.find().limit(10).sort({created_at: 'desc'})
-      res.json(request)
-    } catch (err) {
-      res.status(500).json({error: err.message})
-    }
-  }
-
   async create (req, res) {
-    let datasetSlug = req.body.dataset || ''
-    datasetSlug = req.sanitize(datasetSlug)
+    let datasetSlug = req.sanitize(req.body.dataset) || ''
+    let queryID = req.sanitize(req.body.query) || ''
     let account = this.blockchain.node.getDefaultAccount()
 
     try {
       let instance = await this.contracts.datastore.contract.deployed()
       let dataset = await instance.getDataSetInfo(this.node.toBytes(datasetSlug), {gas: 500000})
-      let result = await instance.requestProcessing(this.node.toBytes(datasetSlug), account, {gas: 500000})
+      let result = await instance.requestProcessing(this.node.toBytes(datasetSlug), account, this.node.toBytes(queryID), {gas: 500000})
 
       let out = {
         contract_address: this.contracts.datastore.contract.address,
@@ -36,6 +27,7 @@ export default class RequestController extends BaseController {
         provider: dataset[0],
         processed: false,
         proof: false,
+        queryID,
         gasUsed: result.receipt.gasUsed
       }
 
