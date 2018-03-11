@@ -16,8 +16,11 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^4.0.0",
+    "exports-loader": "^0.7.0",
+    "jquery": "^3.3.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "popper.js": "^1.12.9",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
