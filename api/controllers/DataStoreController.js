@@ -49,7 +49,7 @@ export default class DataController extends BaseController {
 
       let data = await new Data(out).save()
 
-      return res.json(escapeObject(data))
+      return res.json(escapeObject(data._doc))
     } catch (err) {
       res.status(500).json({error: err.message})
     }
@@ -58,7 +58,7 @@ export default class DataController extends BaseController {
   async read (req, res, id) {
     try {
       let data = await Data.findById(id)
-      res.json(escapeObject(data))
+      res.json(escapeObject(data._doc))
     } catch (err) {
       res.status(500).json({error: err.message})
     }
