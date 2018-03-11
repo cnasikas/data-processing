@@ -17,7 +17,6 @@ export default function withAddItemForm (FormComponent, actions, link) {
     }
 
     submit (values) {
-      console.log(values)
       this.props.actions.addItem(values).then((response) => {
         let message = <Link to={link.to} >{link.text}</Link>
 

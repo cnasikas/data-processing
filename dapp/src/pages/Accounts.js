@@ -20,7 +20,6 @@ class Accounts extends React.Component {
   }
 
   render () {
-    console.log(this.props.accounts)
     if (!('default' in this.props.accounts && 'accounts' in this.props.accounts)) {
       return null
     }
