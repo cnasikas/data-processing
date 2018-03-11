@@ -36,6 +36,7 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         address provider;
         bool hasProof;
         bool processed;
+        bytes32 queryID;
     }
 
     struct Processor {
