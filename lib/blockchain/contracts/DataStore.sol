@@ -90,4 +90,13 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         NewRequest(_dataSetID, dataStore[_dataSetID].owner, _subscriber, queryID);
         success = true;
     }
+
+    function notifyProcessor(address _processorAddress, bytes32 _dataSetID)
+    public
+    dataSetExist(_dataSetID)
+    returns (bool success)
+    {
+        Process(_processorAddress, _dataSetID);
+        success = true;
+    }
 }
