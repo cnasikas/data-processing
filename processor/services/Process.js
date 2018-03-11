@@ -16,8 +16,7 @@ export default class ProcessService {
       let account = this.node.getDefaultAccount()
       let instance = await this.contracts.datastore.contract.deployed()
       let dataset = await instance.getDataSetInfo.call(data._dataSetID, {from: account, gas: 500000})
-      let hash = this.crypto.hash([dataset[1], dataset[2], dataset[3], dataset[0]])
-
+      let hash = this.crypto.hash([dataset[2], dataset[1], dataset[3], dataset[0]])
       assert.equal(hash, dataset[4], 'Dataset hash not match!!')
     } catch (e) {
       throw new Error(e)
