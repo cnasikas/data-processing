@@ -49,6 +49,7 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     mapping(address => Provider) public providers;
     mapping (bytes32 => DataSet) public dataStore;
     mapping (address => Request) public requests;
+    mapping (address => Processor) public processors;
 
     mapping(address => DataSet[]) public providerDataSets;
 
