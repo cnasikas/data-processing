@@ -11,6 +11,7 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     uint public totalData;
     uint public totalProviders;
     uint public totalRequests;
+    uint public totalProcessors;
 
     struct DataSet {
         bytes32 _id;
@@ -54,6 +55,7 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         totalData = 0;
         totalProviders = 0;
         totalRequests = 0;
+        totalProcessors = 0;
     }
 
     function getDataSetInfo(bytes32 _dataSetID)
