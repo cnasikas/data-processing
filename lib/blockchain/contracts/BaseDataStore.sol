@@ -65,10 +65,10 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     view
     dataSetExist(_dataSetID)
     returns(
-        address owner,
         string name,
         string location,
         string category,
+        address owner,
         string hashMeta
     ) {
         owner = dataStore[_dataSetID].owner;

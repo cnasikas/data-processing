@@ -5,10 +5,10 @@ pragma solidity ^0.4.18;
 contract BaseDataStoreInterface {
 
     function getDataSetInfo(bytes32 _dataSetID) public view returns(
-        address owner,
         string name,
         string location,
         string category,
+        address owner,
         string hashMeta
     );
 
