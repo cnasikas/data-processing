@@ -8,7 +8,7 @@ import bootstrap from './services/Bootstrap.js'
 bootstrap()
 .then((blockchain) => {
   console.log('Bootstrap normally executed')
-  const worker = new FordwardService(blockchain.listener)
+  const worker = new FordwardService(blockchain, blockchain.listener)
 })
 .catch((err) => {
   console.error('Server error!')

@@ -1,5 +1,8 @@
 export default class FordwardService {
-  constructor (listener) {
+  constructor (blockchain, listener) {
+    this.blockchain = blockchain
+    this.node = this.blockchain.node
+    this.contracts = this.blockchain.contracts
     this.listener = listener
     this.registerToEvents()
   }
