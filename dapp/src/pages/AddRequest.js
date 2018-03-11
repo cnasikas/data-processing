@@ -1,41 +1,36 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import withReduxForm from '../components/ReduxFormHOC'
+import withNewItem from '../components/NewItemHOC'
 
-import { addRequest, addNotification, getDataStore } from '../actions/ActionCreators'
-import AddRequestForm from '../components/AddRequestForm'
+import { getDataStore, addRequest } from '../actions/ActionCreators'
+import AddRequestFormFields from '../components/AddRequestForm'
 
-class AddRequest extends React.Component {
+const RequestForm = withReduxForm(AddRequestFormFields, 'add-request')
+const AddRequestForm = withNewItem(RequestForm, {addItem: addRequest}, {to: '/requests/', text: 'Request successuflly added. Return to requests'})
+
+class AddRequestPage extends React.Component {
   componentDidMount () {
     this.props.actions.getDataStore().catch(e => console.log(e))
-    this.submit = this.submit.bind(this)
-  }
-
-  submit (values) {
-    this.props.actions.addRequest(values).then((response) => {
-      let message = <Link to={'/requests/'} >{'Request successuflly added. Return to requests'}</Link>
-
-      this.props.actions.addNotification({type: 'success', message: message, class: 'success'})
-    }).catch(e => console.log(e))
   }
 
   render () {
+    let toPass = {datastore: this.props.datastore}
     return (
       <div>
-        <AddRequestForm onSubmit={this.submit} datastore={this.props.datastore} />
+        <AddRequestForm toPass={toPass} />
       </div>
     )
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ addRequest, addNotification, getDataStore }, dispatch)
-})
-
 const mapStateToProps = state => ({
-  request: state.requests,
   datastore: state.datastore
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddRequest)
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators({ getDataStore }, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddRequestPage)
