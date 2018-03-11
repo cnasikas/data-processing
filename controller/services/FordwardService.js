@@ -7,8 +7,16 @@ export default class FordwardService {
     this.registerToEvents()
   }
 
-  forwardToProcessor (data) {
-    console.log(data)
+  async forwardToProcessor (data) {
+    try {
+      let account = this.node.getDefaultAccount()
+      let instance = await this.contracts.datastore.contract.deployed()
+      // to be change. Rotate processors creating a linked list inside smart contract
+      let processor = await instance.getDataProcessorInfo(account, {from: account, gas: 500000})
+      let notify = await instance.notifyProcessor(processor[0], data._dataSetID)
+    } catch (e) {
+      throw new Error(e)
+    }
   }
 
   registerToEvents () {
