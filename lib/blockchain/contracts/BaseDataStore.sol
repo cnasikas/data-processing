@@ -104,6 +104,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         _;
     }
 
+    modifier dataProcessorExist(address _processorAddress) {
+        require(processors[_processorAddress].isProcessor);
+        _;
+    }
+
     modifier onlyDataProvider(address _providerAddress) {
         require(providers[_providerAddress].isProvider);
         require(providers[_providerAddress].owner == msg.sender);
