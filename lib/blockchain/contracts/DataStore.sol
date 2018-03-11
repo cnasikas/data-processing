@@ -53,7 +53,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         success = true;
     }
 
-    function requestProcessing(bytes32 _dataSetID, address _subscriber)
+    function requestProcessing(bytes32 _dataSetID, address _subscriber, bytes32 queryID)
     public
     dataSetExist(_dataSetID)
     returns (bool success)
@@ -65,11 +65,12 @@ contract DataStore is BaseDataStore, DataStoreInterface {
             subscriber: _subscriber,
             provider: dataStore[_dataSetID].owner,
             hasProof: false,
-            processed: false
+            processed: false,
+            queryID: queryID
         });
 
         totalRequests++;
-        NewRequest(_dataSetID, dataStore[_dataSetID].owner, _subscriber);
+        NewRequest(_dataSetID, dataStore[_dataSetID].owner, _subscriber, queryID);
         success = true;
     }
 }
