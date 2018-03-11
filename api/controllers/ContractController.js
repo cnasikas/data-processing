@@ -9,7 +9,7 @@ export default class ContractController extends BaseController {
   list (req, res) {
     let types = []
 
-    let contracts = new this.blockchain.ContractService().getContracts()
+    let contracts = this.blockchain.contracts
 
     for (let key of Object.keys(contracts)) {
       let temp = {id: contracts[key].id, title: contracts[key].title, desc: contracts[key].desc}
