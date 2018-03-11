@@ -11,7 +11,13 @@ export default class BaseController {
   /**
    * Display a listing of the resource.
    */
-  list (req, res) {
+  async list (req, res) {
+    try {
+      let data = await this.model.find().limit(10).sort({created_at: 'desc'})
+      res.json(data)
+    } catch (err) {
+      res.status(500).json({error: err.message})
+    }
   }
 
   /**
