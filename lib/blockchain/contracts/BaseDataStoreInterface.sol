@@ -17,4 +17,13 @@ contract BaseDataStoreInterface {
         bytes32 name,
         string pubKey
     );
+
+    function getDataProcessorInfo(address _dataProcessorAddress)
+    public
+    view
+    returns(
+        address owner,
+        bytes32 name,
+        string pubKey
+    );
 }

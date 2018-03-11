@@ -91,6 +91,20 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         pubKey = providers[_dataProviderAddress].pubKey;
     }
 
+    function getDataProcessorInfo(address _dataProcessorAddress)
+    public
+    view
+    dataProcessorExist(_dataProcessorAddress)
+    returns(
+        address owner,
+        bytes32 name,
+        string pubKey
+    ) {
+        owner = processors[_dataProcessorAddress].owner;
+        name = processors[_dataProcessorAddress].name;
+        pubKey = processors[_dataProcessorAddress].pubKey;
+    }
+
     /* modifiers */
     modifier uniqueDataSet(bytes32 _dataSetID) {
         require(_dataSetID.length > 0);
