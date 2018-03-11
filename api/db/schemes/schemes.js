@@ -3,6 +3,10 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const defaults = {
+  contract_address: String,
+  tx: String,
+  account: String,
+  gasUsed: Number,
   created_at: { type: Date, default: Date.now },
   updated_at: { type: Date, default: Date.now }
 }
@@ -13,10 +17,6 @@ const data = new Schema({
   location: String,
   category: String,
   hash: String,
-  contract_address: String,
-  tx: String,
-  account: String,
-  gasUsed: Number,
   ...defaults
 })
 
