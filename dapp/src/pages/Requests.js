@@ -1,43 +1,16 @@
 import React from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import moment from 'moment'
-
+import withList from '../components/ListHOC'
 import { getRequests } from '../actions/ActionCreators'
 import Request from '../components/Request.js'
-import AddResourceBtn from '../components/AddResourceBtn.js'
 
 import '../css/Requests.css'
 
-class Requests extends React.Component {
-  componentDidMount () {
-    this.props.actions.getRequests().catch(e => console.log(e))
-  }
+const Requests = withList(Request, 'requests', {getList: getRequests}, 'Request for processing')
 
+export default class RequestPage extends React.Component {
   render () {
-    let requests = ''
-    if (this.props.requests.length > 0) {
-      requests = this.props.requests.map((data, index) => {
-        let date = !isNaN(new Date(data.created_at)) ? moment(new Date(data.created_at)).format('DD/MM/YYYY') : 'No date provided'
-        return <Request {...data} key={index} date={date} id={index} />
-      })
-    }
-
     return (
-      <section id='requests' className='list-group'>
-        {requests}
-        <AddResourceBtn to='/requests/add' text='Add Request' />
-      </section>
+      <Requests />
     )
   }
 }
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({ getRequests }, dispatch)
-})
-
-const mapStateToProps = state => ({
-  requests: state.requests
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Requests)
