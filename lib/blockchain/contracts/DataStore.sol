@@ -53,6 +53,23 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         success = true;
     }
 
+    function registerProcessor(address _processorAddress, bytes32 name, string pubKey)
+    public
+    returns (bool success)
+    {
+        require(_processorAddress != address(0));
+        processors[_processorAddress] = Processor({
+            owner: _processorAddress,
+            name: name,
+            isProcessor: true,
+            pubKey: pubKey
+        });
+
+        totalProcessors++;
+        NewProcessor(_processorAddress, name, pubKey);
+        success = true;
+    }
+
     function requestProcessing(bytes32 _dataSetID, address _subscriber, bytes32 queryID)
     public
     dataSetExist(_dataSetID)
