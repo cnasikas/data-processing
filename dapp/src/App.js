@@ -5,6 +5,7 @@ import AppFooter from './components/Footer'
 
 import './css/App.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap'
 
 export default class App extends React.Component {
   render () {
