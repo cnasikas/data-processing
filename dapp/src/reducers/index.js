@@ -5,6 +5,7 @@ import contracts from './contracts'
 import datastore from './datastore'
 import requests from './requests'
 import account from './account'
+import processors from './processors'
 
 export default combineReducers({
   notifications,
@@ -12,5 +13,6 @@ export default combineReducers({
   contracts,
   requests,
   account,
+  processors,
   form: formReducer
 })
