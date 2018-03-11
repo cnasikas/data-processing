@@ -8,6 +8,9 @@ import {
   GET_REQUESTS,
   GET_REQUEST,
   ADD_REQUEST,
+  GET_PROCESSORS,
+  GET_PROCESSOR,
+  ADD_PROCESSOR,
   GET_ACCOUNTS,
   GET_ACCOUNT,
   SET_DEFAULT_ACCOUNT
@@ -107,6 +110,43 @@ export function addRequest (data) {
       }
     },
     type: ADD_REQUEST
+  }
+}
+
+export function getProcessors () {
+  return {
+    payload: {
+      request: {
+        method: 'get',
+        url: '/processors'
+      }
+    },
+    type: GET_PROCESSORS
+  }
+}
+
+export function getProcessor (key) {
+  return {
+    payload: {
+      request: {
+        method: 'get',
+        url: '/processors/' + key
+      }
+    },
+    type: GET_PROCESSOR
+  }
+}
+
+export function addProcessor (data) {
+  return {
+    payload: {
+      request: {
+        method: 'post',
+        url: '/processors',
+        data
+      }
+    },
+    type: ADD_PROCESSOR
   }
 }
 
