@@ -11,10 +11,10 @@ export default class Request extends React.Component {
     let prcMsg = processed ? 'Processed' : 'On hold'
 
     let prClass = proof ? 'success' : 'warning'
-    let prMsg = proof ? 'Proof' : 'No proof'
+    let prMsg = proof ? 'Proof' : 'No Proof'
 
     return (
-      <article className='list-group-item mb-3 request'>
+      <article className='list-group-item list-group-item-action flex-column align-items-start request'>
         <Link to={'/requests/' + this.props._id}>
           <div className='d-flex w-100 justify-content-between'>
             <h5 className='mb-1'>Request #{this.props.id + 1}
