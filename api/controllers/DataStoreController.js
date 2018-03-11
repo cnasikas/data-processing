@@ -13,15 +13,6 @@ export default class DataController extends BaseController {
     this.crypto = new Crypto()
   }
 
-  async list (req, res) {
-    try {
-      let data = await Data.find().limit(10).sort({created_at: 'desc'})
-      res.json(data)
-    } catch (err) {
-      res.status(500).json({error: err.message})
-    }
-  }
-
   async create (req, res) {
     /* TODO: Hanlde null values on post */
     let account = this.node.getDefaultAccount()
