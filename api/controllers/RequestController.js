@@ -16,7 +16,7 @@ export default class RequestController extends BaseController {
 
     try {
       let instance = await this.contracts.datastore.contract.deployed()
-      let dataset = await instance.getDataSetInfo(this.node.toBytes(datasetSlug), {gas: 500000})
+      let dataset = await instance.getDataSetInfo.call(this.node.toBytes(datasetSlug), {gas: 500000})
       let result = await instance.requestProcessing(this.node.toBytes(datasetSlug), account, this.node.toBytes(queryID), {gas: 500000})
 
       let out = {
