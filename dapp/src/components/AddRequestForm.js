@@ -29,6 +29,10 @@ export default class AddRequestForm extends React.Component {
             <option key='5' value='min'>Minimum</option>
           </Field>
         </div>
+        <div className='form-group'>
+          <label htmlFor='name'>Response public key</label>
+          <Field className='form-control' name='pubkey' component='input' type='text' id='pubkey' />
+        </div>
       </section>
     )
   }
