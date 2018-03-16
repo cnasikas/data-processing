@@ -12,6 +12,15 @@ contract BaseDataStoreInterface {
         string hashMeta
     );
 
+    function getRequestInfo(address _subscriber) public view returns(
+        bytes32 dataSetID,
+        address provider,
+        bool hasProof,
+        bool processed,
+        bytes32 queryID,
+        string pubKey
+    );
+
     function getDataProviderInfo(address provider) public view returns(
         address owner,
         bytes32 name,

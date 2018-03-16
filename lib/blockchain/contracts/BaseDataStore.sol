@@ -78,6 +78,26 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         hashMeta = dataStore[_dataSetID].hashMeta;
     }
 
+    function getRequestInfo(address _subscriber)
+    public
+    view
+    requestExist(_subscriber)
+    returns(
+        bytes32 dataSetID,
+        address provider,
+        bool hasProof,
+        bool processed,
+        bytes32 queryID,
+        string pubKey
+    ) {
+        dataSetID = requests[_subscriber].dataSetID;
+        provider = requests[_subscriber].provider;
+        hasProof = requests[_subscriber].hasProof;
+        processed = requests[_subscriber].processed;
+        queryID = requests[_subscriber].queryID;
+        pubKey = requests[_subscriber].pubKey;
+    }
+
     function getDataProviderInfo(address _dataProviderAddress)
     public
     view
@@ -115,6 +135,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     modifier dataSetExist(bytes32 _dataSetID) {
         require(_dataSetID.length > 0);
         require(dataStore[_dataSetID].isDataSet);
+        _;
+    }
+
+    modifier requestExist(address _subscriber) {
+        require(requests[_subscriber].isRequest);
         _;
     }
 
