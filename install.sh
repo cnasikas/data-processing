@@ -19,7 +19,7 @@ cd ../util
 yarn install
 yarn link
 
-cd ../../bin
+cd ../../cli
 yarn install
 yarn link "sjcl-all"
 yarn link "blockchain"
