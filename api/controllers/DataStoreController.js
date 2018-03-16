@@ -29,9 +29,6 @@ export default class DataController extends BaseController {
     let hash = this.crypto.hash([name, location, category, account])
 
     try {
-      // let encKey = this.crypto.pubEncrypt(process.env.PR_PUB_KEY, process.env.SYM_KEY)
-      // let {iv, kemtag, ct} = JSON.parse(encKey)
-      // encKey = JSON.stringify({iv, kemtag, ct})
       let instance = await this.contracts.datastore.contract.deployed()
       let result = await instance.registerDataSet(this.node.toBytes(slug), location, name, category, hash, account, {from: account, gas: 500000})
 
