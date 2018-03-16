@@ -30,7 +30,7 @@ export default class DataController extends BaseController {
 
     try {
       let instance = await this.contracts.datastore.contract.deployed()
-      let result = await instance.registerDataSet(this.node.toBytes(slug), location, name, category, hash, account, {from: account, gas: 500000})
+      let result = await instance.registerDataSet(this.node.toBytes(slug), name, location, category, hash, account, {from: account, gas: 500000})
 
       let out = {
         slug,
