@@ -93,11 +93,11 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         success = true;
     }
 
-    function notifyProcessor(address _providerAddress, address _subscriber)
+    function notifyProcessor(address _providerAddress, address _subscriber, string cipher)
     public
     returns (bool success)
     {
-        Process(_providerAddress, _subscriber);
+        Process(_providerAddress, _subscriber, cipher);
         success = true;
     }
 }

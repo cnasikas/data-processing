@@ -15,7 +15,7 @@ contract DataStoreInterface {
     function registerProvider(address _providerAddress, bytes32 name, string pubKey) public returns (bool success);
     function registerProcessor(address _processorAddress, bytes32 name, string pubKey) public returns (bool success);
     function requestProcessing(bytes32 _dataSetID, address _subscriber, bytes32 queryID, string pubKey) public returns (bool success);
-    function notifyProcessor(address _providerAddress, address _subscriber) public returns (bool success);
+    function notifyProcessor(address _providerAddress, address _subscriber, string cipher) public returns (bool success);
 
     /*********** Events ************/
 
@@ -23,5 +23,5 @@ contract DataStoreInterface {
     event NewProvider(address _providerAddress, bytes32 name);
     event NewProcessor(address _providerAddress, bytes32 name, string pubKey);
     event NewRequest(bytes32 _dataSetID, address _provider, address _subscriber, bytes32 queryID, string pubKey);
-    event Process(address _providerAddress, address _subscriber);
+    event Process(address _providerAddress, address _subscriber, string cipher);
 }

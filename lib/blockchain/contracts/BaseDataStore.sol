@@ -73,10 +73,10 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         address owner,
         string hashMeta
     ) {
-        owner = dataStore[_dataSetID].owner;
         name = dataStore[_dataSetID].name;
         location = dataStore[_dataSetID].location;
         category = dataStore[_dataSetID].category;
+        owner = dataStore[_dataSetID].owner;
         hashMeta = dataStore[_dataSetID].hashMeta;
     }
 
