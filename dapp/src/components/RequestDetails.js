@@ -46,6 +46,9 @@ class RequestDetails extends React.Component {
           <h6 className='card-subtitle mb-2'>Data provider:
             <span className='text-muted'> {this.props.request.provider}</span>
           </h6>
+          <h6 className='card-subtitle mb-2'>Response public key:
+            <span className='text-muted'> {this.props.request.pubKey}</span>
+          </h6>
         </div>
         <div className='card-footer text-muted'>
           Created at: {date}
