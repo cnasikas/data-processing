@@ -93,12 +93,11 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         success = true;
     }
 
-    function notifyProcessor(address _processorAddress, bytes32 _dataSetID)
+    function notifyProcessor(address _providerAddress, address _subscriber)
     public
-    dataSetExist(_dataSetID)
     returns (bool success)
     {
-        Process(_processorAddress, _dataSetID);
+        Process(_providerAddress, _subscriber);
         success = true;
     }
 }
