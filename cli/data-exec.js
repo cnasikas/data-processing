@@ -26,6 +26,7 @@ program
   .option('-e, --encrypt-file <file>', 'Encrypt a file')
   .option('-a, --evaluation <bytes>', 'Evaluate cost of bytes on Ethereum')
   .option('-h, --hash <hash>', 'SHA256 an array of arguments', list)
+  .option('-f, --hash-file <file>', 'SHA256 of a file')
   .on('--help', () => {
     console.log(`\
     Examples:
@@ -147,18 +148,27 @@ if (program.evaluation) {
   }
 
   evaluate(size)
-  .then((value) => {
-    console.log('Gas used with data: ' + value.resData.receipt.gasUsed)
-    console.log('Gas used with hash: ' + value.resHash.receipt.gasUsed)
-    console.log('Gas used with event data: ' + value.resEventData.receipt.gasUsed)
-    console.log('Gas used with event hash: ' + value.resEventHash.receipt.gasUsed)
-    console.log('Gas used with data dump: ' + value.resDump.receipt.gasUsed)
-    console.log('Gas used with data store of 100 entries: ' + value.totalGas)
-  })
-  .catch((err) => { console.log(err) })
+    .then((value) => {
+      console.log('Gas used with data: ' + value.resData.receipt.gasUsed)
+      console.log('Gas used with hash: ' + value.resHash.receipt.gasUsed)
+      console.log('Gas used with event data: ' + value.resEventData.receipt.gasUsed)
+      console.log('Gas used with event hash: ' + value.resEventHash.receipt.gasUsed)
+      console.log('Gas used with data dump: ' + value.resDump.receipt.gasUsed)
+      console.log('Gas used with data store of 100 entries: ' + value.totalGas)
+    })
+    .catch((err) => { console.log(err) })
 }
 
 if (program.hash) {
   let cr = new Crypto()
   console.log(cr.hash(program.hash))
+}
+
+if (program.hashFile) {
+  let cr = new Crypto()
+  cr.hashFile(program.hashFile)
+    .then((hash) => {
+      console.log('SHA256: ' + hash)
+    })
+    .catch((err) => { console.error(err) })
 }
