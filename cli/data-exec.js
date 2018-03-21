@@ -3,17 +3,10 @@
 
 // Inspired by https://github.com/kmagiera/babel-watch/blob/master/babel-watch.js
 
-const path = require('path')
 const fs = require('fs')
-const os = require('os')
-const util = require('util')
-const fork = require('child_process').fork
-const execSync = require('child_process').execSync
 const commander = require('commander')
 const Crypto = require('total-crypto')
 const blockchain = require('blockchain')
-
-const RESTART_COMMAND = 'rs'
 
 const program = new commander.Command('data-exec')
 
