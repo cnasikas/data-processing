@@ -3,9 +3,15 @@
 cd "$(dirname "$0")"
 
 yarn install
-cd lib/blockchain
+
+cd lib/util
 yarn install
 yarn link
+
+cd ../blockchain
+yarn install
+yarn link
+yarn link "data-market-utils"
 
 cd ../sjcl-all
 yarn link
@@ -14,10 +20,7 @@ cd ../total-crypto
 yarn install
 yarn link
 yarn link "sjcl-all"
-
-cd ../util
-yarn install
-yarn link
+yarn link "data-market-utils"
 
 cd ../../cli
 yarn install
