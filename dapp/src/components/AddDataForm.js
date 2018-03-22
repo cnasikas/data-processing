@@ -14,7 +14,7 @@ export default class AddDataForm extends React.Component {
           <Field className='form-control' name='location' component='input' type='text' id='location' />
         </div>
         <div className='form-group'>
-          <label htmlFor='location'>Category</label>
+          <label htmlFor='category'>Category</label>
           <Field className='form-control' name='category' component='input' type='text' id='category' />
         </div>
       </section>
