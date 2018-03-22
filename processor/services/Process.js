@@ -26,7 +26,7 @@ export default class ProcessService {
       let request = await instance.getRequestInfo.call(data._subscriber, {from: account, gas: 500000})
       let dataset = await instance.getDataSetInfo.call(request[0], {from: account, gas: 500000})
       let hash = this.crypto.hash([dataset[0], dataset[1], dataset[2], dataset[3]]) // name, location, category, account (controller)
-      assert.equal(hash, dataset[4], 'Dataset hash not match!!')
+      assert.equal(hash, dataset[4], 'Metadata hash not match!!')
       let symKey = this.decryptKey(data.cipher)
       this.processData(symKey)
     } catch (e) {

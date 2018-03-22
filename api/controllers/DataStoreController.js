@@ -17,20 +17,22 @@ export default class DataController extends BaseController {
     /* TODO: Hanlde null values on post */
     let account = this.node.getDefaultAccount()
     let location = req.body.location || ''
+    let digest = req.body.digest || ''
     location = req.sanitize(location)
+    digest = req.sanitize(digest) // data hash provided from the data provider / controller
 
-    if (_.isEmpty(location)) {
-      return res.status(500).json({error: 'Empty location is not allowed'})
+    if (_.isEmpty(location) || _.isEmpty(digest)) {
+      return res.status(500).json({error: 'Empty location or digest is not allowed'})
     }
 
     let name = req.sanitize(req.body.name)
     let slug = slugify(name)
     let category = req.sanitize(req.body.category)
-    let hash = this.crypto.hash([name, location, category, account])
+    let hash = this.crypto.hash([name, location, category, account]) // meta data hash
 
     try {
       let instance = await this.contracts.datastore.contract.deployed()
-      let result = await instance.registerDataSet(this.node.toBytes(slug), name, location, category, hash, account, {from: account, gas: 500000})
+      let result = await instance.registerDataSet(this.node.toBytes(slug), name, location, category, hash, account, digest, {from: account, gas: 500000})
 
       let out = {
         slug,
@@ -38,6 +40,7 @@ export default class DataController extends BaseController {
         location,
         category,
         hash,
+        digest,
         contract_address: this.contracts.datastore.contract.address,
         tx: result.tx,
         account,

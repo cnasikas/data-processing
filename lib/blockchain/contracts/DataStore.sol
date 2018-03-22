@@ -14,7 +14,8 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         string location,
         string category,
         string hashMeta,
-        address _dataOwner
+        address _dataOwner,
+        string digest
     )
     public
     uniqueDataSet(_id) // providerExist (?)
@@ -28,11 +29,12 @@ contract DataStore is BaseDataStore, DataStoreInterface {
             location: location,
             hashMeta: hashMeta,
             owner: _dataOwner,
-            isDataSet: true
+            isDataSet: true,
+            digest: digest
         });
 
         totalData++;
-        NewDataSet(_id, name, location, category, hashMeta, _dataOwner);
+        NewDataSet(_id, name, location, category, hashMeta, _dataOwner, digest);
         success = true;
     }
 

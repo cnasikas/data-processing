@@ -9,7 +9,8 @@ contract BaseDataStoreInterface {
         string location,
         string category,
         address owner,
-        string hashMeta
+        string hashMeta,
+        string digest
     );
 
     function getRequestInfo(address _subscriber) public view returns(

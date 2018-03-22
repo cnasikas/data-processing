@@ -32,7 +32,7 @@ export default class FordwardService {
   registerToEvents () {
     this.listener.on('request', (req) => {
       this.forwardToProcessor({...req.args})
-      .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) })
     })
   }
 }

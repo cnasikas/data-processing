@@ -20,7 +20,7 @@ class DataDetails extends React.Component {
 
     return (
       <article className='card data-details border-secondary mb-3'>
-        <h5 className='card-header'>Data set details</h5>
+      <h5 className='card-header'>Data set details</h5>
         <div className='card-body'>
           <h5 className='card-title'>Name: {this.props.data.name}</h5>
           <h5 className='card-subtitle'>Category: {this.props.data.category}</h5>
@@ -31,6 +31,9 @@ class DataDetails extends React.Component {
           </h6>
           <h6 className='card-subtitle mb-2'>Location:
             <span className='text-muted'> {this.props.data.location}</span>
+          </h6>
+          <h6 className='card-subtitle mb-2'>Data Hash:
+            <span className='text-muted'> {this.props.data.digest}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Metadata Hash:
             <span className='text-muted'> {this.props.data.hash}</span>

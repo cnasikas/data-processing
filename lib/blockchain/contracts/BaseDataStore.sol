@@ -20,6 +20,7 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         string category;
         string hashMeta;
         address owner;
+        string digest;
         bool isDataSet;
     }
 
@@ -71,13 +72,15 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         string location,
         string category,
         address owner,
-        string hashMeta
+        string hashMeta,
+        string digest
     ) {
         name = dataStore[_dataSetID].name;
         location = dataStore[_dataSetID].location;
         category = dataStore[_dataSetID].category;
         owner = dataStore[_dataSetID].owner;
         hashMeta = dataStore[_dataSetID].hashMeta;
+        digest = dataStore[_dataSetID].digest;
     }
 
     function getRequestInfo(address _subscriber)

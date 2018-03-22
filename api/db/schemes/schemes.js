@@ -17,6 +17,7 @@ const data = new Schema({
   location: String,
   category: String,
   hash: String,
+  digest: String,
   ...defaults
 })
 
