@@ -1,0 +1,3 @@
+[submodule "zkp/pequin"]
+	path = zkp/pequin
+	url = https://github.com/pepper-project/pequin
