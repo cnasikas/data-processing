@@ -25,8 +25,8 @@ program
   .option('-d, --dummy-file <file>', 'Generate a 45MB dummy file')
   .option('-e, --encrypt-file <file>', 'Encrypt a file')
   .option('-a, --evaluation <bytes>', 'Evaluate gas cost of bytes on Ethereum')
-  .option('-s, --hash <hash>', 'SHA256 an array of arguments', list)
-  .option('-f, --hash-file <file>', 'SHA256 of a file')
+  .option('-s, --hash <hash>', 'Hash with SHA256 an array of arguments', list)
+  .option('-f, --hash-file <file>', 'Hash with SHA256 a file')
   .on('--help', () => {
     console.log(`\
     Examples:
