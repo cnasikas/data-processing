@@ -40,6 +40,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
 
     function registerProvider(address _providerAddress, bytes32 name, string pubKey)
     public
+    onlyOwner
     returns (bool success)
     {
         require(_providerAddress != address(0));
@@ -57,6 +58,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
 
     function registerProcessor(address _processorAddress, bytes32 name, string pubKey)
     public
+    onlyOwner
     returns (bool success)
     {
         require(_processorAddress != address(0));
