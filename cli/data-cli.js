@@ -24,7 +24,7 @@ program
   .option('-k, --generate-key', 'Generate a symmetric key')
   .option('-d, --dummy-file <file>', 'Generate a 45MB dummy file')
   .option('-e, --encrypt-file <file>', 'Encrypt a file')
-  .option('-a, --evaluation <bytes>', 'Evaluate cost of bytes on Ethereum')
+  .option('-a, --evaluation <bytes>', 'Evaluate gas cost of bytes on Ethereum')
   .option('-s, --hash <hash>', 'SHA256 an array of arguments', list)
   .option('-f, --hash-file <file>', 'SHA256 of a file')
   .on('--help', () => {
