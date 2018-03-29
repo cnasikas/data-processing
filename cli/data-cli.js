@@ -21,11 +21,11 @@ program
   .usage('[options]')
   .description('data-cli is a js node app runner that lets you run specific commands for the data sharing app')
   .option('-g, --generate-keys', 'Generate an assymetric key pair')
-  .option('-s, --generate-key', 'Generate a symetric key')
+  .option('-k, --generate-key', 'Generate a symetric key')
   .option('-d, --dummy-file <file>', 'Generate a big dummy file')
   .option('-e, --encrypt-file <file>', 'Encrypt a file')
   .option('-a, --evaluation <bytes>', 'Evaluate cost of bytes on Ethereum')
-  .option('-h, --hash <hash>', 'SHA256 an array of arguments', list)
+  .option('-s, --hash <hash>', 'SHA256 an array of arguments', list)
   .option('-f, --hash-file <file>', 'SHA256 of a file')
   .on('--help', () => {
     console.log(`\
