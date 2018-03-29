@@ -1,7 +1,7 @@
 {
   "name": "data-exec",
   "version": "0.0.1",
-  "main": "data-exec.js",
+  "main": "data-cli.js",
   "author": "Christos Nasikas",
   "license": "MIT",
   "repository": {
@@ -12,6 +12,6 @@
     "commander": "^2.9.0"
   },
   "bin": {
-    "data-exec": "./data-exec.js"
+    "data-cli": "./data-cli.js"
   }
 }

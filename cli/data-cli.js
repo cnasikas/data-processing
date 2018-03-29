@@ -19,7 +19,7 @@ function list (val) {
 program
   .version(pkg.version, '-v, --version')
   .usage('[options]')
-  .description('data-exec is a js node app runner that lets you run specific commands for data sharing app')
+  .description('data-cli is a js node app runner that lets you run specific commands for the data sharing app')
   .option('-g, --generate-keys', 'Generate an assymetric key pair')
   .option('-s, --generate-key', 'Generate a symetric key')
   .option('-d, --dummy-file <file>', 'Generate a big dummy file')
@@ -30,7 +30,7 @@ program
   .on('--help', () => {
     console.log(`\
     Examples:
-      $ data-exec crypto -g
+      $ data-cli -g
     See more:
     https://github.com/cnasikas/data-market.git
     `)
@@ -90,7 +90,6 @@ if (program.generateKeys) {
   console.log(`\
     Key pair for assymetric encryption using 256 bit elliptic curve generated.
     Save your keys to a secure place!!
-
     Public key: ${pair.pub}
     Secret key: ${pair.sec}
     `)
@@ -101,7 +100,6 @@ if (program.generateKey) {
   console.log(`\
     Key for symmetric encryption generated (256 bit).
     Save your key to a secure place!!
-
     Key: ${key}
     `)
 }
