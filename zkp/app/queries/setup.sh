@@ -14,9 +14,5 @@ cd ../
 echo "$(date) verifier setup" | tee -a $LOG
 SECONDS=0
 ./pepper_compile_and_setup_V.sh $APP $APP.vkey $APP.pkey
-echo "$(date) verifier setup done, took $SECONDS seconds" | tee -a $LOG
-
-echo "$(date) prover setup" | tee -a $LOG
-SECONDS=0
 ./pepper_compile_and_setup_P.sh $APP
-echo "$(date) prover setup done, took $SECONDS seconds" | tee -a $LOG
+echo "$(date) Setup done, took $SECONDS seconds" | tee -a $LOG
