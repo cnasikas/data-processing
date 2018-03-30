@@ -8,5 +8,7 @@ cd ../
 
 echo "$(date) verify proof" | tee -a $LOG
 SECONDS=0
+ts=$(date +%s%N);
 ./bin/pepper_verifier_$APP verify $APP.vkey $APP.inputs $APP.outputs $APP.proof
-echo "$(date) verify proof done, took $SECONDS seconds" | tee -a $LOG
+tt=$((($(date +%s%N) - $ts)/1000000));
+echo "$(date) verify proof done, took $tt milliseconds" | tee -a $LOG
