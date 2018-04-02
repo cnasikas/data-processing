@@ -1,3 +1,4 @@
 #!/bin/bash
 
-docker run -it --volume=$1:/zkp/pepper/queries zkp /bin/bash
+cd "$(dirname "$0")"
+docker run -it --volume=$(pwd)/app/queries:/zkp/pepper/queries zkp /bin/bash
