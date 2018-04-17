@@ -37,7 +37,7 @@ export default class ProcessService {
   registerToEvents () {
     this.listener.on('toProcess', (req) => {
       this.process({...req.args})
-      .catch((err) => { console.log(err) })
+        .catch((err) => { console.log(err) })
     })
   }
 }
