@@ -11,6 +11,10 @@ cd lib/util
 yarn install
 yarn link
 
+cd ../db
+yarn install
+yarn link
+
 cd ../blockchain
 yarn install
 yarn link
@@ -31,12 +35,14 @@ yarn link "sjcl-all"
 yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
+yarn link "db"
 
 cd ../api
 yarn install
 yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
+yarn link "db"
 
 cd ../dapp
 yarn install
@@ -46,9 +52,18 @@ yarn install
 yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
+yarn link "db"
 
 cd ../controller
 yarn install
 yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
+yarn link "db"
+
+cd ../explorer
+yarn install
+yarn link "blockchain"
+yarn link "total-crypto"
+yarn link "data-market-utils"
+yarn link "db"
