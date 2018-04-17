@@ -31,6 +31,7 @@ export default class FordwardService {
 
   registerToEvents () {
     this.listener.on('request', (req) => {
+      // TODO: Chech if the controller is the owner of the set by address
       this.forwardToProcessor({...req.args})
         .catch((err) => { console.log(err) })
     })
