@@ -1,11 +1,10 @@
 import { Router } from 'express'
 
 export default class BaseController {
-  constructor (model, key, blockchain) {
+  constructor (model, key) {
     this.model = model
-    this.modelName = model.modelName.toLowerCase()
+    this.modelName = this.model.toLowerCase()
     this.key = key
-    this.blockchain = blockchain
   }
 
   /**
@@ -13,7 +12,7 @@ export default class BaseController {
    */
   async list (req, res) {
     try {
-      let data = await this.model.find().limit(10).sort({created_at: 'desc'})
+      let data = await req.app.db.getCollection(this.model)
       res.json(data)
     } catch (err) {
       res.status(500).json({error: err.message})

@@ -1,16 +1,15 @@
 import BaseController from './BaseController'
-import Request from '../db/models/Request'
 import validator from 'validator'
 import {escapeObject} from 'data-market-utils'
 
 export default class RequestController extends BaseController {
-  constructor (blockchain) {
-    super(Request, '_id', blockchain)
-    this.node = this.blockchain.node
-    this.contracts = this.blockchain.contracts
+  constructor () {
+    super('Request', '_id')
   }
 
   async create (req, res) {
+    const blockchain = req.app.blockchain
+    const db = req.app.db
     let datasetSlug = req.sanitize(req.body.dataset) || ''
     let queryID = req.sanitize(req.body.query) || ''
     let pubKey = req.sanitize(req.body.pubkey) || ''
@@ -23,17 +22,17 @@ export default class RequestController extends BaseController {
       return res.status(500).json({error: 'Public key must be in hex'})
     }
 
-    let account = this.blockchain.node.getDefaultAccount()
+    let account = blockchain.node.getDefaultAccount()
 
     try {
-      let instance = await this.contracts.datastore.contract.deployed()
-      let dataset = await instance.getDataSetInfo.call(this.node.toBytes(datasetSlug), {gas: 500000})
-      let result = await instance.requestProcessing(this.node.toBytes(datasetSlug), account, this.node.toBytes(queryID), pubKey, {gas: 500000})
+      let instance = await blockchain.contracts.datastore.contract.deployed()
+      let dataset = await instance.getDataSetInfo.call(blockchain.node.toBytes(datasetSlug), {gas: 500000})
+      let result = await instance.requestProcessing(blockchain.node.toBytes(datasetSlug), account, blockchain.node.toBytes(queryID), pubKey, {gas: 500000})
 
       let out = {
-        contract_address: this.contracts.datastore.contract.address,
+        contract_address: blockchain.contracts.datastore.contract.address,
         tx: result.tx,
-        account: this.blockchain.node.getDefaultAccount(),
+        account: blockchain.node.getDefaultAccount(),
         data: datasetSlug,
         provider: dataset[0],
         processed: false,
@@ -43,7 +42,7 @@ export default class RequestController extends BaseController {
         gasUsed: result.receipt.gasUsed
       }
 
-      let data = await new Request(out).save()
+      let data = await db.save('Request', out)
       res.json(escapeObject(data._doc))
     } catch (err) {
       res.status(500).json({error: err.message})
@@ -51,8 +50,9 @@ export default class RequestController extends BaseController {
   }
 
   async read (req, res, id) {
+    const db = req.app.db
     try {
-      let request = await Request.findById(id)
+      let request = await db.get('Request', id)
       res.json(escapeObject(request._doc))
     } catch (err) {
       res.status(500).json({error: err.message})

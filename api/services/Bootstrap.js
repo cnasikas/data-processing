@@ -17,7 +17,7 @@ function validateENV () {
   }
 }
 
-function setMiddlewares (app, db, bl) {
+function setMiddlewares (app) {
   app.use(morgan('dev'))
   app.use(cors({
     exposedHeaders: config.corsHeaders
@@ -31,16 +31,18 @@ function setMiddlewares (app, db, bl) {
   app.disable('x-powered-by')
   app.use(sanitizer())
   app.use(helmet())
-  app.use(middlewares.node(bl))
-  app.use(middlewares.db())
+  app.use(middlewares.node(app.blockchain))
+  app.use(middlewares.db(app.db))
 
-  app.use('/api', controllers(config, db, bl))
+  app.use('/api', controllers())
 }
 
-export default async ({app, db}) => {
+export default async (app, db) => {
   dotenv.config()
   validateENV()
   const bl = await blockchain()
   await db.init()
-  setMiddlewares(app, db, bl)
+  app.blockchain = bl
+  app.db = db
+  setMiddlewares(app)
 }

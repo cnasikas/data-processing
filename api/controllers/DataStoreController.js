@@ -1,25 +1,24 @@
 import _ from 'lodash'
 import BaseController from './BaseController'
-import Data from '../db/models/Data'
 import Crypto from 'total-crypto'
 import {escapeObject, slugify} from 'data-market-utils'
 
 export default class DataController extends BaseController {
-  constructor (blockchain) {
-    super(Data, '_id', blockchain)
-    this.node = this.blockchain.node
-    this.contracts = this.blockchain.contracts
-    // the keys are checked for existence at bootstrap
+  constructor () {
+    super('Data', '_id')
     this.crypto = new Crypto()
   }
 
   async create (req, res) {
     /* TODO: Hanlde null values on post */
-    let account = this.node.getDefaultAccount()
+    const blockchain = req.app.blockchain
+    const db = req.app.db
+    let account = blockchain.node.getDefaultAccount()
     let location = req.body.location || ''
     let digest = req.body.digest || ''
     location = req.sanitize(location)
     digest = req.sanitize(digest) // data hash provided from the data provider / controller
+    const contracts = blockchain.contracts
 
     if (_.isEmpty(location) || _.isEmpty(digest)) {
       return res.status(500).json({error: 'Empty location or digest is not allowed'})
@@ -31,8 +30,8 @@ export default class DataController extends BaseController {
     let hash = this.crypto.hash([name, location, category, account]) // meta data hash
 
     try {
-      let instance = await this.contracts.datastore.contract.deployed()
-      let result = await instance.registerDataSet(this.node.toBytes(slug), name, location, category, hash, account, digest, {from: account, gas: 500000})
+      let instance = await contracts.datastore.contract.deployed()
+      let result = await instance.registerDataSet(blockchain.node.toBytes(slug), name, location, category, hash, account, digest, {from: account, gas: 500000})
 
       let out = {
         slug,
@@ -41,13 +40,13 @@ export default class DataController extends BaseController {
         category,
         hash,
         digest,
-        contract_address: this.contracts.datastore.contract.address,
+        contract_address: contracts.datastore.contract.address,
         tx: result.tx,
         account,
         gasUsed: result.receipt.gasUsed
       }
 
-      let data = await new Data(out).save()
+      let data = await db.save('Data', out)
 
       return res.json(escapeObject(data._doc))
     } catch (err) {
@@ -57,7 +56,8 @@ export default class DataController extends BaseController {
 
   async read (req, res, id) {
     try {
-      let data = await Data.findById(id)
+      const db = req.app.db
+      let data = await db.get('Data', id)
       res.json(escapeObject(data._doc))
     } catch (err) {
       res.status(500).json({error: err.message})
