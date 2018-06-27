@@ -1,29 +1,13 @@
-import {
-  ADD_NOTIFICATION,
-  REMOVE_NOTIFICATION,
-  GET_CONTRACT_TYPES,
-  GET_DATASTORE,
-  GET_DATA,
-  ADD_DATA,
-  GET_REQUESTS,
-  GET_REQUEST,
-  ADD_REQUEST,
-  GET_PROCESSORS,
-  GET_PROCESSOR,
-  ADD_PROCESSOR,
-  GET_ACCOUNTS,
-  GET_ACCOUNT,
-  SET_DEFAULT_ACCOUNT
-} from './ActionTypes'
+import types from './ActionTypes'
 
 export function addNotification (notification = {}) {
-  return { type: ADD_NOTIFICATION, payload: notification }
+  return { type: types.ADD_NOTIFICATION, payload: notification }
 }
 
 export function removeNotification (id = -1) {
   return {
     payload: id,
-    type: REMOVE_NOTIFICATION
+    type: types.REMOVE_NOTIFICATION
   }
 }
 
@@ -35,7 +19,7 @@ export function getContractTypes () {
         url: '/contracts'
       }
     },
-    type: GET_CONTRACT_TYPES
+    type: types.GET_CONTRACT_TYPES
   }
 }
 
@@ -47,7 +31,7 @@ export function getDataStore () {
         url: '/datastore'
       }
     },
-    type: GET_DATASTORE
+    type: types.GET_DATASTORE
   }
 }
 
@@ -59,7 +43,7 @@ export function getData (key) {
         url: '/datastore/' + key
       }
     },
-    type: GET_DATA
+    type: types.GET_DATA
   }
 }
 
@@ -72,7 +56,7 @@ export function addData (data) {
         data
       }
     },
-    type: ADD_DATA
+    type: types.ADD_DATA
   }
 }
 
@@ -84,7 +68,7 @@ export function getRequests () {
         url: '/requests'
       }
     },
-    type: GET_REQUESTS
+    type: types.GET_REQUESTS
   }
 }
 
@@ -96,7 +80,7 @@ export function getRequest (key) {
         url: '/requests/' + key
       }
     },
-    type: GET_REQUEST
+    type: types.GET_REQUEST
   }
 }
 
@@ -109,7 +93,7 @@ export function addRequest (data) {
         data
       }
     },
-    type: ADD_REQUEST
+    type: types.ADD_REQUEST
   }
 }
 
@@ -121,7 +105,7 @@ export function getProcessors () {
         url: '/processors'
       }
     },
-    type: GET_PROCESSORS
+    type: types.GET_PROCESSORS
   }
 }
 
@@ -133,7 +117,7 @@ export function getProcessor (key) {
         url: '/processors/' + key
       }
     },
-    type: GET_PROCESSOR
+    type: types.GET_PROCESSOR
   }
 }
 
@@ -146,7 +130,7 @@ export function addProcessor (data) {
         data
       }
     },
-    type: ADD_PROCESSOR
+    type: types.ADD_PROCESSOR
   }
 }
 
@@ -158,7 +142,7 @@ export function getAccounts () {
         url: '/accounts'
       }
     },
-    type: GET_ACCOUNTS
+    type: types.GET_ACCOUNTS
   }
 }
 
@@ -170,7 +154,7 @@ export function getAccount (key) {
         url: '/accounts/' + key
       }
     },
-    type: GET_ACCOUNT
+    type: types.GET_ACCOUNT
   }
 }
 
@@ -183,6 +167,6 @@ export function setDefaultAccount (data) {
         data
       }
     },
-    type: SET_DEFAULT_ACCOUNT
+    type: types.SET_DEFAULT_ACCOUNT
   }
 }

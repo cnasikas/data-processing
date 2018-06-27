@@ -1,15 +1,12 @@
-import {
-  GET_ACCOUNTS_SUCCESS,
-  SET_DEFAULT_ACCOUNT_SUCCESS
-} from '../actions/ActionTypes'
+import types from '../actions/ActionTypes'
 
 export default function account (state = {}, action) {
   const { payload, type } = action
 
   switch (type) {
-    case GET_ACCOUNTS_SUCCESS:
+    case types.GET_ACCOUNTS_SUCCESS:
       return {...payload.data}
-    case SET_DEFAULT_ACCOUNT_SUCCESS:
+    case types.SET_DEFAULT_ACCOUNT_SUCCESS:
       return {...payload.data}
 
     default:
