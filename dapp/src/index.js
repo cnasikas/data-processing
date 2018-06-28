@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import axios from 'axios'
 import axiosMiddleware from 'redux-axios-middleware'
+import { createLogger } from 'redux-logger'
 
 import './index.css'
 import App from './App'
@@ -34,9 +35,14 @@ const client = axios.create({
   responseType: 'json'
 })
 
+const loggerMiddleware = createLogger()
+
 let store = createStore(
   reducers,
-  applyMiddleware(axiosMiddleware(client, middlewareConfig))
+  applyMiddleware(
+    loggerMiddleware,
+    axiosMiddleware(client, middlewareConfig)
+  )
 )
 
 ReactDOM.render(
