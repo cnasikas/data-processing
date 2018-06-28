@@ -2,7 +2,7 @@ import types from './ActionTypes'
 import {buildActions} from '../utils/actions'
 
 const actions = buildActions({
-  getContractTypes: [types.GET_CONTRACT_TYPES, 'contracts']
+  getContracts: [types.GET_CONTRACTS, 'contracts']
 })
 
 export default actions

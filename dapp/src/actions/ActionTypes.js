@@ -3,8 +3,8 @@ import {buildActionTypes} from '../utils/actions'
 const types = [
   'ADD_NOTIFICATION',
   'REMOVE_NOTIFICATION',
-  'GET_CONTRACT_TYPES',
-  'GET_CONTRACT_TYPES_SUCCESS',
+  'GET_CONTRACTS',
+  'GET_CONTRACTS_SUCCESS',
   'GET_DATASTORE',
   'GET_DATASTORE_SUCCESS',
   'GET_DATA',
