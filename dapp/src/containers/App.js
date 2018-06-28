@@ -1,15 +1,15 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import AppHeader from './components/Header'
-import AppMain from './components/Main'
-import AppFooter from './components/Footer'
+import AppHeader from '../components/Header'
+import AppMain from '../components/Main'
+import AppFooter from '../components/Footer'
 
 import {
   contractActions
-} from './actions'
+} from '../actions'
 
-import './css/App.css'
+import '../css/App.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap'
 
