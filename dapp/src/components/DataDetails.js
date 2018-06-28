@@ -2,13 +2,18 @@ import React from 'react'
 import moment from 'moment'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getData } from '../actions/ActionCreators'
 
 import AddResourceBtn from '../components/AddResourceBtn.js'
 
+import {
+  datastoreActions
+} from '../actions'
+
+const getData = datastoreActions.getData
+
 class DataDetails extends React.Component {
   componentDidMount () {
-    this.props.actions.getData(this.props.match.params.id).catch(e => console.log(e))
+    this.props.actions.getData({id: this.props.match.params.id}).catch(e => console.log(e))
   }
 
   render () {
@@ -20,7 +25,7 @@ class DataDetails extends React.Component {
 
     return (
       <article className='card data-details border-secondary mb-3'>
-      <h5 className='card-header'>Data set details</h5>
+        <h5 className='card-header'>Data set details</h5>
         <div className='card-body'>
           <h5 className='card-title'>Name: {this.props.data.name}</h5>
           <h5 className='card-subtitle'>Category: {this.props.data.category}</h5>

@@ -3,8 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import shortid from 'shortid'
 
-import { removeNotification } from '../actions/ActionCreators'
 import Notification from './Notification'
+
+import {
+  notificationActions
+} from '../actions'
+
+const removeNotification = notificationActions.removeNotification
 
 class Notifications extends React.Component {
   generateKey (pre) {
@@ -17,7 +22,7 @@ class Notifications extends React.Component {
     }
 
     let notifications = this.props.notifications.map((notif, index) =>
-      <Notification key={this.generateKey(index)} {...notif} onDismissClick={() => this.props.actions.removeNotification(index)} />
+      <Notification key={this.generateKey(index)} {...notif} onDismissClick={() => this.props.actions.removeNotification()} />
     )
 
     return (

@@ -4,8 +4,15 @@ import { connect } from 'react-redux'
 import withReduxForm from '../components/ReduxFormHOC'
 import withNewItem from '../components/NewItemHOC'
 
-import { getDataStore, addRequest } from '../actions/ActionCreators'
 import AddRequestFormFields from '../components/AddRequestForm'
+
+import {
+  datastoreActions,
+  requestActions
+} from '../actions'
+
+const getDataStore = datastoreActions.getDataStore
+const addRequest = requestActions.addRequest
 
 const RequestForm = withReduxForm(AddRequestFormFields, 'add-request')
 const AddRequestForm = withNewItem(RequestForm, {addItem: addRequest}, {to: '/requests/', text: 'Request successuflly added. Return to requests'})

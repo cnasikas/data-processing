@@ -2,8 +2,13 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { getContractTypes } from '../actions/ActionCreators'
 import ContractType from '../components/ContractType.js'
+
+import {
+  contractActions
+} from '../actions'
+
+const getContractTypes = contractActions.getContractTypes
 
 class ContractTypes extends React.Component {
   componentDidMount () {

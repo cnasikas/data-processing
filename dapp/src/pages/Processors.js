@@ -1,7 +1,12 @@
 import React from 'react'
 import withList from '../components/ListHOC'
 import Processor from '../components/Processor'
-import { getProcessors } from '../actions/ActionCreators'
+
+import {
+  processorActions
+} from '../actions'
+
+const getProcessors = processorActions.getProcessors
 
 const Processors = withList(Processor, 'processors', {getList: getProcessors}, 'Register Processor')
 

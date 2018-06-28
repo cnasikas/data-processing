@@ -3,7 +3,13 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import Account from '../components/Account.js'
-import { getAccounts, setDefaultAccount } from '../actions/ActionCreators'
+
+import {
+  accountActions
+} from '../actions'
+
+const getAccounts = accountActions.getAccounts
+const setDefaultAccount = accountActions.setDefaultAccount
 
 class Accounts extends React.Component {
   constructor (props) {

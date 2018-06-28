@@ -2,11 +2,16 @@ import React from 'react'
 import withReduxForm from '../components/ReduxFormHOC'
 import withNewItem from '../components/NewItemHOC'
 
-import { addData } from '../actions/ActionCreators'
 import AddDataFormFields from '../components/AddDataForm'
 
+import {
+  datastoreActions
+} from '../actions'
+
+const addData = datastoreActions.addData
+
 const DataForm = withReduxForm(AddDataFormFields, 'add-data')
-const AddDataForm = withNewItem(DataForm, {addItem: addData}, {to: '/datastore/', text: 'Data successuflly added. Return to Data Store'})
+const AddDataForm = withNewItem(DataForm, {addItem: addData}, {to: '/datastore/', text: 'Data successuflly added. Return to Data Store'}, true)
 
 export default class AddData extends React.Component {
   render () {

@@ -2,12 +2,17 @@ import React from 'react'
 import moment from 'moment'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getRequest } from '../actions/ActionCreators'
 import Badge from './Badge.js'
+
+import {
+  requestActions
+} from '../actions'
+
+const getRequest = requestActions.getRequest
 
 class RequestDetails extends React.Component {
   componentDidMount () {
-    this.props.actions.getRequest(this.props.match.params.id).catch(e => console.log(e))
+    this.props.actions.getRequest({id: this.props.match.params.id}).catch(e => console.log(e))
   }
 
   render () {

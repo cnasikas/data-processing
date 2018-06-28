@@ -12,7 +12,11 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import reducers from './reducers/'
 
-import { addNotification } from './actions/ActionCreators'
+import {
+  notificationActions
+} from './actions'
+
+const addNotification = notificationActions.addNotification
 
 const middlewareConfig = {
   returnRejectedPromiseOnError: true,

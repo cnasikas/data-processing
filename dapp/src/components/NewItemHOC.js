@@ -1,11 +1,17 @@
+/* global FormData */
+
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import { addNotification } from '../actions/ActionCreators'
+import {
+  notificationActions
+} from '../actions'
 
-export default function withAddItemForm (FormComponent, actions, link) {
+const addNotification = notificationActions.addNotification
+
+export default function withAddItemForm (FormComponent, actions, link, multipart = false) {
   const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({ ...actions, addNotification }, dispatch)
   })
