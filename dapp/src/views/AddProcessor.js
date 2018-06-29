@@ -8,10 +8,10 @@ import {
   processorActions
 } from '../actions'
 
-const addProcessor = processorActions.addProcessor
+const registerProcessor = processorActions.registerProcessor
 
 const ProcessorForm = withReduxForm(AddProcessorFormFields, 'add-processor')
-const AddProcessorForm = withNewItem(ProcessorForm, {addItem: addProcessor}, {to: '/processors/', text: 'Processor successuflly added. Return to processors'})
+const AddProcessorForm = withNewItem(ProcessorForm, {addItem: registerProcessor}, {to: '/processors/', text: 'Processor successuflly added. Return to processors'})
 
 export default class AddProcessor extends React.Component {
   render () {

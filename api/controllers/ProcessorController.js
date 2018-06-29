@@ -22,7 +22,7 @@ export default class ProcessorController extends BaseController {
       return res.json()
     } catch (err) {
       console.log(err)
-      res.status(500).json({error: 'Failed saving pending bid'})
+      res.status(500).json({error: 'Failed saving pending processor'})
     }
   }
 }

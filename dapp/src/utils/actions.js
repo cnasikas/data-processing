@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import { isString } from './helpers'
+import Contract from '../lib/Contract'
 
 const buildActionTypes = (types) => {
   return types.reduce((obj, item) => {
@@ -41,6 +42,28 @@ const createAPIAction = (type, url, action = 'get', options = {}) => {
   }
 }
 
+const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreprocess = (data) => data) => {
+  return (data) => {
+    return async dispatch => {
+      const contractInstance = new Contract()
+
+      data = dataPreprocess(data)
+      const dataArgs = dataToArgs(data)
+
+      const res = await contractInstance[contractMethod](...dataArgs)
+
+      const obj = {
+        ...data,
+        txId: res.tx
+      }
+
+      dispatch(after({}, obj))
+
+      return res.tx
+    }
+  }
+}
+
 const buildActions = (actions) => {
   actions = {...actions}
 
@@ -63,5 +86,6 @@ const buildActions = (actions) => {
 export {
   buildActionTypes,
   createSimpleAction,
+  createBlockchainAction,
   buildActions
 }

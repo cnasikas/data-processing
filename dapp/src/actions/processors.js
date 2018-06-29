@@ -1,5 +1,9 @@
 import types from './ActionTypes'
-import {buildActions} from '../utils/actions'
+import {buildActions, createBlockchainAction} from '../utils/actions'
+
+const dataToArgs = (data) => {
+  return [data.name, data.pubkey]
+}
 
 const actions = buildActions({
   getProcessors: [types.GET_PROCESSORS, 'processors'],
@@ -7,4 +11,9 @@ const actions = buildActions({
   addProcessor: [types.ADD_PROCESSOR, 'processors', 'post']
 })
 
-export default actions
+const registerProcessor = createBlockchainAction('registerProcessor', actions.addProcessor, dataToArgs)
+
+export default {
+  registerProcessor,
+  ...actions
+}

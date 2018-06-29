@@ -11,7 +11,7 @@ export default class Processor extends React.Component {
             <small>{this.props.date}</small>
           </div>
           <p className='mb-1'><b>Name:</b> {this.props.name}</p>
-          <p className='mb-1'><b>Public key:</b> {this.props.pubKey}</p>
+          <p className='mb-1'><b>Public key:</b> {this.props.pub_key}</p>
           <small><b>Address:</b> {this.props.account}</small>
         </Link>
       </article>
