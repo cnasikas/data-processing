@@ -6,6 +6,8 @@ import bootstrap from './services/Bootstrap.js'
 
 const app = express()
 
+app.get('/api/health', (_, res) => res.status(204).send())
+
 bootstrap(app)
   .then((value) => {
     app.listen(process.env.PORT || 3001, function () {
