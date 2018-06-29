@@ -32,17 +32,14 @@ function setMiddlewares (app) {
   app.use(sanitizer())
   app.use(helmet())
   app.use(middlewares.node(app.blockchain))
-  app.use(middlewares.db(app.db))
 
   app.use('/api', controllers())
 }
 
-export default async (app, db) => {
+export default async (app) => {
   dotenv.config()
   validateENV()
   const bl = await blockchain()
-  await db.init()
   app.blockchain = bl
-  app.db = db
   setMiddlewares(app)
 }
