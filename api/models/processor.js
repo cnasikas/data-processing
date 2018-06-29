@@ -6,7 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    address_id: DataTypes.INTEGER
+    address_id: DataTypes.INTEGER,
+    tx_id: {
+      type: DataTypes.STRING,
+      unique: true
+    },
+    status: DataTypes.STRING
   }, {});
   Processor.associate = function(models) {
     // associations can be defined here
