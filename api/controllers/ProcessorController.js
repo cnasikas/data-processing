@@ -1,45 +1,28 @@
-import validator from 'validator'
 import BaseController from './BaseController'
-import {escapeObject} from 'data-market-utils'
+import {Processor} from '../models'
 
 export default class ProcessorController extends BaseController {
   constructor () {
-    super('Processor', '_id')
+    super(Processor, 'processor', 'processors')
   }
 
   async create (req, res) {
-    const blockchain = req.app.blockchain
-    const db = req.app.db
-    let account = blockchain.node.getDefaultAccount()
-    let name = req.sanitize(req.body.name) || ''
-    let pubKey = req.sanitize(req.body.pubkey) || ''
-
-    if (validator.isEmpty(pubKey)) {
-      return res.status(500).json({error: 'Empty public key is not allowed'})
-    }
-
-    if (!validator.isHexadecimal(pubKey)) {
-      return res.status(500).json({error: 'Public key must be in hex'})
-    }
+    const processor = req.body
 
     try {
-      let instance = await blockchain.contracts.datastore.contract.deployed()
-      let result = await instance.registerProcessor(account, blockchain.node.toBytes(name), pubKey, {from: account, gas: 500000})
+      await Processor.create({
+        name: processor.name,
+        pub_key: processor.pubkey,
+        address_id: 1,
+        tx_id: processor.txId,
+        status: 'pending'
+      })
 
-      let out = {
-        name,
-        address: account,
-        pubKey,
-        contract_address: blockchain.contracts.datastore.contract.address,
-        tx: result.tx,
-        account,
-        gasUsed: result.receipt.gasUsed
-      }
-      let data = await db.save('Processor', out)
-
-      return res.json(escapeObject(data._doc))
+      res.status(200).json({})
+      return res.json()
     } catch (err) {
-      res.status(500).json({error: err.message})
+      console.log(err)
+      res.status(500).json({error: 'Failed saving pending bid'})
     }
   }
 }

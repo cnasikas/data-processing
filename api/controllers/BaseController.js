@@ -1,10 +1,10 @@
 import { Router } from 'express'
 
 export default class BaseController {
-  constructor (model, key) {
+  constructor (model, key, singular) {
     this.model = model
-    this.modelName = this.model.toLowerCase()
     this.key = key
+    this.singular = singular
   }
 
   /**
@@ -12,7 +12,7 @@ export default class BaseController {
    */
   async list (req, res) {
     try {
-      let data = await req.app.db.getCollection(this.model)
+      const data = await this.model.findAll()
       res.json(data)
     } catch (err) {
       res.status(500).json({error: err.message})
