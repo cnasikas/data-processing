@@ -35,6 +35,7 @@
     "mongoose": "^4.13.7",
     "morgan": "^1.8.2",
     "multer": "^1.3.0",
+    "sequelize": "^4.38.0",
     "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
     "validator": "^9.4.1",
