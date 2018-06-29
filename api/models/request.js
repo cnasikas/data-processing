@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     algorithm_id: DataTypes.INTEGER,
     processed: DataTypes.BOOLEAN,
-    pub_key: DataTypes.STRING
+    pub_key: DataTypes.STRING,
+    status: DataTypes.STRING
   }, {});
   Request.associate = function(models) {
     // associations can be defined here
