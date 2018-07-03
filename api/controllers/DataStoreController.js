@@ -7,7 +7,21 @@ export default class DataController extends BaseController {
   }
 
   async create (req, res) {
+    const dataset = req.body
+
     try {
+      await Dataset.create({
+        name: dataset.name,
+        slug: dataset.slug,
+        location: dataset.location,
+        category: dataset.category,
+        hash: dataset.digest,
+        meta_hash: '',
+        address_id: 1,
+        tx_id: dataset.txId,
+        status: 'pending'
+      })
+
       return res.json({})
     } catch (err) {
       res.status(500).json({error: err.message})

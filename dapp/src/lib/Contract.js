@@ -86,9 +86,9 @@ class Contract {
     }
   }
 
-  registerDataSet (slug, name, location, category, hash, digest) {
+  registerDataSet (slug, name, location, category, metaHash, hash) {
     const account = this.web3Instance.eth.defaultAccount
-    return this.callMethod('registerDataSet', this.toBytes(slug), name, location, category, hash, account, digest)
+    return this.callMethod('registerDataSet', this.toBytes(slug), name, location, category, metaHash, account, hash)
   }
 
   registerProcessor (name, pubkey) {
