@@ -1,7 +1,12 @@
-## Introduction
+# Data processing
 
-A data sharing through Blockchain
+A data exchange and processing system.
 
-## Licence
+Implemented as described in [Αccountable and privacy preserving data processing via distributed ledgers](https://github.com/cnasikas/thesis)
 
-MIT
+## Acknowledgements
+
+This research was supported by ["Athena" RC](https://www.athena-innovation.gr/en).
+
+## License
+MIT License as described in LICENSE file
