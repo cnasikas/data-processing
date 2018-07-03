@@ -12,10 +12,10 @@ import {
 } from '../actions'
 
 const getDataStore = datastoreActions.getDataStore
-const addRequest = requestActions.addRequest
+const requestProcessing = requestActions.requestProcessing
 
 const RequestForm = withReduxForm(AddRequestFormFields, 'add-request')
-const AddRequestForm = withNewItem(RequestForm, {addItem: addRequest}, {to: '/requests/', text: 'Request successuflly added. Return to requests'})
+const AddRequestForm = withNewItem(RequestForm, {addItem: requestProcessing}, {to: '/requests/', text: 'Request successuflly added. Return to requests'})
 
 class AddRequestPage extends React.Component {
   componentDidMount () {

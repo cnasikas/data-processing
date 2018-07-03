@@ -4,8 +4,8 @@ import Badge from './Badge.js'
 
 export default class Request extends React.Component {
   render () {
-    let processed = this.props.data.processed
-    let proof = this.props.data.proof
+    let processed = this.props.processed
+    let proof = false
 
     let prcType = processed ? 'success' : 'warning'
     let prcMsg = processed ? 'Processed' : 'On hold'

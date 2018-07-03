@@ -1,5 +1,9 @@
 import types from './ActionTypes'
-import {buildActions} from '../utils/actions'
+import {buildActions, createBlockchainAction} from '../utils/actions'
+
+const dataToArgs = (data) => {
+  return [data.dataset, data.query, data.pubkey]
+}
 
 const actions = buildActions({
   getRequests: [types.GET_REQUESTS, 'requests'],
@@ -7,4 +11,9 @@ const actions = buildActions({
   addRequest: [types.ADD_REQUEST, 'requests', 'post']
 })
 
-export default actions
+const requestProcessing = createBlockchainAction('requestProcessing', actions.addRequest, dataToArgs)
+
+export default {
+  requestProcessing,
+  ...actions
+}
