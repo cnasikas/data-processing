@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
