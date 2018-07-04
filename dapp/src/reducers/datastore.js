@@ -10,8 +10,9 @@ export default function datastore (state = [], action) {
       return [...datastore]
 
     case types.GET_DATA_SUCCESS:
+
       data = payload.data || {}
-      return [{...data}]
+      return [...data]
 
     case types.ADD_DATA_SUCCESS:
       data = payload.data || {}

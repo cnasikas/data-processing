@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import AddResourceBtn from '../components/AddResourceBtn.js'
+import {formatDate} from '../utils/helpers'
 
 import {
   datastoreActions
@@ -21,8 +22,6 @@ class DataDetails extends React.Component {
       return null
     }
 
-    let date = !isNaN(new Date(this.props.data.created_at)) ? moment(new Date(this.props.data.created_at)).format('DD/MM/YYYY') : 'No date provided'
-
     return (
       <article className='card data-details border-secondary mb-3'>
         <h5 className='card-header'>Data set details</h5>
@@ -38,29 +37,23 @@ class DataDetails extends React.Component {
             <span className='text-muted'> {this.props.data.location}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Data Hash:
-            <span className='text-muted'> {this.props.data.digest}</span>
-          </h6>
-          <h6 className='card-subtitle mb-2'>Metadata Hash:
             <span className='text-muted'> {this.props.data.hash}</span>
           </h6>
-          <h6 className='card-subtitle mb-2'>Contract address:
-            <span className='text-muted'> {this.props.data.contract_address}</span>
+          <h6 className='card-subtitle mb-2'>Metadata Hash:
+            <span className='text-muted'> {this.props.data.meta_hash}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Tx:
-            <span className='text-muted'> {this.props.data.tx}</span>
+            <span className='text-muted'> {this.props.data.tx_id}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Controller:
-            <span className='text-muted'> {this.props.data.account}</span>
-          </h6>
-          <h6 className='card-subtitle mb-2'>Gas Used:
-            <span className='text-muted'> {this.props.data.gasUsed}</span>
+            <span className='text-muted'> {this.props.data.owner}</span>
           </h6>
         </div>
         <div className='card-body'>
           <AddResourceBtn to='/requests/add' text='Request for processing' />
         </div>
         <div className='card-footer text-muted'>
-          Created at: {date}
+          Created at: {formatDate(this.props.createdAt)}
         </div>
       </article>
     )

@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import BaseController from './BaseController'
 import {Dataset, Address} from '../models'
 
@@ -21,24 +22,9 @@ export default class DataController extends BaseController {
       createdAt: item.createdAt || null
     }))
   }
-    console.log(datasets)
-    return datasets.map(item => ({
-      'id': item.id,
-      'name': item.name,
-      'slug': item.slug,
-      'location': item.location,
-      'category': item.category,
-      'tx_id': item.tx_id,
-      'hash': item.hash,
-      'meta_hash': item.meta_hash,
-      'status': item.status,
-      'owner': item['Address.hash'],
-      createdAt: item.createdAt || null
-    }))
-  }
 
-  async fetchDatasets () {
-    return Dataset.findAll({
+  async fetchDatasets (id = '') {
+    let options = {
       attributes: [
         'id',
         'name',
@@ -58,7 +44,13 @@ export default class DataController extends BaseController {
         }
       ],
       raw: true
-    })
+    }
+
+    if (!_.isEmpty(id)) {
+      options.where = {hash: id}
+    }
+
+    return Dataset.findAll(options) // hashes are unique so findAll will return only one result
   }
 
   async list (req, res) {
@@ -94,7 +86,8 @@ export default class DataController extends BaseController {
 
   async read (req, res, id) {
     try {
-      res.json({})
+      const data = await this.fetchDatasets(id)
+      res.json(this.normalizeResponse(data))
     } catch (err) {
       res.status(500).json({error: err.message})
     }
