@@ -1,9 +1,73 @@
 import BaseController from './BaseController'
-import {Dataset} from '../models'
+import {Dataset, Address} from '../models'
 
 export default class DataController extends BaseController {
   constructor () {
     super(Dataset, 'dataset', 'datasets')
+  }
+
+  normalizeResponse (datasets) {
+    return datasets.map(item => ({
+      'id': item.id,
+      'name': item.name,
+      'slug': item.slug,
+      'location': item.location,
+      'category': item.category,
+      'tx_id': item.tx_id,
+      'hash': item.hash,
+      'meta_hash': item.meta_hash,
+      'status': item.status,
+      'owner': item['Address.hash'],
+      createdAt: item.createdAt || null
+    }))
+  }
+    console.log(datasets)
+    return datasets.map(item => ({
+      'id': item.id,
+      'name': item.name,
+      'slug': item.slug,
+      'location': item.location,
+      'category': item.category,
+      'tx_id': item.tx_id,
+      'hash': item.hash,
+      'meta_hash': item.meta_hash,
+      'status': item.status,
+      'owner': item['Address.hash'],
+      createdAt: item.createdAt || null
+    }))
+  }
+
+  async fetchDatasets () {
+    return Dataset.findAll({
+      attributes: [
+        'id',
+        'name',
+        'slug',
+        'location',
+        'category',
+        'tx_id',
+        'hash',
+        'meta_hash',
+        'status',
+        'createdAt'
+      ],
+      include: [
+        {
+          model: Address,
+          attributes: ['hash']
+        }
+      ],
+      raw: true
+    })
+  }
+
+  async list (req, res) {
+    try {
+      const data = await this.fetchDatasets()
+      res.json(this.normalizeResponse(data))
+    } catch (err) {
+      res.status(500).json({error: err.message})
+    }
   }
 
   async create (req, res) {
