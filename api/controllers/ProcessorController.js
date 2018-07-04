@@ -1,9 +1,46 @@
 import BaseController from './BaseController'
-import {Processor} from '../models'
+import {Processor, Address} from '../models'
 
 export default class ProcessorController extends BaseController {
   constructor () {
     super(Processor, 'processor', 'processors')
+
+    this.mapping = {
+      id: 'id',
+      name: 'name',
+      tx_id: 'tx_id',
+      pubkey: 'pub_key',
+      status: 'status',
+      owner: 'Address.hash',
+      createdAt: 'createdAt'
+    }
+
+    this.options = {
+      attributes: [
+        'id',
+        'name',
+        'tx_id',
+        'status',
+        'pub_key',
+        'createdAt'
+      ],
+      include: [
+        {
+          model: Address,
+          attributes: ['hash']
+        }
+      ],
+      raw: true
+    }
+  }
+
+  async list (req, res) {
+    try {
+      const requests = await this.fetch({...this.options})
+      res.json(this.normalizeResponse(requests, this.mapping))
+    } catch (err) {
+      res.status(500).json({error: err.message})
+    }
   }
 
   async create (req, res) {
@@ -23,6 +60,15 @@ export default class ProcessorController extends BaseController {
     } catch (err) {
       console.log(err)
       res.status(500).json({error: 'Failed saving pending processor'})
+    }
+  }
+
+  async read (req, res, id) {
+    try {
+      const request = await this.fetch({...this.options}, {id: id})
+      res.json(this.normalizeResponse(request, this.mapping))
+    } catch (err) {
+      res.status(500).json({error: err.message})
     }
   }
 }
