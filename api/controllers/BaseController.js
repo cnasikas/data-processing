@@ -1,8 +1,28 @@
+import _ from 'lodash'
+
 export default class BaseController {
   constructor (model, key, singular) {
     this.model = model
     this.key = key
     this.singular = singular
+  }
+
+  normalizeResponse (list, mapping) {
+    return list.map(item => {
+      let obj = {}
+      for (let key in mapping) {
+        obj[key] = item[mapping[key]]
+      }
+      return obj
+    })
+  }
+
+  async fetch (options = {}, id = {}) {
+    if (!_.isEmpty(id)) {
+      options.where = id
+    }
+
+    return this.model.findAll(options)
   }
 
   /**

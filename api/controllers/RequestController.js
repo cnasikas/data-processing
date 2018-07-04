@@ -1,9 +1,56 @@
 import BaseController from './BaseController'
-import {Request} from '../models'
+import {Request, Address, Dataset, Algorithm} from '../models'
 
 export default class RequestController extends BaseController {
   constructor () {
     super(Request, 'request', 'requests')
+
+    this.mapping = {
+      'id': 'id',
+      'dataset': 'Dataset.hash',
+      'algorithm': 'Algorithm.name',
+      'tx_id': 'tx_id',
+      'pubkey': 'pub_key',
+      'status': 'status',
+      'processed': 'processed',
+      'owner': 'Address.hash',
+      createdAt: 'createdAt'
+    }
+
+    this.options = {
+      attributes: [
+        'id',
+        'tx_id',
+        'status',
+        'pub_key',
+        'processed',
+        'createdAt'
+      ],
+      include: [
+        {
+          model: Address,
+          attributes: ['hash']
+        },
+        {
+          model: Dataset,
+          attributes: ['hash']
+        },
+        {
+          model: Algorithm,
+          attributes: ['name']
+        }
+      ],
+      raw: true
+    }
+  }
+
+  async list (req, res) {
+    try {
+      const requests = await this.fetch({...this.options})
+      res.json(this.normalizeResponse(requests, this.mapping))
+    } catch (err) {
+      res.status(500).json({error: err.message})
+    }
   }
 
   async create (req, res) {
@@ -28,7 +75,8 @@ export default class RequestController extends BaseController {
 
   async read (req, res, id) {
     try {
-      res.json({})
+      const request = await this.fetch({...this.options}, {id: id})
+      res.json(this.normalizeResponse(request, this.mapping))
     } catch (err) {
       res.status(500).json({error: err.message})
     }
