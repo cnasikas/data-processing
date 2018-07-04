@@ -1,15 +1,6 @@
 import types from '../actions/ActionTypes'
+import {createSimpleReducer} from '../utils/reducers'
 
-export default function account (state = {}, action) {
-  const { payload, type } = action
+const account = createSimpleReducer([], {type: types.GET_ACCOUNTS_SUCCESS})
 
-  switch (type) {
-    case types.GET_ACCOUNTS_SUCCESS:
-      return {...payload.data}
-    case types.SET_DEFAULT_ACCOUNT_SUCCESS:
-      return {...payload.data}
-
-    default:
-      return state
-  }
-}
+export default account

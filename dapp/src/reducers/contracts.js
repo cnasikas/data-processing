@@ -1,12 +1,6 @@
 import types from '../actions/ActionTypes'
+import {createSimpleReducer} from '../utils/reducers'
 
-export default function contracts (state = [], action) {
-  const { payload, type } = action
-  switch (type) {
-    case types.GET_CONTRACT_TYPES_SUCCESS:
-      return [...payload.data.types]
+const contracts = createSimpleReducer([], {type: types.GET_CONTRACT_TYPES_SUCCESS})
 
-    default:
-      return state
-  }
-}
+export default contracts

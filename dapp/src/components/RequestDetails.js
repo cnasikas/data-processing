@@ -62,7 +62,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  request: state.requests[0]
+  request: state.request[0]
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequestDetails)

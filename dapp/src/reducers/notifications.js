@@ -1,17 +1,9 @@
 import types from '../actions/ActionTypes'
+import {createReducer} from '../utils/reducers'
 
-export default function notifications (state = [], action) {
-  const { payload, type } = action
+const notifications = createReducer([], {
+  [types.ADD_NOTIFICATION]: (state, action) => [...state, action.payload],
+  [types.REMOVE_NOTIFICATION]: (state, action) => []
+})
 
-  switch (type) {
-    case types.ADD_NOTIFICATION:
-      return [payload, ...state]
-
-    case types.REMOVE_NOTIFICATION:
-      return []
-      //return state.filter((notification, index) => index !== payload)
-
-    default:
-      return state
-  }
-}
+export default notifications

@@ -64,7 +64,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = state => ({
-  data: state.datastore[0]
+  data: state.dataset[0]
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataDetails)
