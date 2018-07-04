@@ -18,7 +18,7 @@ export default class Request extends React.Component {
       <article className='list-group-item list-group-item-action flex-column align-items-start request'>
         <Link to={'/requests/' + this.props.id}>
           <div className='d-flex w-100 justify-content-between'>
-            <h5 className='mb-1'>Request #{this.props.id + 1}
+            <h5 className='mb-1'>Request #{this.props.index + 1}
               <Badge type={prcType} msg={prcMsg} />
               <Badge type={prClass} msg={prMsg} />
             </h5>

@@ -22,8 +22,7 @@ export default function withList (ListComponent, key, actions, buttonTxt) {
       let items = ''
       if (this.props[key].length > 0) {
         items = this.props[key].map((data, index) => {
-          let date = !isNaN(new Date(data.created_at)) ? moment(new Date(data.created_at)).format('DD/MM/YYYY') : 'No date provided'
-          return <ListComponent {...data} key={index} date={date} id={index} />
+          return <ListComponent {...data} key={index} index={index} />
         })
       }
 
