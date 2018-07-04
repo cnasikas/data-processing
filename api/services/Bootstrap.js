@@ -8,7 +8,7 @@ import dotenv from 'dotenv'
 import blockchain from 'blockchain'
 
 import middlewares from '../middlewares/middlewares.js'
-import controllers from '../controllers/controllers.js'
+import routes from '../routes'
 import config from '../config.json'
 
 function validateENV () {
@@ -32,8 +32,12 @@ function setMiddlewares (app) {
   app.use(sanitizer())
   app.use(helmet())
   app.use(middlewares.node(app.blockchain))
+}
 
-  app.use('/api', controllers())
+function setRoutes (app) {
+  for (const url in routes) {
+    app.use(`/api${url}`, routes[url])
+  }
 }
 
 export default async (app) => {
@@ -42,4 +46,5 @@ export default async (app) => {
   const bl = await blockchain()
   app.blockchain = bl
   setMiddlewares(app)
+  setRoutes(app)
 }
