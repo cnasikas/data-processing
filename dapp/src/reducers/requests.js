@@ -10,7 +10,7 @@ export default function requests (state = [], action) {
 
     case types.GET_REQUEST_SUCCESS:
       let request = payload.data || {}
-      return [{...request}]
+      return [...request]
 
     case types.ADD_REQUEST_SUCCESS:
       request = payload.data || {}

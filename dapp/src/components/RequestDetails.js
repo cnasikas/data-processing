@@ -3,6 +3,8 @@ import moment from 'moment'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Badge from './Badge.js'
+import { Link } from 'react-router-dom'
+import {formatDate} from '../utils/helpers'
 
 import {
   requestActions
@@ -29,8 +31,6 @@ class RequestDetails extends React.Component {
     let prClass = proof ? 'success' : 'warning'
     let prMsg = proof ? 'Proof' : 'No proof'
 
-    let date = !isNaN(new Date(this.props.request.created_at)) ? moment(new Date(this.props.request.created_at)).format('DD/MM/YYYY') : 'No date provided'
-
     return (
       <article className='card request-details'>
         <h5 className='card-header'>Request details
@@ -38,25 +38,19 @@ class RequestDetails extends React.Component {
           <Badge type={prClass} msg={prMsg} />
         </h5>
         <div className='card-body'>
-          <h5 className='card-title'>Data set: {this.props.request.data}</h5>
-          <h6 className='card-subtitle mb-2'>Contract address:
-            <span className='text-muted'> {this.props.request.contract_address}</span>
-          </h6>
+          <h5 className='card-title'>Data set: {this.props.request.dataset}</h5>
           <h6 className='card-subtitle mb-2'>Tx:
-            <span className='text-muted'> {this.props.request.tx}</span>
+            <span className='text-muted'> {this.props.request.tx_id}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Requestor:
-            <span className='text-muted'> {this.props.request.account}</span>
-          </h6>
-          <h6 className='card-subtitle mb-2'>Data provider:
-            <span className='text-muted'> {this.props.request.provider}</span>
+            <span className='text-muted'> {this.props.request.owner}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Response public key:
-            <span className='text-muted'> {this.props.request.pubKey}</span>
+            <span className='text-muted'> {this.props.request.pubkey}</span>
           </h6>
         </div>
         <div className='card-footer text-muted'>
-          Created at: {date}
+          Created at: {formatDate(this.props.createdAt)}
         </div>
       </article>
     )
