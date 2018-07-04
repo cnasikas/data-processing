@@ -5,9 +5,7 @@ import sanitizer from 'express-sanitizer'
 import cors from 'cors'
 import _ from 'lodash'
 import dotenv from 'dotenv'
-import blockchain from 'blockchain'
 
-import middlewares from '../middlewares/middlewares.js'
 import routes from '../routes'
 import config from '../config.json'
 
@@ -31,7 +29,6 @@ function setMiddlewares (app) {
   app.disable('x-powered-by')
   app.use(sanitizer())
   app.use(helmet())
-  app.use(middlewares.node(app.blockchain))
 }
 
 function setRoutes (app) {
@@ -40,11 +37,9 @@ function setRoutes (app) {
   }
 }
 
-export default async (app) => {
+export default (app) => {
   dotenv.config()
   validateENV()
-  const bl = await blockchain()
-  app.blockchain = bl
   setMiddlewares(app)
   setRoutes(app)
 }
