@@ -6,15 +6,15 @@ export default class RequestController extends BaseController {
     super(Request, 'request', 'requests')
 
     this.mapping = {
-      'id': 'id',
-      'dataset': 'Dataset.hash',
-      'algorithm': 'Algorithm.name',
-      'tx_id': 'tx_id',
-      'pubkey': 'pub_key',
-      'status': 'status',
-      'processed': 'processed',
-      'owner': 'Address.hash',
-      createdAt: 'createdAt'
+      id: 'id',
+      dataset: 'Dataset.hash',
+      algorithm: 'Algorithm.name',
+      tx_id: 'tx_id',
+      pubkey: 'pub_key',
+      status: 'status',
+      processed: 'processed',
+      owner: 'Address.hash',
+      reatedA: 'createdAt'
     }
 
     this.options = {

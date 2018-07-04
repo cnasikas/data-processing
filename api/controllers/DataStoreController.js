@@ -6,16 +6,16 @@ export default class DataController extends BaseController {
     super(Dataset, 'dataset', 'datasets')
 
     this.mapping = {
-      'id': 'id',
-      'name': 'name',
-      'slug': 'slug',
-      'location': 'location',
-      'category': 'category',
-      'tx_id': 'tx_id',
-      'hash': 'hash',
-      'meta_hash': 'meta_hash',
-      'status': 'status',
-      'owner': 'Address.hash',
+      id: 'id',
+      name: 'name',
+      slug: 'slug',
+      location: 'location',
+      category: 'category',
+      tx_id: 'tx_id',
+      hash: 'hash',
+      meta_hash: 'meta_hash',
+      status: 'status',
+      owner: 'Address.hash',
       createdAt: 'createdAt'
     }
 
