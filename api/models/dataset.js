@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       unique: true
     },
     meta_hash: DataTypes.STRING,
-    address_id: DataTypes.INTEGER,
-    status: DataTypes.STRING
+    address_id: DataTypes.INTEGER
   }, {});
   Dataset.associate = function(models) {
     // associations can be defined here

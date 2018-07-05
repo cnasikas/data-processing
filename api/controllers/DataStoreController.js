@@ -8,7 +8,6 @@ export default class DataController extends BaseController {
     this.mapping = {
       id: 'id',
       name: 'name',
-      slug: 'slug',
       location: 'location',
       category: 'category',
       tx_id: 'tx_id',
@@ -23,7 +22,6 @@ export default class DataController extends BaseController {
       attributes: [
         'id',
         'name',
-        'slug',
         'location',
         'category',
         'tx_id',
