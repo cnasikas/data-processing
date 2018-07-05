@@ -57,8 +57,19 @@ export default class RequestController extends BaseController {
     const request = req.body
 
     try {
+      const dataset = await Dataset.findOne({
+        attributes: ['id'],
+        where: {
+          hash: request.dataset
+        }
+      })
+
+      if (dataset === null) {
+        return res.status(500).json({error: 'Invalid dataset'})
+      }
+
       await Request.create({
-        dataset_id: 1, // get dataset's ID from db by hash
+        dataset_id: dataset.id,
         address_id: 1,
         tx_id: request.txId,
         algorithm_id: 1, // request.query
