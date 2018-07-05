@@ -13,7 +13,7 @@ export default class AddRequestForm extends React.Component {
           <Field name='dataset' component='select' className='form-control'>
             {
               this.props.datastore.map((data) => {
-                return <option key={data._id} value={data.slug}>{data.name}</option>
+                return <option key={data.id} value={data.hash}>{data.name}</option>
               })
             }
           </Field>

@@ -1,4 +1,5 @@
 import contract from 'truffle-contract'
+import _ from 'lodash'
 import contractScheme from './contractScheme'
 
 class NoMetamaskError extends Error {
@@ -55,6 +56,38 @@ class Contract {
     this.constractInstance = contractInstance
   }
 
+  isHexStrict (hex) {
+    // https://github.com/ethereum/web3.js
+    return (_.isString(hex) || _.isNumber(hex)) && /^(-)?0x[0-9a-f]*$/i.test(hex)
+  }
+
+  bytesToHex (bytes) {
+    // https://github.com/ethereum/web3.js
+    for (var hex = [], i = 0; i < bytes.length; i++) {
+      hex.push((bytes[i] >>> 4).toString(16))
+      hex.push((bytes[i] & 0xF).toString(16))
+    }
+
+    return '0x' + hex.join('')
+  }
+
+  hexToBytes (hex) {
+    // https://github.com/ethereum/web3.js
+    hex = hex.toString(16)
+
+    if (!this.isHexStrict(hex)) {
+      throw new Error('Given value "' + hex + '" is not a valid hex string.')
+    }
+
+    hex = hex.replace(/^0x/i, '')
+
+    for (var bytes = [], c = 0; c < hex.length; c += 2) {
+      bytes.push(parseInt(hex.substr(c, 2), 16))
+    }
+
+    return bytes
+  }
+
   toBytes (val) {
     return this.web3Instance.fromAscii(val)
   }
@@ -86,19 +119,29 @@ class Contract {
     }
   }
 
-  registerDataSet (slug, name, location, category, metaHash, hash) {
-    const account = this.web3Instance.eth.defaultAccount
-    return this.callMethod('registerDataSet', this.toBytes(slug), name, location, category, metaHash, account, hash)
+  registerDataSet (hash, name, location, category) {
+    // TODO: Store metaHash. For the moment is an empty string
+    return this.callMethod('registerDataSet', this.hexToBytes(`0x${hash}`), this.toBytes(name), location, this.toBytes(category), this.toBytes(''))
   }
 
   registerProcessor (name, pubkey) {
+    // TODO: Account as input given from user
     const account = this.web3Instance.eth.defaultAccount
     return this.callMethod('registerProcessor', account, this.toBytes(name), pubkey)
   }
 
-  requestProcessing (datasetSlug, queryID, pubKey) {
+  registerController (name, pubkey) {
+    // TODO: Account as input given from user
     const account = this.web3Instance.eth.defaultAccount
-    return this.callMethod('requestProcessing', this.toBytes(datasetSlug), account, this.toBytes(queryID), pubKey)
+    return this.callMethod('registerController', account, this.toBytes(name), pubkey)
+  }
+
+  requestProcessing (datasetID, algorithmID, pubKey) {
+    return this.callMethod('requestProcessing', this.hexToBytes(`0x${datasetID}`), this.toBytes(algorithmID), pubKey)
+  }
+
+  notifyProcessor (processorAddress, requestID, encryptedKey) {
+    this.callMethod('notifyProcessor', processorAddress, requestID, encryptedKey)
   }
 }
 

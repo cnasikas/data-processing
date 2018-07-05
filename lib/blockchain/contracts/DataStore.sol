@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 /* Based on: https://github.com/enigmampc/ */
 
@@ -9,99 +9,97 @@ import "./BaseDataStore.sol";
 contract DataStore is BaseDataStore, DataStoreInterface {
 
     function registerDataSet(
-        bytes32 _id,
-        string name,
+        bytes32 hash,
+        bytes32 name,
         string location,
-        string category,
-        string hashMeta,
-        address _dataOwner,
-        string digest
+        bytes32 category,
+        bytes32 metaHash
     )
     public
-    uniqueDataSet(_id) // providerExist (?)
-    returns (bool success)
+    uniqueDataSet(hash)
+    // TODO: Restrict only to registered controllers
+    // onlyController(msg.sender)
+    returns (bool)
     {
-        require(_dataOwner != address(0));
-        dataStore[_id] = DataSet({
-            _id: _id,
+        dataStore[hash] = DataSet({
             name: name,
             category: category,
             location: location,
-            hashMeta: hashMeta,
-            owner: _dataOwner,
-            isDataSet: true,
-            digest: digest
+            metaHash: metaHash,
+            controller: msg.sender,
+            isDataSet: true
         });
 
-        totalData++;
-        NewDataSet(_id, name, location, category, hashMeta, _dataOwner, digest);
-        success = true;
+        totalDataSets++;
+        emit NewDataSet(hash, name, location, category, metaHash, msg.sender);
+        return true;
     }
 
-    function registerProvider(address _providerAddress, bytes32 name, string pubKey)
+    function registerController(address _controllerAddress, bytes32 name, string pubKey)
     public
     onlyOwner
-    returns (bool success)
+    // TODO: Check if already registed
+    isValidAddress(_controllerAddress)
+    returns (bool)
     {
-        require(_providerAddress != address(0));
-        providers[_providerAddress] = Provider({
-            owner: _providerAddress,
+        controllers[_controllerAddress] = Controller({
             name: name,
-            isProvider: true,
-            pubKey: pubKey
+            pubKey: pubKey,
+            isController: true
         });
 
-        totalProviders++;
-        NewProvider(_providerAddress, name);
-        success = true;
+        totalControllers++;
+        emit NewController(_controllerAddress, name, pubKey);
+        return true;
     }
 
     function registerProcessor(address _processorAddress, bytes32 name, string pubKey)
     public
     onlyOwner
-    returns (bool success)
+    // TODO: Check if already registed
+    isValidAddress(_processorAddress)
+    returns (bool)
     {
-        require(_processorAddress != address(0));
         processors[_processorAddress] = Processor({
-            owner: _processorAddress,
             name: name,
-            isProcessor: true,
-            pubKey: pubKey
+            pubKey: pubKey,
+            isProcessor: true
         });
 
         totalProcessors++;
-        NewProcessor(_processorAddress, name, pubKey);
-        success = true;
+        emit NewProcessor(_processorAddress, name, pubKey);
+        return true;
     }
 
-    function requestProcessing(bytes32 _dataSetID, address _subscriber, bytes32 queryID, string pubKey)
+    function requestProcessing(bytes32 _dataSetID, bytes32 algorithmID, string pubKey)
     public
     dataSetExist(_dataSetID)
-    returns (bool success)
+    isValidAddress(msg.sender)
+    returns (bool)
     {
-        require(msg.sender != address(0));
-
-        requests[_subscriber] = Request({
+        bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, msg.sender));
+        requests[_requestID] = Request({
             dataSetID: _dataSetID,
-            subscriber: _subscriber,
-            provider: dataStore[_dataSetID].owner,
+            requestor: msg.sender,
             hasProof: false,
             processed: false,
-            queryID: queryID,
+            algorithmID: algorithmID,
             pubKey: pubKey,
             isRequest: true
         });
 
         totalRequests++;
-        NewRequest(_dataSetID, dataStore[_dataSetID].owner, _subscriber, queryID, pubKey);
-        success = true;
+        emit NewRequest(_requestID, _dataSetID, msg.sender, algorithmID, pubKey);
+        return true;
     }
 
-    function notifyProcessor(address _providerAddress, address _subscriber, string cipher)
+    function notifyProcessor(address _processorAddress, bytes32 _requestID, string encryptedKey)
     public
-    returns (bool success)
+    isValidAddress(msg.sender)
+    requestExist(_requestID)
+    returns (bool)
     {
-        Process(_providerAddress, _subscriber, cipher);
-        success = true;
+        emit Process(_processorAddress, _requestID, encryptedKey);
+        return true;
     }
 }

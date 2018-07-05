@@ -1,28 +1,26 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.24;
 
 
 contract DataStoreInterface {
 
     function registerDataSet(
-        bytes32 _id,
-        string name,
+        bytes32 hash,
+        bytes32 name,
         string location,
-        string category,
-        string hashMeta,
-        address _dataOwner,
-        string digest
+        bytes32 category,
+        bytes32 metaHash
     ) public returns (bool success);
 
-    function registerProvider(address _providerAddress, bytes32 name, string pubKey) public returns (bool success);
+    function registerController(address _controllerAddress, bytes32 name, string pubKey) public returns (bool success);
     function registerProcessor(address _processorAddress, bytes32 name, string pubKey) public returns (bool success);
-    function requestProcessing(bytes32 _dataSetID, address _subscriber, bytes32 queryID, string pubKey) public returns (bool success);
-    function notifyProcessor(address _providerAddress, address _subscriber, string cipher) public returns (bool success);
+    function requestProcessing(bytes32 _dataSetID, bytes32 algorithmID, string pubKey) public returns (bool success);
+    function notifyProcessor(address _processorAddress, bytes32 _requestID, string encryptedKey) public returns (bool success);
 
     /*********** Events ************/
 
-    event NewDataSet(bytes32 _id, string name, string location, string category, string hashMeta, address owner, string digest);
-    event NewProvider(address _providerAddress, bytes32 name);
-    event NewProcessor(address _providerAddress, bytes32 name, string pubKey);
-    event NewRequest(bytes32 _dataSetID, address _provider, address _subscriber, bytes32 queryID, string pubKey);
-    event Process(address _providerAddress, address _subscriber, string cipher);
+    event NewDataSet(bytes32 hash, bytes32 name, string location, bytes32 category, bytes32 metaHash, address controller);
+    event NewController(address _controllerAddress, bytes32 name, string pubKey);
+    event NewProcessor(address _processorAddress, bytes32 name, string pubKey);
+    event NewRequest(bytes32 _requestID, bytes32 _dataSetID, address _requestor, bytes32 algorithmID, string pubKey);
+    event Process(address _processorAddress, bytes32 _requestID, string encryptedKey);
 }

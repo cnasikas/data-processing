@@ -1,6 +1,4 @@
-pragma solidity ^0.4.18;
-
-/* Based on: https://github.com/enigmampc/ */
+pragma solidity ^0.4.24;
 
 import "./zeppelin-solidity/Ownable.sol";
 import "./BaseDataStoreInterface.sol";
@@ -8,154 +6,136 @@ import "./BaseDataStoreInterface.sol";
 
 contract BaseDataStore is BaseDataStoreInterface, Ownable {
 
-    uint public totalData;
-    uint public totalProviders;
-    uint public totalRequests;
-    uint public totalProcessors;
+    uint256 public totalDataSets;
+    uint256 public totalControllers;
+    uint256 public totalRequests;
+    uint256 public totalProcessors;
 
     struct DataSet {
-        bytes32 _id;
-        string name;
+        bytes32 name;
         string location;
-        string category;
-        string hashMeta;
-        address owner;
-        string digest;
+        bytes32 category;
+        bytes32 metaHash;
+        address controller;
         bool isDataSet;
     }
 
-    struct Provider {
-        address owner;
+    struct Controller {
         bytes32 name;
         string pubKey;
-        bool isProvider;
+        bool isController;
     }
 
     struct Request {
         bytes32 dataSetID;
-        address subscriber;
-        address provider;
+        address requestor;
         bool hasProof;
         bool processed;
-        bytes32 queryID;
+        bytes32 algorithmID;
         string pubKey;
         bool isRequest;
     }
 
     struct Processor {
-        address owner;
         bytes32 name;
         string pubKey;
         bool isProcessor;
     }
 
-    mapping(address => Provider) public providers;
+    mapping(address => Controller) public controllers;
     mapping (bytes32 => DataSet) public dataStore;
-    mapping (address => Request) public requests;
+    mapping (bytes32 => Request) public requests;
     mapping (address => Processor) public processors;
 
-    mapping(address => DataSet[]) public providerDataSets;
-
-    function BaseDataStore () public {
-        totalData = 0;
-        totalProviders = 0;
+    constructor() public {
+        totalDataSets = 0;
+        totalControllers = 0;
         totalRequests = 0;
         totalProcessors = 0;
+    }
+
+    /* modifiers */
+    modifier uniqueDataSet(bytes32 _dataSetID) {
+        require(_dataSetID.length > 0, "Empty dataset id is not allowed");
+        require(!dataStore[_dataSetID].isDataSet, "Dataset already declared");
+        _;
+    }
+
+    modifier dataSetExist(bytes32 _dataSetID) {
+        require(_dataSetID.length > 0, "Empty dataset id is not allowed");
+        require(dataStore[_dataSetID].isDataSet, "Dataset not found");
+        _;
+    }
+
+    modifier requestExist(bytes32 _requestID) {
+        require(_requestID.length > 0, "Empty request id is not allowed");
+        require(requests[_requestID].isRequest, "Request not found");
+        _;
+    }
+
+    modifier processorExist(address _processorAddress) {
+        require(processors[_processorAddress].isProcessor, "Processor not found");
+        _;
+    }
+
+    modifier controllerExist(address _controllerAddress) {
+        require(controllers[_controllerAddress].isController, "Controller not found");
+        _;
+    }
+
+    modifier onlyController(address _controllerAddress) {
+        require(controllers[_controllerAddress].isController, "Controller not found");
+        require(_controllerAddress == msg.sender, "Only a trusted controller is allowed");
+        _;
+    }
+
+    modifier isValidAddress(address _address) {
+        require(_address != address(0), "Invalid address");
+        _;
     }
 
     function getDataSetInfo(bytes32 _dataSetID)
     public
     view
     dataSetExist(_dataSetID)
-    returns(
-        string name,
-        string location,
-        string category,
-        address owner,
-        string hashMeta,
-        string digest
-    ) {
-        name = dataStore[_dataSetID].name;
-        location = dataStore[_dataSetID].location;
-        category = dataStore[_dataSetID].category;
-        owner = dataStore[_dataSetID].owner;
-        hashMeta = dataStore[_dataSetID].hashMeta;
-        digest = dataStore[_dataSetID].digest;
+    returns(bytes32, string, bytes32, bytes32, address) {
+        return (
+            dataStore[_dataSetID].name,
+            dataStore[_dataSetID].location,
+            dataStore[_dataSetID].category,
+            dataStore[_dataSetID].metaHash,
+            dataStore[_dataSetID].controller
+        );
     }
 
-    function getRequestInfo(address _subscriber)
+    function getRequestInfo(bytes32 _requestID)
     public
     view
-    requestExist(_subscriber)
-    returns(
-        bytes32 dataSetID,
-        address provider,
-        bool hasProof,
-        bool processed,
-        bytes32 queryID,
-        string pubKey
-    ) {
-        dataSetID = requests[_subscriber].dataSetID;
-        provider = requests[_subscriber].provider;
-        hasProof = requests[_subscriber].hasProof;
-        processed = requests[_subscriber].processed;
-        queryID = requests[_subscriber].queryID;
-        pubKey = requests[_subscriber].pubKey;
+    requestExist(_requestID)
+    returns(bytes32, address, bool, bool, bytes32, string) {
+        return (
+            requests[_requestID].dataSetID,
+            requests[_requestID].requestor,
+            requests[_requestID].hasProof,
+            requests[_requestID].processed,
+            requests[_requestID].algorithmID,
+            requests[_requestID].pubKey
+        );
     }
 
-    function getDataProviderInfo(address _dataProviderAddress)
+    function getController(address _controller)
     public
     view
-    returns(
-        address owner,
-        bytes32 name,
-        string pubKey
-    ) {
-        owner = providers[_dataProviderAddress].owner;
-        name = providers[_dataProviderAddress].name;
-        pubKey = providers[_dataProviderAddress].pubKey;
+    controllerExist(_controller)
+    returns(bytes32, string) {
+        return (controllers[_controller].name, controllers[_controller].pubKey);
     }
 
-    function getDataProcessorInfo(address _dataProcessorAddress)
+    function getProcessor(address _processor)
     public
     view
-    dataProcessorExist(_dataProcessorAddress)
-    returns(
-        address owner,
-        bytes32 name,
-        string pubKey
-    ) {
-        owner = processors[_dataProcessorAddress].owner;
-        name = processors[_dataProcessorAddress].name;
-        pubKey = processors[_dataProcessorAddress].pubKey;
-    }
-
-    /* modifiers */
-    modifier uniqueDataSet(bytes32 _dataSetID) {
-        require(_dataSetID.length > 0);
-        require(!dataStore[_dataSetID].isDataSet);
-        _;
-    }
-
-    modifier dataSetExist(bytes32 _dataSetID) {
-        require(_dataSetID.length > 0);
-        require(dataStore[_dataSetID].isDataSet);
-        _;
-    }
-
-    modifier requestExist(address _subscriber) {
-        require(requests[_subscriber].isRequest);
-        _;
-    }
-
-    modifier dataProcessorExist(address _processorAddress) {
-        require(processors[_processorAddress].isProcessor);
-        _;
-    }
-
-    modifier onlyDataProvider(address _providerAddress) {
-        require(providers[_providerAddress].isProvider);
-        require(providers[_providerAddress].owner == msg.sender);
-        _;
+    processorExist(_processor)
+    returns(bytes32, string) {
+        return (processors[_processor].name, processors[_processor].pubKey);
     }
 }
