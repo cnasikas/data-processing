@@ -10,8 +10,8 @@ import {
 } from '../actions'
 
 import '../css/App.css'
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap' // js libraries
 
 const getContracts = contractActions.getContracts
 
