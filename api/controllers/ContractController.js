@@ -1,5 +1,5 @@
 import BaseController from './BaseController'
-import Datastore from '../../lib/blockchain/build/contracts/Datastore.json'
+import Datastore from '../../blockchain/build/contracts/Datastore.json'
 
 export default class ContractController extends BaseController {
   constructor () {

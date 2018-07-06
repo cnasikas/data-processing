@@ -74,7 +74,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
     function requestProcessing(bytes32 _dataSetID, bytes32 algorithmID, string pubKey)
     public
     dataSetExist(_dataSetID)
-    isValidAddress(msg.sender)
+    // TODO: Check if the same request has been made
     returns (bool)
     {
         bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, msg.sender));

@@ -1,6 +1,16 @@
 import _ from 'lodash'
+import blockchain from 'blockchain'
 import { isString } from './helpers'
-import Contract from '../lib/Contract'
+
+const ledger = blockchain()
+const NodeClass = ledger.NodeClass
+
+class NoMetamaskError extends Error {
+  constructor (...params) {
+    super(...params)
+    this.message = 'MetaMask must be installed and enabled.'
+  }
+}
 
 const buildActionTypes = (types) => {
   return types.reduce((obj, item) => {
@@ -45,7 +55,13 @@ const createAPIAction = (type, url, action = 'get', options = {}) => {
 const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreprocess = (data) => data) => {
   return (data) => {
     return async dispatch => {
-      const contractInstance = new Contract()
+      /* global web3 :true */
+
+      if (!window['web3'] || !web3.currentProvider.isMetaMask) {
+        throw new NoMetamaskError()
+      }
+
+      const contractInstance = new NodeClass(web3.currentProvider)
 
       data = dataPreprocess(data)
       const dataArgs = dataToArgs(data)

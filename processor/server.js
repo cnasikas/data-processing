@@ -1,12 +1,20 @@
-import bootstrap from './services/Bootstrap.js'
-import ProcessService from './services/Process.js'
+import dotenv from 'dotenv'
+import {process} from './actions'
+import blockchain from 'blockchain'
 
-bootstrap()
-  .then((blockchain) => {
-    console.log('Bootstrap normally executed')
-    const worker = new ProcessService(blockchain, blockchain.listener)
+dotenv.config()
+const PROVIDER = 'http://localhost:7545'
+const ledger = blockchain()
+const node = new ledger.NodeClass(PROVIDER)
+const eventListener = new ledger.Listener(node.contractInstance)
+
+const register = async () => {
+  await eventListener.registerToEvent('Process')
+
+  eventListener.on('Process', (req) => {
+    process({...req.args})
   })
-  .catch((err) => {
-    console.error('Server error!')
-    console.error(err)
-  })
+}
+
+register()
+  .catch((err) => { console.log(err) })

@@ -1,16 +1,20 @@
-/* Processor should be autonomous from api.
-* Contracts migration and deploy would be permanent on blockchain
-*/
+import dotenv from 'dotenv'
+import {forwardToProcessor} from './actions'
+import blockchain from 'blockchain'
 
-import FordwardService from './services/FordwardService.js'
-import bootstrap from './services/Bootstrap.js'
+dotenv.config()
+const PROVIDER = 'http://localhost:7545'
+const ledger = blockchain()
+const node = new ledger.NodeClass(PROVIDER)
+const eventListener = new ledger.Listener(node.contractInstance)
 
-bootstrap()
-.then((blockchain) => {
-  console.log('Bootstrap normally executed')
-  const worker = new FordwardService(blockchain, blockchain.listener)
-})
-.catch((err) => {
-  console.error('Server error!')
-  console.error(err)
-})
+const register = async () => {
+  await eventListener.registerToEvent('NewRequest')
+
+  eventListener.on('NewRequest', (req) => {
+    forwardToProcessor({...req.args})
+  })
+}
+
+register()
+  .catch((err) => { console.log(err) })
