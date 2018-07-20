@@ -1,7 +1,8 @@
+const _ = require('lodash')
 const {Address} = require('../../../models')
 
 const saveWithAddress = async (Model, obj, address) => {
-  if (address === null) {
+  if (_.isEmpty(address)) {
     throw new Error('Null address is not allowed')
   }
 
