@@ -15,7 +15,7 @@ const handleDataset = async (res) => {
   }
 
   try {
-    await saveWithAddress(Dataset, {...obj}, res.args._controllerAddress)
+    await saveWithAddress(Dataset, {...obj}, res.args.controller)
   } catch (err) {
     console.log(err)
     throw err
