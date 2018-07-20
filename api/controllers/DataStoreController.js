@@ -33,7 +33,7 @@ export default class DataController extends BaseController {
       include: [
         {
           model: Address,
-          attributes: ['hash']
+          attributes: ['address']
         }
       ],
       raw: true

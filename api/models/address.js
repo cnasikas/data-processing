@@ -1,7 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
   var Address = sequelize.define('Address', {
-    hash: {
+    address: {
       type: DataTypes.STRING,
       unique: true
     },

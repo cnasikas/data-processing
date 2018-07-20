@@ -27,7 +27,7 @@ export default class ProcessorController extends BaseController {
       include: [
         {
           model: Address,
-          attributes: ['hash']
+          attributes: ['address']
         }
       ],
       raw: true

@@ -29,7 +29,7 @@ export default class RequestController extends BaseController {
       include: [
         {
           model: Address,
-          attributes: ['hash']
+          attributes: ['address']
         },
         {
           model: Dataset,
