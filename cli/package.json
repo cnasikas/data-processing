@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/cnasikas/data-market.git"
   },
+  "scripts": {
+    "test": "npx mocha"
+  },
   "dependencies": {
     "commander": "^2.9.0"
   },
