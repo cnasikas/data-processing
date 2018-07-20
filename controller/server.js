@@ -8,6 +8,8 @@ const ledger = blockchain()
 const node = new ledger.NodeClass(PROVIDER)
 const eventListener = new ledger.Listener(node.contractInstance)
 
+console.log('[*] Controller node started')
+
 const register = async () => {
   await eventListener.registerToEvent('NewRequest')
 
