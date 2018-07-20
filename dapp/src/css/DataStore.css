@@ -5,3 +5,8 @@
 .contract-body {
   margin-top: 25px;
 }
+
+.data-details .badge,
+#datastore .badge {
+  margin-left: 15px;
+}
