@@ -9,8 +9,7 @@
     "api": "cd ./api && yarn start",
     "dapp": "cd ./dapp && yarn start",
     "processor": "cd ./processor && yarn start",
-    "controller": "cd ./controller && yarn start",
-    "synch": "cd ./api && node ./tools/synch-db/synch-db"
+    "controller": "cd ./controller && yarn start"
   },
   "repository": {
     "type": "git",
