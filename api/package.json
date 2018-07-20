@@ -7,7 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js --exec babel-node",
     "build": "babel server.js -d dist/build.js",
-    "serve": "node dist/build.js"
+    "serve": "node dist/build.js",
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
+    "seed:all": "sequelize db:seed:all",
+    "seed": "sequelize db:seed --seed",
+    "model:generate": "sequelize model:generate",
+    "dev": "npx nodemon server.js --exec babel-node",
+    "sync": "node tools/sync-db.js"
   },
   "repository": {
     "type": "git",
