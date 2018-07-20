@@ -1,9 +1,8 @@
 import types from './ActionTypes'
 import {buildActions, createBlockchainAction} from '../utils/actions'
-import {slugify} from '../utils/helpers'
 
 const dataToArgs = (data) => {
-  return [data.digest, data.name, data.location, data.category, '']
+  return [data.digest, data.name, data.location, data.category]
 }
 
 const actions = buildActions({
