@@ -1,5 +1,5 @@
 const {saveWithAddress} = require('./save')
-const {Dataset} = require('../../../models')
+const {Dataset} = require('../../models')
 
 // const ETH_TO_WEI = 1000000000000000000
 

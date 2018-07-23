@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const {Address} = require('../../../models')
+const {Address} = require('../../models')
 
 const saveWithAddress = async (Model, obj, address) => {
   if (_.isEmpty(address)) {
