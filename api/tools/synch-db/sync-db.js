@@ -1,11 +1,13 @@
 (async () => {
   const blockchain = require('blockchain')
-  const {handleEntity, handleDataset} = require('./handlers')
+  const {handleEntity, handleDataset} = require('../../utils/eventHandlers')
   const {Processor, Controller} = require('../../models')
 
   const START_BLOCK = 1
   const END_BLOCK = 'latest'
   const PROVIDER = 'http://localhost:7545'
+
+  console.log('[*] Syncing database...')
   /*
    NewDataSet
    NewController
@@ -46,4 +48,7 @@
       }
     }
   })
+
+  // console.log('[*] Database synced!')
+  // process.exit()
 })()
