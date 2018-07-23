@@ -5,10 +5,12 @@ import processors from './processors'
 import contracts from './contracts'
 import accounts from './accounts'
 
+import pkg from '../package.json'
+
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  res.json({msg: 'Hello World!'})
+  res.json({staus: 200, message: `API version ${pkg.version}`})
 })
 
 export default {
