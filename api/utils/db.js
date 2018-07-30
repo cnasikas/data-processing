@@ -1,4 +1,7 @@
-const {Processor} = require('../models')
+const {
+  Request,
+  Dataset
+} = require('../models')
 
 class DBSaveError extends Error {
   constructor (Model, ...params) {
@@ -15,6 +18,28 @@ const simpleSave = async (Model, proc) => {
   }
 }
 
+const saveRequest = async (datasetID, request) => {
+  try {
+    const dataset = await Dataset.findOne({
+      attributes: ['id'],
+      where: {
+        hash: datasetID
+      }
+    })
+
+    if (dataset === null) {
+      throw new Error('Invalid dataset')
+    }
+
+    request.dataset_id = dataset.id
+
+    return await Request.create(request)
+  } catch (error) {
+    throw new DBSaveError(Request)
+  }
+}
+
 module.exports = {
   simpleSave,
+  saveRequest
 }
