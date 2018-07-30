@@ -7,14 +7,14 @@ class DBSaveError extends Error {
   }
 }
 
-const saveProcessor = async (proc) => {
+const simpleSave = async (Model, proc) => {
   try {
-    return await Processor.create(proc)
+    return await Model.create(proc)
   } catch (error) {
-    throw new DBSaveError(Processor)
+    throw new DBSaveError(Model)
   }
 }
 
 module.exports = {
-  saveProcessor
+  simpleSave,
 }
