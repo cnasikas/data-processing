@@ -26,29 +26,40 @@
         event.args.name = node.fromBytes(event.args.name)
         await handleEntity(Processor, event)
       }
+
+      instance.NewController({}, {fromBlock: START_BLOCK, toBlock: END_BLOCK}).get(async (err, res) => {
+        if (!err) {
+          for (let event of res) {
+            event.args.name = node.fromBytes(event.args.name)
+            await handleEntity(Controller, event)
+          }
+        }
+
+        instance.NewDataSet({}, {fromBlock: START_BLOCK, toBlock: END_BLOCK}).get(async (err, res) => {
+          if (!err) {
+            for (let event of res) {
+              event.args.name = node.fromBytes(event.args.name)
+              event.args.category = node.fromBytes(event.args.category)
+              event.args.metaHash = node.fromBytes(event.args.metaHash)
+              await handleDataset(event)
+            }
+          }
+
+          instance.NewRequest({}, {fromBlock: START_BLOCK, toBlock: END_BLOCK}).get(async (err, res) => {
+            if (!err) {
+              for (let event of res) {
+                event.args.name = node.fromBytes(event.args.name)
+                event.args.category = node.fromBytes(event.args.category)
+                event.args.metaHash = node.fromBytes(event.args.metaHash)
+                await handleDataset(event)
+              }
+
+              console.log('[*] Database synced!')
+              process.exit()
+            }
+          })
+        })
+      })
     }
   })
-
-  instance.NewController({}, {fromBlock: START_BLOCK, toBlock: END_BLOCK}).get(async (err, res) => {
-    if (!err) {
-      for (let event of res) {
-        event.args.name = node.fromBytes(event.args.name)
-        await handleEntity(Controller, event)
-      }
-    }
-  })
-
-  instance.NewDataSet({}, {fromBlock: START_BLOCK, toBlock: END_BLOCK}).get(async (err, res) => {
-    if (!err) {
-      for (let event of res) {
-        event.args.name = node.fromBytes(event.args.name)
-        event.args.category = node.fromBytes(event.args.category)
-        event.args.metaHash = node.fromBytes(event.args.metaHash)
-        await handleDataset(event)
-      }
-    }
-  })
-
-  // console.log('[*] Database synced!')
-  // process.exit()
 })()
