@@ -1,8 +1,6 @@
 import Crypto from 'total-crypto'
-import blockchain from 'blockchain'
 
 const crypto = new Crypto()
-const ledger = blockchain()
 
 const encryptKey = (key) => {
   let encKey = crypto.pubEncrypt(key, process.env.SYM_KEY)
@@ -10,17 +8,18 @@ const encryptKey = (key) => {
   return JSON.stringify({iv, kemtag, ct})
 }
 
-const forwardToProcessor = async (data) => {
+const forwardToProcessor = async (node, data) => {
   try {
-    console.log(data)
-    // const hex = '3dd54831f488a22b28398de0c567a3b064b937f54f81739ae9bd545967f3abab'
-    // const hex = '3dd54831f488a22b28398de0c567a3b064b937f54f81739ae9bd545967f3abab'
+    let {_requestID} = data
+    console.log(`[*] Got new request with id: ${_requestID}`)
     // const bytes = node.toBytes(hex)
-    // let account = node.getDefaultAccount()
-    // let instance = await this.contracts.datastore.contract.deployed()
-    // let processor = await instance.getDataProcessorInfo.call(account, {from: account, gas: 500000})
-    // let cipher = this.encryptKey(processor[2])
-    // let notify = await instance.notifyProcessor(processor[0], data._subscriber, cipher)
+    let account = node.getDefaultAccount()
+    let processor = await node.getProcessor(account)
+    let [name, pubkey] = processor
+    let cipher = encryptKey(pubkey)
+    console.log(`[*] Forwarding to processor: name: ${node.fromBytes(name)}, address: ${account}`)
+    const out = await node.notifyProcessor(account, _requestID, cipher)
+    console.log(`[*] Fordward done. Tx: ${out.tx}`)
   } catch (e) {
     throw new Error(e)
   }
