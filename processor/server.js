@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import {process} from './actions'
+import {handleProcess} from './actions'
 import blockchain from 'blockchain'
 
 dotenv.config()
@@ -14,7 +14,7 @@ const register = async () => {
   await eventListener.registerToEvent('Process')
 
   eventListener.on('Process', (req) => {
-    process({...req.args})
+    handleProcess(node, req.args)
   })
 }
 
