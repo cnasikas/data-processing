@@ -29,9 +29,9 @@
     "web3": "^0.20.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-3": "^6.24.1",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
     "nodemon": "^1.11.0"
   }
 }
