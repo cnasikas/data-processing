@@ -13,11 +13,11 @@ contract BaseDataStoreInterface {
 
     function getRequestInfo(bytes32 _requestID) public view returns(
         bytes32 dataSetID,
-        address requestor,
-        bool hasProof,
-        bool processed,
         bytes32 algorithmID,
-        string pubKey
+        string pubKey,
+        address processor,
+        string proof,
+        string out
     );
 
     function getController(address _controller) public view returns(

@@ -78,15 +78,11 @@ contract DataStore is BaseDataStore, DataStoreInterface {
     returns (bool)
     {
         bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, msg.sender));
-        requests[_requestID] = Request({
-            dataSetID: _dataSetID,
-            requestor: msg.sender,
-            hasProof: false,
-            processed: false,
-            algorithmID: algorithmID,
-            pubKey: pubKey,
-            isRequest: true
-        });
+        requests[_requestID].dataSetID = _dataSetID;
+        requests[_requestID].requestor = msg.sender;
+        requests[_requestID].algorithmID = algorithmID;
+        requests[_requestID].pubKey = pubKey;
+        requests[_requestID].isRequest = true;
 
         totalRequests++;
         emit NewRequest(_requestID, _dataSetID, msg.sender, algorithmID, pubKey);

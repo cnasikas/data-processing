@@ -120,14 +120,14 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     public
     view
     requestExist(_requestID)
-    returns(bytes32, address, bool, bool, bytes32, string) {
+    returns(bytes32, bytes32, string, address, string, string) {
         return (
             requests[_requestID].dataSetID,
-            requests[_requestID].requestor,
-            requests[_requestID].hasProof,
-            requests[_requestID].processed,
             requests[_requestID].algorithmID,
-            requests[_requestID].pubKey
+            requests[_requestID].pubKey,
+            requests[_requestID].processor,
+            requests[_requestID].proof,
+            requests[_requestID].out
         );
     }
 
