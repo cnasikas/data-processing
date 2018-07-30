@@ -89,12 +89,25 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         return true;
     }
 
+    function addProof(bytes32 _requestID, string proof, string output)
+    public
+    isTheProcessorOfRequest(msg.sender, _requestID)
+    returns (bool)
+    {
+        requests[_requestID].hasProof = true;
+        requests[_requestID].proof = proof;
+        requests[_requestID].out = output;
+        emit NewProof(_requestID);
+        return true;
+    }
+
     function notifyProcessor(address _processorAddress, bytes32 _requestID, string encryptedKey)
     public
     isValidAddress(msg.sender)
     requestExist(_requestID)
     returns (bool)
     {
+        requests[_requestID].processor = _processorAddress;
         emit Process(_processorAddress, _requestID, encryptedKey);
         return true;
     }
