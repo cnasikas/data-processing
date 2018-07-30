@@ -1,6 +1,7 @@
 (async () => {
   const blockchain = require('blockchain')
-  const {saveProcessor} = require('../../utils/db')
+  const {Processor} = require('../../models')
+  const {simpleSave} = require('../../utils/db')
   const PROVIDER = 'http://localhost:7545'
 
   const processors = [
@@ -18,8 +19,8 @@
 
   for (const proc of processors) {
     try {
-      const res = await node.registerProcessor(node.toBytes(proc.name), proc.pubkey)
-      await saveProcessor({
+      const res = await node.registerProcessor(proc.name, proc.pubkey)
+      await simpleSave(Processor, {
         name: proc.name,
         pub_key: proc.pubkey,
         address_id: 1,

@@ -1,5 +1,6 @@
 import BaseController from './BaseController'
 import {Dataset, Address} from '../models'
+import {simpleSave} from '../utils/db'
 
 export default class DataController extends BaseController {
   constructor () {
@@ -53,7 +54,7 @@ export default class DataController extends BaseController {
     const dataset = req.body
 
     try {
-      await Dataset.create({
+      await simpleSave(Dataset, {
         name: dataset.name,
         slug: dataset.slug,
         location: dataset.location,

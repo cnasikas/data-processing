@@ -1,5 +1,6 @@
 import BaseController from './BaseController'
 import {Processor, Address} from '../models'
+import {simpleSave} from '../utils/db'
 
 export default class ProcessorController extends BaseController {
   constructor () {
@@ -47,7 +48,7 @@ export default class ProcessorController extends BaseController {
     const processor = req.body
 
     try {
-      await Processor.create({
+      await simpleSave(Processor, {
         name: processor.name,
         pub_key: processor.pubkey,
         address_id: 1,
