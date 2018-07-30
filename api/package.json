@@ -14,7 +14,9 @@
     "seed": "sequelize db:seed --seed",
     "model:generate": "sequelize model:generate",
     "dev": "npx nodemon server.js --exec babel-node",
-    "sync": "node tools/sync-db.js"
+    "sync": "node ./tools/sync-db/sync-db.js",
+    "clean": "node ./tools/cleaner/cleanDB.js",
+    "importer": "node ./tools/importer/processors.js"
   },
   "repository": {
     "type": "git",
