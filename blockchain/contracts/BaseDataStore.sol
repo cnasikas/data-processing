@@ -97,6 +97,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         _;
     }
 
+    modifier isTheProcessorOfRequest(address _processor, bytes32 _requestID) {
+        require(requests[_requestID].processor == _processor, "Invalid processor");
+        _;
+    }
+
     function getDataSetInfo(bytes32 _dataSetID)
     public
     view
