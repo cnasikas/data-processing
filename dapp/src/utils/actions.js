@@ -55,17 +55,10 @@ const createAPIAction = (type, url, action = 'get', options = {}) => {
 const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreprocess = (data) => data) => {
   return (data) => {
     return async dispatch => {
-      /* global web3 :true */
-
-      if (!window['web3'] || !web3.currentProvider.isMetaMask) {
-        throw new NoMetamaskError()
-      }
-
-      const contractInstance = new NodeClass(web3.currentProvider)
+      const contractInstance = new NodeClass()
 
       data = dataPreprocess(data)
       const dataArgs = dataToArgs(data)
-
       const res = await contractInstance[contractMethod](...dataArgs)
 
       const obj = {

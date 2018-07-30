@@ -17,7 +17,7 @@
   */
   const ledger = blockchain()
   const node = new ledger.NodeClass(PROVIDER)
-  const contract = node.contractInstance
+  const contract = node.contract
   const instance = await contract.deployed()
 
   instance.NewProcessor({}, {fromBlock: START_BLOCK, toBlock: END_BLOCK}).get(async (err, res) => {

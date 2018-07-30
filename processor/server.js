@@ -6,7 +6,7 @@ dotenv.config()
 const PROVIDER = 'http://localhost:7545'
 const ledger = blockchain()
 const node = new ledger.NodeClass(PROVIDER)
-const eventListener = new ledger.Listener(node.contractInstance)
+const eventListener = new ledger.Listener(node.contract)
 
 console.log('[*] Processor node started')
 
