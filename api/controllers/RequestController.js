@@ -1,5 +1,6 @@
 import BaseController from './BaseController'
 import {Request, Address, Dataset, Algorithm} from '../models'
+import {saveRequest} from '../utils/db'
 
 export default class RequestController extends BaseController {
   constructor () {
@@ -57,19 +58,7 @@ export default class RequestController extends BaseController {
     const request = req.body
 
     try {
-      const dataset = await Dataset.findOne({
-        attributes: ['id'],
-        where: {
-          hash: request.dataset
-        }
-      })
-
-      if (dataset === null) {
-        return res.status(500).json({error: 'Invalid dataset'})
-      }
-
-      await Request.create({
-        dataset_id: dataset.id,
+      await saveRequest(request.dataset, {
         address_id: 1,
         tx_id: request.txId,
         algorithm_id: 1, // request.query
