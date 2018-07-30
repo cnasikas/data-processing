@@ -9,8 +9,9 @@
     "url": "https://github.com/cnasikas/data-market.git"
   },
   "dependencies": {
-    "web3": "^0.20.3",
+    "bluebird": "^3.5.1",
     "truffle-artifactor": "^2.1.5",
-    "truffle-contract": "^2.0.4"
+    "truffle-contract": "^2.0.4",
+    "web3": "^0.20.3"
   }
 }
