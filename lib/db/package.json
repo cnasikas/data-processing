@@ -1,17 +1,46 @@
 {
-  "name": "db",
-  "version": "0.0.1",
-  "main": "db.js",
-  "author": "Christos Nasikas",
-  "license": "MIT",
-  "engines": {
-    "node": ">=8.6.0"
+  "name": "data-market-db",
+  "version": "1.0.0",
+  "description": "Database utilities",
+  "main": "server.js",
+  "scripts": {
+    "migrate": "sequelize db:migrate",
+    "migrate:undo": "sequelize db:migrate:undo",
+    "seed:all": "sequelize db:seed:all",
+    "seed": "sequelize db:seed --seed",
+    "model:generate": "sequelize model:generate",
+    "sync": "node ./tools/sync-db/sync-db.js",
+    "clean": "node ./tools/cleaner/cleanDB.js",
+    "importer": "node ./tools/importer/processors.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/cnasikas/data-market.git"
   },
+  "keywords": [
+    "mpc",
+    "dapp",
+    "rest",
+    "ethereum",
+    "solidity",
+    "smart",
+    "contract"
+  ],
+  "author": "Christos Nasikas",
+  "license": "MIT",
   "dependencies": {
-    "mongoose": "^5.0.14"
+    "mysql2": "^1.5.3",
+    "pg": "^7.4.3",
+    "run.env": "^1.0.2",
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.0.0"
+  },
+  "standard": {
+    "ignore": [
+      "/migrations/",
+      "/seeders/",
+      "/models/index.js",
+      "/etc/"
+    ]
   }
 }
