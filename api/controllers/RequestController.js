@@ -15,7 +15,7 @@ export default class RequestController extends BaseController {
       status: 'status',
       processed: 'processed',
       owner: 'Address.hash',
-      reatedA: 'createdAt'
+      createdAt: 'createdAt'
     }
 
     this.options = {
