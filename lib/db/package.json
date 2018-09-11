@@ -2,7 +2,7 @@
   "name": "data-market-db",
   "version": "1.0.0",
   "description": "Database utilities",
-  "main": "server.js",
+  "main": "db.js",
   "scripts": {
     "migrate": "sequelize db:migrate",
     "migrate:undo": "sequelize db:migrate:undo",
