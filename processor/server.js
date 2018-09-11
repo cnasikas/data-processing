@@ -5,7 +5,15 @@ import blockchain from 'blockchain'
 dotenv.config()
 const PROVIDER = 'http://localhost:7545'
 const ledger = blockchain()
-const node = new ledger.NodeClass(PROVIDER)
+let node = null
+
+try {
+  node = new ledger.NodeClass(PROVIDER)
+} catch (e) {
+  console.log(e.message)
+  process.exit(1)
+}
+
 const eventListener = new ledger.Listener(node.contract)
 
 console.log('[*] Processor node started')

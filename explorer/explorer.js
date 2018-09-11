@@ -4,7 +4,15 @@ const {eventHandlers, models} = require('data-market-db')
 const PROVIDER = 'http://localhost:7545'
 
 const ledger = blockchain()
-const node = new ledger.NodeClass(PROVIDER)
+let node = null
+
+try {
+  node = new ledger.NodeClass(PROVIDER)
+} catch (e) {
+  console.log(e.message)
+  process.exit(1)
+}
+
 const eventListener = new ledger.Listener(node.contract)
 
 const registerEvent = async (event) => {
