@@ -56,7 +56,6 @@ export default class DataController extends BaseController {
     try {
       await simpleSave(Dataset, {
         name: dataset.name,
-        slug: dataset.slug,
         location: dataset.location,
         category: dataset.category,
         hash: dataset.digest,
