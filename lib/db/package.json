@@ -11,7 +11,7 @@
     "model:generate": "sequelize model:generate",
     "sync": "node ./tools/sync-db/sync-db.js",
     "clean": "node ./tools/cleaner/cleanDB.js",
-    "importer": "node ./tools/importer/processors.js"
+    "importer": "node ./tools/importer/index.js"
   },
   "repository": {
     "type": "git",
