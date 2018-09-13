@@ -68,10 +68,3 @@ yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
 yarn link "data-market-db"
-
-cd ../explorer
-yarn install
-yarn link "blockchain"
-yarn link "total-crypto"
-yarn link "data-market-utils"
-yarn link "data-market-db"
