@@ -16,7 +16,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         bytes32 metaHash
     )
     public
-    uniqueDataSet(hash)
+    // uniqueDataSet(hash)
     // TODO: Restrict only to registered controllers
     // onlyController(msg.sender)
     returns (bool)
