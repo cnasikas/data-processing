@@ -1,0 +1,31 @@
+{
+  "name": "data-explorer",
+  "version": "1.0.0",
+  "description": "Responsible for indexing blockchain",
+  "main": "explorer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon explorer.js",
+    "serve": "node explorer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/data-market.git"
+  },
+  "keywords": [
+    "mpc",
+    "controller",
+    "ethereum",
+    "solidity",
+    "smart",
+    "contract"
+  ],
+  "author": "Christos Nasikas",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^5.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
