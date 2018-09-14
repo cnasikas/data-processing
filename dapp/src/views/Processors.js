@@ -2,7 +2,7 @@ import React from 'react'
 import withList from '../components/ListHOC'
 import Processor from '../components/Processor'
 
-import '../css/Processors.css'
+import '../css/Entities.css'
 
 import {
   processorActions
