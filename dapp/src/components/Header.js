@@ -10,6 +10,7 @@ export default class Header extends React.Component {
         {id: 'datastore', title: 'Datastore', url: '/datastore'},
         {id: 'requests', title: 'Requests', url: '/requests'},
         {id: 'processors', title: 'Processors', url: '/processors'},
+        {id: 'controllers', title: 'Controllers', url: '/controllers'},
         {id: 'account', title: 'Account', url: '/account'}
       ]
     }

@@ -25,6 +25,7 @@ export default class Nav extends React.Component {
                 <NavLink className='dropdown-item' to='/datastore/add'>Data set</NavLink>
                 <NavLink className='dropdown-item' to='/requests/add'>Request</NavLink>
                 <NavLink className='dropdown-item' to='/processors/add'>Processor</NavLink>
+                <NavLink className='dropdown-item' to='/controllers/add'>Controller</NavLink>
               </div>
             </li>
           </ul>
