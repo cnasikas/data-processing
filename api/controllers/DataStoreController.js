@@ -15,7 +15,7 @@ export default class DataController extends BaseController {
       hash: 'hash',
       meta_hash: 'meta_hash',
       status: 'status',
-      owner: 'Address.hash',
+      owner: 'Address.address',
       createdAt: 'createdAt'
     }
 

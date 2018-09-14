@@ -14,7 +14,7 @@ export default class RequestController extends BaseController {
       pubkey: 'pub_key',
       status: 'status',
       processed: 'processed',
-      owner: 'Address.hash',
+      owner: 'Address.address',
       createdAt: 'createdAt'
     }
 
