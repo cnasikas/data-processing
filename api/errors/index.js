@@ -11,7 +11,6 @@ class HTTPError extends Error {
     super(message || STATUS_CODES[code])
     this.name = httpCodeToName(code)
     this.statusCode = code
-    this.errorType = 'HTTPError' // TODO: Refactor: Babel ES6 does not extends properly
   }
 }
 
