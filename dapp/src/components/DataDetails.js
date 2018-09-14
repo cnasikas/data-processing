@@ -1,6 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import Badge from './Badge.js'
 
 import AddResourceBtn from '../components/AddResourceBtn.js'
 import {formatDate} from '../utils/helpers'
@@ -21,9 +22,15 @@ class DataDetails extends React.Component {
       return null
     }
 
+    const confirmed = this.props.data.status === 'confirmed'
+    const badgeType = confirmed ? 'success' : 'warning'
+
     return (
       <article className='card data-details border-secondary mb-3'>
-        <h5 className='card-header'>Data set details</h5>
+        <h5 className='card-header'>
+          <span>Data set details</span>
+          <Badge type={badgeType} msg={this.props.data.status} />
+        </h5>
         <div className='card-body'>
           <h5 className='card-title'>Name: {this.props.data.name}</h5>
           <h5 className='card-subtitle'>Category: {this.props.data.category}</h5>
