@@ -29,9 +29,6 @@ class DataDetails extends React.Component {
           <h5 className='card-subtitle'>Category: {this.props.data.category}</h5>
         </div>
         <div className='card-body'>
-          <h6 className='card-subtitle mb-2'>Slug:
-            <span className='text-muted'> {this.props.data.slug}</span>
-          </h6>
           <h6 className='card-subtitle mb-2'>Location:
             <span className='text-muted'> {this.props.data.location}</span>
           </h6>
