@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { HTTPError } from '../errors'
 
 export default class BaseController {
   constructor (model, key, singular) {
@@ -58,4 +59,12 @@ export default class BaseController {
   * Remove the specified resource from storage.
   */
   destroy (req, res, id) {}
+
+  requireResourceFound (resource) {
+    if (resource === null) {
+      throw new HTTPError(404, `${this.singular} not found`)
+    }
+
+    return resource
+  }
 }
