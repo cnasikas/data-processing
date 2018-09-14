@@ -2,11 +2,11 @@ import express from 'express'
 
 const createControllerRoutes = (controller) => {
   const router = express.Router()
-  router.get('/', (req, res) => controller.list(req, res))
-  router.get('/:id', (req, res) => controller.read(req, res, req.params.id))
-  router.post('/', (req, res) => controller.create(req, res))
-  router.put('/:id', (req, res) => controller.update(req, res, req.params.id))
-  router.delete('/:id', (req, res) => controller.destroy(req, res, req.params.id))
+  router.get('/', (req, res, next) => controller.list(req, res).catch(next))
+  router.get('/:id', (req, res, next) => controller.read(req, res, req.params.id).catch(next))
+  router.post('/', (req, res, next) => controller.create(req, res).catch(next))
+  router.put('/:id', (req, res, next) => controller.update(req, res, req.params.id).catch(next))
+  router.delete('/:id', (req, res, next) => controller.destroy(req, res, req.params.id).catch(next))
 
   return router
 }
