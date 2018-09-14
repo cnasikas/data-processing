@@ -8,6 +8,7 @@ import dotenv from 'dotenv'
 
 import routes from '../routes'
 import config from '../config.json'
+import {FileErrorHandler} from '../middlewares/error.js'
 
 function validateENV () {
   if (_.isEmpty(process.env.SYM_KEY) || _.isEmpty(process.env.HMAC_KEY)) {
@@ -42,4 +43,5 @@ export default (app) => {
   validateENV()
   setMiddlewares(app)
   setRoutes(app)
+  app.use(FileErrorHandler)
 }
