@@ -4,7 +4,7 @@ import {simpleSave} from '../utils/db'
 
 export default class DataController extends BaseController {
   constructor () {
-    super(Dataset, 'dataset', 'datasets')
+    super(Dataset, 'datasets', 'dataset')
 
     this.mapping = {
       id: 'id',
