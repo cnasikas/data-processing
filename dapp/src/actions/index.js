@@ -3,6 +3,7 @@ import contractActions from './contracts'
 import datastoreActions from './datastore'
 import accountActions from './accounts'
 import processorActions from './processors'
+import controllerActions from './controllers'
 import requestActions from './requests'
 
 export {
@@ -11,5 +12,6 @@ export {
   contractActions,
   accountActions,
   processorActions,
+  controllerActions,
   requestActions
 }
