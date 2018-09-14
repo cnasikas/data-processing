@@ -1,7 +1,7 @@
 const { HTTPError } = require('../errors')
 
 const HTTPErrorHandler = (err, req, res, next) => {
-  if (err instanceof HTTPError) {
+  if (err.errorType && err.errorType === 'HTTPError') {
     return res.status(err.statusCode).json({
       success: false,
       msg: err.message
