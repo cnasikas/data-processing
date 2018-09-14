@@ -1,6 +1,7 @@
 #datastore .data a,
 #requests .request a,
-#processors .processor a {
+#processors .processor a,
+#controllers .controller a {
   display: block;
   color: #000;
   text-decoration: none;
@@ -8,7 +9,8 @@
 
 .list-group-item.data,
 .list-group-item.request,
-.list-group-item.processor {
+.list-group-item.processor,
+.list-group-item.controller {
   margin-bottom: 0.75rem;
   overflow-wrap: break-word;
 }
