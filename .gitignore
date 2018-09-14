@@ -28,5 +28,7 @@ yarn-error.log*
 # production
 /build
 
+/uploads
+
 *.txt
 *.log
