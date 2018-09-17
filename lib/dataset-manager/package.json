@@ -1,0 +1,14 @@
+{
+  "name": "data-file-manager",
+  "version": "0.0.1",
+  "main": "dataset-manager.js",
+  "author": "Christos Nasikas",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cnasikas/data-market.git"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
