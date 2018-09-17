@@ -30,12 +30,9 @@ export default class BaseController {
    * Display a listing of the resource.
    */
   async list (req, res) {
-    try {
-      const data = await this.model.findAll()
-      res.json(data)
-    } catch (err) {
-      res.status(500).json({error: err.message})
-    }
+    const data = await this.model.findAll()
+    this.requireResourceFound(data)
+    return res.json(data)
   }
 
   /**
