@@ -6,7 +6,7 @@ export default class ContractController extends BaseController {
     super('Contract', '_id')
   }
 
-  list (req, res) {
+  async list (req, res) {
     res.json({datastore: Datastore})
   }
 }

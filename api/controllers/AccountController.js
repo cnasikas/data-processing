@@ -25,7 +25,7 @@ export default class AccountController extends BaseController {
     return res.json(response)
   }
 
-  read (req, res, address) {
+  async read (req, res, address) {
     const blockchain = req.app.blockchain
     let account = {
       address,
