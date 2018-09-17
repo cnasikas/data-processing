@@ -95,7 +95,7 @@ export default class DataController extends BaseController {
     }
 
     const fileType = 'csv'
-    const fileName = '12'//hash.substring(2)
+    const fileName = hash.substring(2)
 
     const options = {
       dotfiles: 'deny',
