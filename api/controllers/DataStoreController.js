@@ -94,7 +94,6 @@ export default class DataController extends BaseController {
       return res.status(404).json({ success: false, msg: 'Dataset is not saved on this server' })
     }
 
-    const fileName = hash.substring(2)
     const fileType = 'enc'
 
     const options = {
@@ -105,6 +104,6 @@ export default class DataController extends BaseController {
       }
     }
 
-    return res.download(`${process.env.UPLOAD_FOLDER}/${fileName}.${fileType}`, `${fileName}.${fileType}`, options)
+    return res.download(`${process.env.UPLOAD_FOLDER}/${hash}.${fileType}`, `${hash}.${fileType}`, options)
   }
 }
