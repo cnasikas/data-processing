@@ -1,9 +1,7 @@
 import React from 'react'
-import moment from 'moment'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Badge from './Badge.js'
-import { Link } from 'react-router-dom'
 import {formatDate} from '../utils/helpers'
 
 import {
@@ -22,20 +20,24 @@ class RequestDetails extends React.Component {
       return null
     }
 
-    let processed = this.props.request.processed
-    let proof = this.props.request.proof
+    const processed = this.props.request.processed
+    const proof = this.props.request.proof
 
-    let prcType = processed ? 'success' : 'warning'
-    let prcMsg = processed ? 'Processed' : 'On hold'
+    const prcType = processed ? 'success' : 'warning'
+    const prcMsg = processed ? 'Processed' : 'On hold'
 
-    let prClass = proof ? 'success' : 'warning'
-    let prMsg = proof ? 'Proof' : 'No proof'
+    const prClass = proof ? 'success' : 'warning'
+    const prMsg = proof ? 'Proof' : 'No proof'
+
+    const confirmed = this.props.request.status === 'confirmed'
+    const badgeType = confirmed ? 'success' : 'warning'
 
     return (
       <article className='card request-details'>
         <h5 className='card-header'>Request details
           <Badge type={prcType} msg={prcMsg} />
           <Badge type={prClass} msg={prMsg} />
+          <Badge type={badgeType} msg={this.props.request.status} />
         </h5>
         <div className='card-body'>
           <h5 className='card-title'>Data set: {this.props.request.dataset}</h5>

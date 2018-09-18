@@ -5,14 +5,17 @@ import {formatDate} from '../utils/helpers'
 
 export default class Request extends React.Component {
   render () {
-    let processed = this.props.processed
-    let proof = false
+    const processed = this.props.processed
+    const proof = false
 
-    let prcType = processed ? 'success' : 'warning'
-    let prcMsg = processed ? 'Processed' : 'On hold'
+    const prcType = processed ? 'success' : 'warning'
+    const prcMsg = processed ? 'Processed' : 'On hold'
 
-    let prClass = proof ? 'success' : 'warning'
-    let prMsg = proof ? 'Proof' : 'No Proof'
+    const prClass = proof ? 'success' : 'warning'
+    const prMsg = proof ? 'Proof' : 'No Proof'
+
+    const confirmed = this.props.status === 'confirmed'
+    const badgeType = confirmed ? 'success' : 'warning'
 
     return (
       <article className='list-group-item list-group-item-action flex-column align-items-start request'>
@@ -21,6 +24,7 @@ export default class Request extends React.Component {
             <h5 className='mb-1'>Request #{this.props.index + 1}
               <Badge type={prcType} msg={prcMsg} />
               <Badge type={prClass} msg={prMsg} />
+              <Badge type={badgeType} msg={this.props.status} />
             </h5>
             <small>{formatDate(this.props.createdAt)}</small>
           </div>
