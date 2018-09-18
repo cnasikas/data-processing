@@ -8,3 +8,5 @@ db
 .node-xml*
 
 .DS_Store
+
+uploads
