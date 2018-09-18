@@ -73,7 +73,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
 
     function requestProcessing(bytes32 _dataSetID, bytes32 algorithmID, string pubKey)
     public
-    dataSetExist(_dataSetID)
+    // dataSetExist(_dataSetID)
     // TODO: Check if the same request has been made
     returns (bool)
     {
