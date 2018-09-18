@@ -94,8 +94,8 @@ export default class DataController extends BaseController {
       return res.status(404).json({ success: false, msg: 'Dataset is not saved on this server' })
     }
 
-    const fileType = 'csv'
     const fileName = hash.substring(2)
+    const fileType = 'enc'
 
     const options = {
       dotfiles: 'deny',
