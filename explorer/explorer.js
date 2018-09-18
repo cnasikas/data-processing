@@ -46,6 +46,7 @@ const main = async () => {
 
   eventListener.on('NewDataSet', async (req) => {
     req.args.name = node.fromBytes(req.args.name)
+    req.args.hash = req.args.hash.substring(2)
     req.args.category = node.fromBytes(req.args.category)
     req.args.metaHash = node.fromBytes(req.args.metaHash)
     await eventHandlers.handleDataset(req)
@@ -53,6 +54,7 @@ const main = async () => {
 
   eventListener.on('NewRequest', async (req) => {
     req.args.algorithmID = node.fromBytes(req.args.algorithmID)
+    req.args._dataSetID = req.args._dataSetID.substring(2)
     await eventHandlers.handleRequest(req)
   })
 }
