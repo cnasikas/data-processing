@@ -135,6 +135,8 @@ if (program.encryptFile) {
   let hmac = program.args[1]
 
   cr.encryptFile(key, hmac, program.encryptFile)
+    .then((value) => { console.log(value) })
+    .catch((err) => { console.log(err) })
 }
 
 if (program.evaluation) {
