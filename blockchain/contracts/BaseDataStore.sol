@@ -15,7 +15,6 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         bytes32 name;
         string location;
         bytes32 category;
-        bytes32 metaHash;
         address controller;
         bool isDataSet;
     }
@@ -106,12 +105,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     public
     view
     dataSetExist(_dataSetID)
-    returns(bytes32, string, bytes32, bytes32, address) {
+    returns(bytes32, string, bytes32, address) {
         return (
             dataStore[_dataSetID].name,
             dataStore[_dataSetID].location,
             dataStore[_dataSetID].category,
-            dataStore[_dataSetID].metaHash,
             dataStore[_dataSetID].controller
         );
     }

@@ -5,6 +5,7 @@ export default class AddDataForm extends React.Component {
   render () {
     return (
       <section id='new-datase-form-fields'>
+
         <div className='form-group'>
           <label htmlFor='name'>Name</label>
           <Field className='form-control' name='name' component='input' type='text' id='name' />
@@ -17,9 +18,15 @@ export default class AddDataForm extends React.Component {
           <label htmlFor='category'>Category</label>
           <Field className='form-control' name='category' component='input' type='text' id='category' />
         </div>
-        <div className='form-group'>
-          <label htmlFor='digest'>Digest</label>
-          <Field className='form-control' name='digest' component='input' type='text' id='digest' />
+        <div className='form-row'>
+          <div className='form-group col-md-6'>
+            <label htmlFor='digest'>Digest</label>
+            <Field className='form-control' name='digest' component='input' type='text' id='digest' />
+          </div>
+          <div className='form-group col-md-6'>
+            <label htmlFor='digest'>IV</label>
+            <Field className='form-control' name='iv' component='input' type='text' id='iv' />
+          </div>
         </div>
       </section>
     )

@@ -7,8 +7,7 @@ contract DataStoreInterface {
         bytes32 hash,
         bytes32 name,
         string location,
-        bytes32 category,
-        bytes32 metaHash
+        bytes32 category
     ) public returns (bool success);
 
     function registerController(address _controllerAddress, bytes32 name, string pubKey) public returns (bool success);
@@ -19,7 +18,7 @@ contract DataStoreInterface {
 
     /*********** Events ************/
 
-    event NewDataSet(bytes32 hash, bytes32 name, string location, bytes32 category, bytes32 metaHash, address controller);
+    event NewDataSet(bytes32 hash, bytes32 name, string location, bytes32 category, address controller);
     event NewController(address _controllerAddress, bytes32 name, string pubKey);
     event NewProcessor(address _processorAddress, bytes32 name, string pubKey);
     event NewRequest(bytes32 _requestID, bytes32 _dataSetID, address _requestor, bytes32 algorithmID, string pubKey);
