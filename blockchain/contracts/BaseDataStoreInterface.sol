@@ -7,6 +7,7 @@ contract BaseDataStoreInterface {
         bytes32 name,
         string location,
         bytes32 category,
+        string metadata,
         address controller
     );
 

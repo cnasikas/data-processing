@@ -12,7 +12,8 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         bytes32 hash,
         bytes32 name,
         string location,
-        bytes32 category
+        bytes32 category,
+        string metadata
     )
     public
     // uniqueDataSet(hash)
@@ -24,12 +25,13 @@ contract DataStore is BaseDataStore, DataStoreInterface {
             name: name,
             category: category,
             location: location,
+            metadata: metadata,
             controller: msg.sender,
             isDataSet: true
         });
 
         totalDataSets++;
-        emit NewDataSet(hash, name, location, category, msg.sender);
+        emit NewDataSet(hash, name, location, category, metadata, msg.sender);
         return true;
     }
 
