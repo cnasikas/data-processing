@@ -1,6 +1,8 @@
 import EntityController from './EntityController'
-import {Controller, Address} from '../models'
-import {simpleSave} from '../utils/db'
+
+import { models } from 'data-market-db'
+
+const Controller = models.Controller
 
 export default class ControllerEntityController extends EntityController {
   constructor () {

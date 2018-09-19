@@ -1,6 +1,7 @@
 import EntityController from './EntityController'
-import {Processor, Address} from '../models'
-import {simpleSave} from '../utils/db'
+import { models } from 'data-market-db'
+
+const Processor = models.Processor
 
 export default class ProcessorController extends EntityController {
   constructor () {

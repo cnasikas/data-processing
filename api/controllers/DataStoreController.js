@@ -1,6 +1,9 @@
 import BaseController from './BaseController'
-import {Dataset, Address} from '../models'
-import {simpleSave} from '../utils/db'
+import { models, methods } from 'data-market-db'
+
+const Dataset = models.Dataset
+const Address = models.Address
+const simpleSave = methods.simpleSave
 
 export default class DataController extends BaseController {
   constructor () {

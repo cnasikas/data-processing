@@ -1,6 +1,11 @@
 import BaseController from './BaseController'
-import {Request, Address, Dataset, Algorithm} from '../models'
-import {saveRequest} from '../utils/db'
+import { models, methods } from 'data-market-db'
+
+const Address = models.Address
+const Request = models.Request
+const Dataset = models.Dataset
+const Algorithm = models.Algorithm
+const saveRequest = methods.saveRequest
 
 export default class RequestController extends BaseController {
   constructor () {
