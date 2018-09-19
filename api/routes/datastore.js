@@ -1,5 +1,5 @@
-import {createSimpleRouter} from '../utils/routes'
-const {router, controller} = createSimpleRouter('DataStoreController')
+import { createSimpleRouter } from '../utils/routes'
+const { router, controller } = createSimpleRouter('DataStoreController')
 
 router.get(
   '/:id/get',

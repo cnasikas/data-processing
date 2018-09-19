@@ -11,7 +11,7 @@ import pkg from '../package.json'
 const router = express.Router()
 
 router.get('/', (req, res) => {
-  res.json({staus: 200, message: `API version ${pkg.version}`})
+  res.json({ staus: 200, message: `API version ${pkg.version}` })
 })
 
 router.get('/health', (req, res) => {

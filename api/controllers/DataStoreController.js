@@ -46,10 +46,10 @@ export default class DataController extends BaseController {
 
   async list (req, res) {
     try {
-      const data = await this.fetch({...this.options})
+      const data = await this.fetch({ ...this.options })
       res.json(this.normalizeResponse(data, this.mapping))
     } catch (err) {
-      res.status(500).json({error: err.message})
+      res.status(500).json({ error: err.message })
     }
   }
 
@@ -76,15 +76,15 @@ export default class DataController extends BaseController {
 
   async read (req, res, id) {
     try {
-      const data = await this.fetch({...this.options}, {hash: id})
+      const data = await this.fetch({ ...this.options }, { hash: id })
       res.json(this.normalizeResponse(data, this.mapping))
     } catch (err) {
-      res.status(500).json({error: err.message})
+      res.status(500).json({ error: err.message })
     }
   }
 
   async download (req, res, id) {
-    let data = await this.fetch({...this.options}, {hash: id})
+    let data = await this.fetch({ ...this.options }, { hash: id })
     data = data.length > 0 ? data : null
 
     this.requireResourceFound(data)

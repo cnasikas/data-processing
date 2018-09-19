@@ -7,6 +7,6 @@ export default class ContractController extends BaseController {
   }
 
   async list (req, res) {
-    res.json({datastore: Datastore})
+    res.json({ datastore: Datastore })
   }
 }

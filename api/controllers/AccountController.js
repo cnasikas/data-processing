@@ -17,13 +17,13 @@ export default class AccountController extends BaseController {
     let accountWithBalance = []
 
     for (let address of accounts) {
-      let account = {address: address, balance: this.node.getBalance(address)}
+      let account = { address: address, balance: this.node.getBalance(address) }
       accountWithBalance.push(account)
     }
 
     let response = {
       accounts: accountWithBalance,
-      default: {address: defaultAccount, balance}
+      default: { address: defaultAccount, balance }
     }
 
     return res.json(response)

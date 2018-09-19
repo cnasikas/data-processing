@@ -1,4 +1,4 @@
-import {createSimpleRouter} from '../utils/routes'
-const {router} = createSimpleRouter('ProcessorController')
+import { createSimpleRouter } from '../utils/routes'
+const { router } = createSimpleRouter('ProcessorController')
 
 export default router

@@ -14,7 +14,7 @@ const createControllerRoutes = (controller) => {
 const createSimpleRouter = (key) => {
   const Controller = require(`../controllers/${key}`)
   const controller = new Controller.default() // eslint-disable-line new-cap
-  return {router: createControllerRoutes(controller), controller}
+  return { router: createControllerRoutes(controller), controller }
 }
 
 module.exports = {

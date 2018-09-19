@@ -39,10 +39,10 @@ export default class EntityController extends BaseController {
 
   async list (req, res) {
     try {
-      const requests = await this.fetch({...this.options})
+      const requests = await this.fetch({ ...this.options })
       res.json(this.normalizeResponse(requests, this.mapping))
     } catch (err) {
-      res.status(500).json({error: err.message})
+      res.status(500).json({ error: err.message })
     }
   }
 
@@ -62,16 +62,16 @@ export default class EntityController extends BaseController {
       return res.json()
     } catch (err) {
       console.log(err)
-      res.status(500).json({error: 'Failed saving pending entity'})
+      res.status(500).json({ error: 'Failed saving pending entity' })
     }
   }
 
   async read (req, res, id) {
     try {
-      const request = await this.fetch({...this.options}, {id: id})
+      const request = await this.fetch({ ...this.options }, { id: id })
       res.json(this.normalizeResponse(request, this.mapping))
     } catch (err) {
-      res.status(500).json({error: err.message})
+      res.status(500).json({ error: err.message })
     }
   }
 }
