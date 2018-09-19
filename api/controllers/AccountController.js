@@ -1,19 +1,23 @@
 import BaseController from './BaseController'
+import blockchain from 'blockchain'
+
+const PROVIDER = 'http://localhost:7545'
 
 export default class AccountController extends BaseController {
   constructor () {
     super('Account', '_id')
+    this.ledger = blockchain()
+    this.node = new this.ledger.NodeClass(PROVIDER)
   }
 
   async list (req, res) {
-    const blockchain = req.app.blockchain
-    const accounts = await blockchain.node.getAccounts()
-    let defaultAccount = blockchain.node.getDefaultAccount()
-    let balance = blockchain.node.getBalance(defaultAccount)
+    const accounts = await this.node.getAccounts()
+    let defaultAccount = this.node.getDefaultAccount()
+    let balance = this.node.getBalance(defaultAccount)
     let accountWithBalance = []
 
     for (let address of accounts) {
-      let account = {address: address, balance: blockchain.node.getBalance(address)}
+      let account = {address: address, balance: this.node.getBalance(address)}
       accountWithBalance.push(account)
     }
 
@@ -26,10 +30,9 @@ export default class AccountController extends BaseController {
   }
 
   async read (req, res, address) {
-    const blockchain = req.app.blockchain
     let account = {
       address,
-      balance: blockchain.node.getBalance(address)
+      balance: this.node.getBalance(address)
     }
 
     return res.json(account)
