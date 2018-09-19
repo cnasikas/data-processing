@@ -2,7 +2,8 @@ import types from './ActionTypes'
 import {buildActions, createBlockchainAction} from '../utils/actions'
 
 const dataToArgs = (data) => {
-  return [data.digest, data.name, data.location, data.category]
+  data.metadata = JSON.stringify({ iv: data.iv })
+  return [data.digest, data.name, data.location, data.category, data.metadata]
 }
 
 const actions = buildActions({
