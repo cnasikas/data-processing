@@ -10,7 +10,7 @@ const handleDataset = async (res) => {
     name: res.args.name,
     location: res.args.location,
     category: res.args.category,
-    meta_hash: res.args.metaHash,
+    metadata: res.args.metadata,
     status: 'confirmed'
   }
 

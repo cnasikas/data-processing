@@ -48,7 +48,6 @@ const main = async () => {
     req.args.name = node.fromBytes(req.args.name)
     req.args.hash = req.args.hash.substring(2)
     req.args.category = node.fromBytes(req.args.category)
-    req.args.metaHash = node.fromBytes(req.args.metaHash)
     await eventHandlers.handleDataset(req)
   })
 

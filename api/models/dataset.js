@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-    meta_hash: DataTypes.STRING,
+    metadata: DataTypes.STRING,
     address_id: DataTypes.INTEGER,
     status: DataTypes.STRING
   }, {});

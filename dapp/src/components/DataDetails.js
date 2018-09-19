@@ -42,8 +42,8 @@ class DataDetails extends React.Component {
           <h6 className='card-subtitle mb-2'>Data Hash:
             <span className='text-muted'> {this.props.data.hash}</span>
           </h6>
-          <h6 className='card-subtitle mb-2'>Metadata Hash:
-            <span className='text-muted'> {this.props.data.meta_hash}</span>
+          <h6 className='card-subtitle mb-2'>Metadata:
+            <span className='text-muted'> {this.props.data.metadata}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Tx:
             <span className='text-muted'> {this.props.data.tx_id}</span>

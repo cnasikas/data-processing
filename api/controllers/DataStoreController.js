@@ -13,7 +13,7 @@ export default class DataController extends BaseController {
       category: 'category',
       tx_id: 'tx_id',
       hash: 'hash',
-      meta_hash: 'meta_hash',
+      metadata: 'metadata',
       status: 'status',
       owner: 'Address.address',
       createdAt: 'createdAt'
@@ -27,7 +27,7 @@ export default class DataController extends BaseController {
         'category',
         'tx_id',
         'hash',
-        'meta_hash',
+        'metadata',
         'status',
         'createdAt'
       ],
@@ -59,7 +59,7 @@ export default class DataController extends BaseController {
         location: dataset.location,
         category: dataset.category,
         hash: dataset.digest,
-        meta_hash: '',
+        metadata: JSON.stringify({ iv: dataset.iv }),
         address_id: 1,
         tx_id: dataset.txId,
         status: 'pending'
@@ -67,7 +67,7 @@ export default class DataController extends BaseController {
 
       return res.json({})
     } catch (err) {
-      res.status(500).json({error: err.message})
+      res.status(500).json({ error: err.message })
     }
   }
 
