@@ -11,6 +11,10 @@ cd lib/util
 yarn install
 yarn link
 
+cd ../dataset-manager
+yarn install
+yarn link
+
 cd ../blockchain
 yarn install
 yarn link
@@ -37,6 +41,7 @@ yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
 yarn link "data-market-db"
+yarn link "dataset-manager"
 
 cd ../api
 yarn install
@@ -44,6 +49,7 @@ yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
 yarn link "data-market-db"
+yarn link "dataset-manager"
 
 cd ../dapp
 yarn install
@@ -54,6 +60,7 @@ yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
 yarn link "data-market-db"
+yarn link "dataset-manager"
 
 cd ../controller
 yarn install
@@ -61,6 +68,7 @@ yarn link "blockchain"
 yarn link "total-crypto"
 yarn link "data-market-utils"
 yarn link "data-market-db"
+yarn link "dataset-manager"
 
 cd ../explorer
 yarn install
