@@ -4,7 +4,6 @@ import helmet from 'helmet'
 import sanitizer from 'express-sanitizer'
 import cors from 'cors'
 import _ from 'lodash'
-import dotenv from 'dotenv'
 
 import routes from '../routes'
 import config from '../config.json'
@@ -44,7 +43,6 @@ function setRoutes (app) {
 }
 
 export default (app) => {
-  dotenv.config()
   validateENV()
   setMiddlewares(app)
   setRoutes(app)

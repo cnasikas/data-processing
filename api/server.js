@@ -1,8 +1,14 @@
+import '@babel/polyfill'
 import express from 'express'
+import dotenv from 'dotenv'
+import path from 'path'
+
 import bootstrap from './services/Bootstrap.js'
 
 /* TODO: CHECK SECURITY */
 /* TODO: Handle errors! */
+
+dotenv.config({ path: path.join(__dirname, '.env') })
 
 const app = express()
 
