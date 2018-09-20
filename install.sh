@@ -53,6 +53,7 @@ yarn link "dataset-manager"
 
 cd ../dapp
 yarn install
+yarn link "blockchain"
 
 cd ../processor
 yarn install
