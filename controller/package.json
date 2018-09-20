@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js --exec babel-node",
-    "build": "babel server.js -d dist/build.js",
-    "serve": "node dist/build.js"
+    "build": "webpack",
+    "serve": "node build/controller.js"
   },
   "repository": {
     "type": "git",
