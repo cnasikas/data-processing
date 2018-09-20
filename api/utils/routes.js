@@ -17,7 +17,7 @@ const createSimpleRouter = (key) => {
   return { router: createControllerRoutes(controller), controller }
 }
 
-module.exports = {
+export {
   createSimpleRouter,
   createControllerRoutes
 }

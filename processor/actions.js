@@ -55,6 +55,6 @@ const handleProcess = async (node, data) => {
   }
 }
 
-module.exports = {
+export {
   handleProcess
 }

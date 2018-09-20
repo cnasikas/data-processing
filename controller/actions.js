@@ -25,7 +25,7 @@ const forwardToProcessor = async (node, data) => {
   }
 }
 
-module.exports = {
+export {
   encryptKey,
   forwardToProcessor
 }
