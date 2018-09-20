@@ -1,5 +1,6 @@
+import '@babel/polyfill'
 import dotenv from 'dotenv'
-import {handleProcess} from './actions'
+import { handleProcess } from './actions'
 import blockchain from 'blockchain'
 
 dotenv.config()
