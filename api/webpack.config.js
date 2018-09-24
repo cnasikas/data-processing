@@ -5,6 +5,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
   entry: [
+    '@babel/polyfill',
     './server.js'
   ],
   target: 'node',

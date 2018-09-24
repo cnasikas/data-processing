@@ -1,4 +1,3 @@
-import '@babel/polyfill'
 import dotenv from 'dotenv'
 import { forwardToProcessor } from './actions'
 import blockchain from 'blockchain'
