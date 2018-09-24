@@ -1,13 +1,12 @@
 import BaseController from './BaseController'
 import blockchain from 'blockchain'
 
-const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
-
 export default class AccountController extends BaseController {
   constructor () {
     super('Account', '_id')
     this.ledger = blockchain()
-    this.node = new this.ledger.NodeClass(PROVIDER)
+    this.provider = process.env.PROVIDER || 'http://localhost:7545'
+    this.node = new this.ledger.NodeClass(this.provider)
   }
 
   async list (req, res) {

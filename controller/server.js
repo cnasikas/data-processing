@@ -1,9 +1,6 @@
-import dotenv from 'dotenv'
-import path from 'path'
+import _ from './env' // eslint-disable-line no-unused-vars
 import { forwardToProcessor } from './actions'
 import blockchain from 'blockchain'
-
-dotenv.config({ path: path.join(__dirname, '.env') })
 
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 const ledger = blockchain()
