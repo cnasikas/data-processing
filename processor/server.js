@@ -3,7 +3,7 @@ import { handleProcess } from './actions'
 import blockchain from 'blockchain'
 
 dotenv.config()
-const PROVIDER = 'http://localhost:7545'
+const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 const ledger = blockchain()
 let node = null
 

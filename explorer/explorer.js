@@ -1,7 +1,9 @@
+const dotenv = require('dotenv')
 const blockchain = require('blockchain')
-const {eventHandlers, models} = require('data-market-db')
+const { eventHandlers, models } = require('data-market-db')
 
-const PROVIDER = 'http://localhost:7545'
+dotenv.config()
+const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 
 const ledger = blockchain()
 let node = null
