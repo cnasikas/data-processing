@@ -1,10 +1,13 @@
 import dotenv from 'dotenv'
+import path from 'path'
 import { handleProcess } from './actions'
 import blockchain from 'blockchain'
 
-dotenv.config()
+dotenv.config({ path: path.join(__dirname, '.env') })
+
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 const ledger = blockchain()
+
 let node = null
 
 try {

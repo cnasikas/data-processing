@@ -1,8 +1,10 @@
 const dotenv = require('dotenv')
+const path = require('path')
 const blockchain = require('blockchain')
 const { eventHandlers, models } = require('data-market-db')
 
-dotenv.config()
+dotenv.config({ path: path.join(__dirname, '.env') })
+
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 
 const ledger = blockchain()
