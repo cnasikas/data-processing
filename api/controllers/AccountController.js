@@ -1,7 +1,7 @@
 import BaseController from './BaseController'
 import blockchain from 'blockchain'
 
-const PROVIDER = 'http://localhost:7545'
+const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 
 export default class AccountController extends BaseController {
   constructor () {
