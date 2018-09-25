@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/cnasikas/data-processing.svg?style=svg&circle-token=57a51759111d9f1fc809fad574e35afb233a9903)](https://circleci.com/gh/cnasikas/data-processing)
+
 # Data processing
 
 A data exchange and processing system.
