@@ -1,0 +1,63 @@
+version: '3'
+services:
+    api:
+      container_name: dp_api
+      build:
+        context: .
+        dockerfile: api/Dockerfile
+      working_dir: /dp_api
+      depends_on:
+        - db
+      ports:
+        - "3001:3001"
+      volumes:
+          - ./api:/dp_api/api
+          - ./blockchain:/dp_api/blockchain
+          - ./lib:/dp_api/lib
+          - ./link_libraries.sh:/dp_api
+          - dp_api_modules:/dp_api/api/node_modules
+    db:
+      container_name: dp_db
+      image: mysql:5.7
+      restart: always
+      ports:
+          - "3307:3307"
+      volumes:
+          - dpdb_volume:/var/lib/mysql
+      environment:
+          - MYSQL_ROOT_PASSWORD=root
+          - MYSQL_PASSWORD=mhmd
+          - MYSQL_DATABASE=mhmd
+          - MYSQL_USER=mhmd
+    explorer:
+      container_name: dp_explorer
+      build: ./explorer
+      depends_on:
+        - db
+      ports:
+        - "3003:3003"
+      volumes:
+          - ./lib:/usr/share/nginx/html
+    dapp:
+        container_name: dp_dapp
+        build: ./dapp
+        depends_on:
+          - api
+        ports:
+            - "8080:80"
+        volumes:
+            - ./dapp/conf.d/:/etc/nginx/conf.d
+            - ./dapp/build:/usr/share/nginx/html
+        environment:
+            VIRTUAL_HOST: ledger.imsi.athenarc.gr
+            LETSENCRYPT_HOST: ledger.imsi.athenarc.gr
+            LETSENCRYPT_EMAIL: admin@ledger.imsi.athenarc.gr
+volumes:
+  dpdb_volume:
+  dp_api_modules:
+
+
+networks:
+    default:
+        external:
+            name: reverse-proxy
