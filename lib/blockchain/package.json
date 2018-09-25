@@ -5,7 +5,7 @@
   "author": "Christos Nasikas",
   "license": "MIT",
   "scripts": {
-    "test": "standard",
+    "lint": "standard",
     "build": "webpack"
   },
   "repository": {
@@ -29,5 +29,10 @@
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0",
     "webpack-node-externals": "^1.7.2"
+  },
+  "standard": {
+    "ignore": [
+      "build"
+    ]
   }
 }
