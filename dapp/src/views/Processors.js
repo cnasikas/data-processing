@@ -10,7 +10,7 @@ import {
 
 const getProcessors = processorActions.getProcessors
 
-const Processors = withList(Processor, 'processors', {getList: getProcessors}, 'Register Processor')
+const Processors = withList(Processor, 'processors', { getList: getProcessors }, 'Register Processor')
 
 export default class ProcessorsPage extends React.Component {
   render () {

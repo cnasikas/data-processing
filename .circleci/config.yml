@@ -1,0 +1,249 @@
+version: 2
+jobs:
+  api:
+    docker:
+      - image: circleci/node:8.11.4
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-v1-api{{ checksum "./api/yarn.lock" }}-{{ arch }}
+            - yarn-v1-api
+      - restore_cache:
+          keys:
+            - node-v1-api{{ checksum "./api/package.json" }}-{{ arch }}
+            - node-v1-api
+
+      - run: cd api && yarn install
+
+      - save_cache:
+          key: yarn-v1-api{{ checksum "./api/yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-api{{ checksum "./api/package.json" }}-{{ arch }}
+          paths:
+            - ./api/node_modules
+
+      - run: cd api && yarn lint
+  dapp:
+    docker:
+      - image: circleci/node:8.11.4
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-v1-dapp{{ checksum "./dapp/yarn.lock" }}-{{ arch }}
+            - yarn-v1-dapp
+      - restore_cache:
+          keys:
+            - node-v1-dapp{{ checksum "./dapp/package.json" }}-{{ arch }}
+            - node-v1-dapp
+
+      - run: cd dapp && yarn install
+
+      - save_cache:
+          key: yarn-v1-dapp{{ checksum "./dapp/yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-dapp{{ checksum "./dapp/package.json" }}-{{ arch }}
+          paths:
+            - ./dapp/node_modules
+
+      - run: cd dapp && yarn lint
+  cli:
+    docker:
+      - image: circleci/node:8.11.4
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-v1-cli{{ checksum "./cli/yarn.lock" }}-{{ arch }}
+            - yarn-v1-cli
+      - restore_cache:
+          keys:
+            - node-v1-cli{{ checksum "./cli/package.json" }}-{{ arch }}
+            - node-v1-cli
+
+      - run: cd cli && yarn install
+
+      - save_cache:
+          key: yarn-v1-cli{{ checksum "./cli/yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-cli{{ checksum "./cli/package.json" }}-{{ arch }}
+          paths:
+            - ./cli/node_modules
+
+      - run: cd cli && yarn lint
+  controller:
+    docker:
+      - image: circleci/node:8.11.4
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-v1-controller{{ checksum "./controller/yarn.lock" }}-{{ arch }}
+            - yarn-v1-controller
+      - restore_cache:
+          keys:
+            - node-v1-controller{{ checksum "./controller/package.json" }}-{{ arch }}
+            - node-v1-controller
+
+      - run: cd controller && yarn install
+
+      - save_cache:
+          key: yarn-v1-controller{{ checksum "./controller/yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-controller{{ checksum "./controller/package.json" }}-{{ arch }}
+          paths:
+            - ./controller/node_modules
+
+      - run: cd controller && yarn lint
+  explorer:
+    docker:
+      - image: circleci/node:8.11.4
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-v1-explorer{{ checksum "./explorer/yarn.lock" }}-{{ arch }}
+            - yarn-v1-explorer
+      - restore_cache:
+          keys:
+            - node-v1-explorer{{ checksum "./explorer/package.json" }}-{{ arch }}
+            - node-v1-explorer
+
+      - run: cd explorer && yarn install
+
+      - save_cache:
+          key: yarn-v1-explorer{{ checksum "./explorer/yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-explorer{{ checksum "./explorer/package.json" }}-{{ arch }}
+          paths:
+            - ./explorer/node_modules
+
+      - run: cd explorer && yarn lint
+  processor:
+    docker:
+      - image: circleci/node:8.11.4
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-v1-processor{{ checksum "./processor/yarn.lock" }}-{{ arch }}
+            - yarn-v1-processor
+      - restore_cache:
+          keys:
+            - node-v1-processor{{ checksum "./processor/package.json" }}-{{ arch }}
+            - node-v1-processor
+
+      - run: cd processor && yarn install
+
+      - save_cache:
+          key: yarn-v1-processor{{ checksum "./processor/yarn.lock" }}-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+
+      - save_cache:
+          key: node-v1-processor{{ checksum "./processor/package.json" }}-{{ arch }}
+          paths:
+            - ./processor/node_modules
+
+      - run: cd processor && yarn lint
+  libs:
+    docker:
+      - image: circleci/node:8.11.4
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - yarn-v1-lib-yarn-{{ arch }}
+            - yarn-v1-lib-yarn
+      - restore_cache:
+          keys:
+            - node-v1-lib-util{{ checksum "./lib/util/package.json" }}-{{ arch }}
+            - node-v1-lib-util
+      - restore_cache:
+          keys:
+            - node-v1-lib-dataset-manager{{ checksum "./lib/dataset-manager/package.json" }}-{{ arch }}
+            - node-v1-lib-dataset-manager
+      - restore_cache:
+          keys:
+            - node-v1-lib-db{{ checksum "./lib/db/package.json" }}-{{ arch }}
+            - node-v1-lib-db
+      - restore_cache:
+          keys:
+            - node-v1-lib-total-crypto{{ checksum "./lib/total-crypto/package.json" }}-{{ arch }}
+            - node-v1-lib-total-crypto
+      - restore_cache:
+          keys:
+            - node-v1-lib-blockchain{{ checksum "./lib/blockchain/package.json" }}-{{ arch }}
+            - node-v1-lib-blockchain
+
+      - run: cd lib/util && yarn install
+      - run: cd lib/blockchain && yarn install
+      - run: cd lib/dataset-manager && yarn install
+      - run: cd lib/db && yarn install
+      - run: cd lib/total-crypto && yarn install
+
+      - save_cache:
+          key: yarn-v1-lib-yarn-{{ arch }}
+          paths:
+            - ~/.cache/yarn
+      - save_cache:
+          key: node-v1-lib-util{{ checksum "./lib/util/package.json" }}-{{ arch }}
+          paths:
+            - ./lib/util/node_modules
+      - save_cache:
+          key: node-v1-lib-dataset-manager{{ checksum "./lib/dataset-manager/package.json" }}-{{ arch }}
+          paths:
+            - ./lib/dataset-manager/node_modules
+      - save_cache:
+          key: node-v1-lib-db{{ checksum "./lib/db/package.json" }}-{{ arch }}
+          paths:
+            - ./lib/db/node_modules
+      - save_cache:
+          key: node-v1-lib-total-crypto{{ checksum "./lib/total-crypto/package.json" }}-{{ arch }}
+          paths:
+            - ./lib/total-crypto/node_modules
+      - save_cache:
+          key: node-v1-lib-blockchain{{ checksum "./lib/blockchain/package.json" }}-{{ arch }}
+          paths:
+            - ./lib/blockchain/node_modules
+
+      - run: cd lib/util && yarn lint
+      - run: cd lib/blockchain && yarn lint
+      - run: cd lib/dataset-manager && yarn lint
+      - run: cd lib/db && yarn lint
+      - run: cd lib/total-crypto && yarn lint
+
+workflows:
+  version: 2
+  all:
+    jobs:
+      - libs
+      - api
+      - dapp
+      - cli
+      - controller
+      - processor
+      - explorer

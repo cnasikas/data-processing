@@ -1,4 +1,4 @@
-import {createAppRoutes} from '../utils/routes'
+import { createAppRoutes } from '../utils/routes'
 
 // import Home from '../views/Home.js'
 import DataStore from '../views/DataStore.js'

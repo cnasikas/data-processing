@@ -10,7 +10,7 @@ import {
 
 const getControllers = controllerActions.getControllers
 
-const Controllers = withList(Controller, 'controllers', {getList: getControllers}, 'Register Controller')
+const Controllers = withList(Controller, 'controllers', { getList: getControllers }, 'Register Controller')
 
 export default class ControllersPage extends React.Component {
   render () {

@@ -74,7 +74,8 @@
       "/migrations/",
       "/seeders/",
       "/models/index.js",
-      "/etc/"
+      "/etc/",
+      "build"
     ]
   }
 }

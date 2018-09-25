@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Badge from './Badge.js'
-import {formatDate} from '../utils/helpers'
+import { formatDate } from '../utils/helpers'
 
 export default class Request extends React.Component {
   render () {

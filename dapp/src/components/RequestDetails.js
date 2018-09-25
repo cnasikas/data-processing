@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Badge from './Badge.js'
-import {formatDate} from '../utils/helpers'
+import { formatDate } from '../utils/helpers'
 
 import {
   requestActions
@@ -12,7 +12,7 @@ const getRequest = requestActions.getRequest
 
 class RequestDetails extends React.Component {
   componentDidMount () {
-    this.props.actions.getRequest({id: this.props.match.params.id}).catch(e => console.log(e))
+    this.props.actions.getRequest({ id: this.props.match.params.id }).catch(e => console.log(e))
   }
 
   render () {
