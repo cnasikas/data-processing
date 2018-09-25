@@ -4,11 +4,22 @@
   "main": "dataset-manager.js",
   "author": "Christos Nasikas",
   "license": "MIT",
+  "scripts": {
+    "lint": "standard"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cnasikas/data-market.git"
   },
   "dependencies": {
     "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
+  },
+  "standard": {
+    "ignore": [
+      "build"
+    ]
   }
 }
