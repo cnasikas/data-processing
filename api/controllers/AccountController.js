@@ -12,11 +12,11 @@ export default class AccountController extends BaseController {
   async list (req, res) {
     const accounts = await this.node.getAccounts()
     let defaultAccount = this.node.getDefaultAccount()
-    let balance = this.node.getBalance(defaultAccount)
+    let balance = await this.node.getBalance(defaultAccount)
     let accountWithBalance = []
 
     for (let address of accounts) {
-      let account = { address: address, balance: this.node.getBalance(address) }
+      let account = { address: address, balance: await this.node.getBalance(address) }
       accountWithBalance.push(account)
     }
 
