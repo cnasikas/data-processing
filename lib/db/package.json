@@ -11,7 +11,8 @@
     "model:generate": "sequelize model:generate",
     "sync": "node ./tools/sync-db/sync-db.js",
     "clean": "node ./tools/cleaner/cleanDB.js",
-    "importer": "node ./tools/importer/index.js"
+    "importer": "node ./tools/importer/index.js",
+    "lint": "standard"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,11 @@
       "/migrations/",
       "/seeders/",
       "/models/index.js",
-      "/etc/"
+      "/etc/",
+      "build"
     ]
+  },
+  "devDependencies": {
+    "standard": "^12.0.1"
   }
 }
