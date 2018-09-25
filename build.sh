@@ -2,7 +2,10 @@
 
 cd "$(dirname "$0")"
 
-cd api
+cd lib/blockchain
+yarn build
+
+cd ../../api
 yarn build
 
 cd ../dapp
