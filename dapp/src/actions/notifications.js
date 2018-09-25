@@ -1,5 +1,5 @@
 import types from './ActionTypes'
-import {buildActions} from '../utils/actions'
+import { buildActions } from '../utils/actions'
 
 const actions = buildActions({
   addNotification: types.ADD_NOTIFICATION,

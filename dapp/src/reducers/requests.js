@@ -1,6 +1,6 @@
 import types from '../actions/ActionTypes'
-import {createSimpleReducer} from '../utils/reducers'
+import { createSimpleReducer } from '../utils/reducers'
 
-const requests = createSimpleReducer([], {type: types.GET_REQUESTS_SUCCESS})
+const requests = createSimpleReducer([], { type: types.GET_REQUESTS_SUCCESS })
 
 export default requests

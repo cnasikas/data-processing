@@ -62,20 +62,20 @@ async function evaluate (size) {
     data = bl.node.getLibInstance().fromAscii(data)
     hash = bl.node.getLibInstance().fromAscii(hash)
 
-    let resData = await evaluation.storeData(data, {gas: 1000000000})
-    let resHash = await evaluation.storeHash(hash, {gas: 1000000000})
-    let resEventData = await evaluation.storeEvent(data, {gas: 1000000000})
-    let resEventHash = await evaluation.storeEvent(hash, {gas: 1000000000})
-    let resDump = await dump.postData(hash, {gas: 1000000000})
+    let resData = await evaluation.storeData(data, { gas: 1000000000 })
+    let resHash = await evaluation.storeHash(hash, { gas: 1000000000 })
+    let resEventData = await evaluation.storeEvent(data, { gas: 1000000000 })
+    let resEventHash = await evaluation.storeEvent(hash, { gas: 1000000000 })
+    let resDump = await dump.postData(hash, { gas: 1000000000 })
 
     let totalGas = 0
 
     for (let i = 0; i < 100; i++) {
-      let res = await evaluation.storeToHashMap(hash, {gas: 1000000000})
+      let res = await evaluation.storeToHashMap(hash, { gas: 1000000000 })
       totalGas += res.receipt.gasUsed
     }
 
-    return {resData, resHash, resEventData, resEventHash, resDump, totalGas}
+    return { resData, resHash, resEventData, resEventHash, resDump, totalGas }
   } catch (e) {
     throw new Error(e)
   }

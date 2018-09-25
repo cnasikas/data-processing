@@ -11,7 +11,7 @@ import {
 const registerController = controllerActions.registerController
 
 const ControllerForm = withReduxForm(AddControllerFormFields, 'add-controller')
-const AddControllerForm = withNewItem(ControllerForm, {addItem: registerController}, {to: '/controllers/', text: 'Controller successuflly added. Return to controllers'})
+const AddControllerForm = withNewItem(ControllerForm, { addItem: registerController }, { to: '/controllers/', text: 'Controller successuflly added. Return to controllers' })
 
 export default class AddController extends React.Component {
   render () {

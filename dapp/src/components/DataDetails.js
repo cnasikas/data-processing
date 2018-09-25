@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Badge from './Badge.js'
 
 import AddResourceBtn from '../components/AddResourceBtn.js'
-import {formatDate} from '../utils/helpers'
+import { formatDate } from '../utils/helpers'
 
 import {
   datastoreActions
@@ -14,7 +14,7 @@ const getData = datastoreActions.getData
 
 class DataDetails extends React.Component {
   componentDidMount () {
-    this.props.actions.getData({id: this.props.match.params.id}).catch(e => console.log(e))
+    this.props.actions.getData({ id: this.props.match.params.id }).catch(e => console.log(e))
   }
 
   render () {

@@ -5,6 +5,7 @@ import { isString } from './helpers'
 const ledger = blockchain()
 const NodeClass = ledger.NodeClass
 
+/* eslint-disable-next-line no-unused-vars */
 class NoMetamaskError extends Error {
   constructor (...params) {
     super(...params)

@@ -11,7 +11,7 @@ import {
 const registerDataset = datastoreActions.registerDataset
 
 const DataForm = withReduxForm(AddDataFormFields, 'add-data')
-const AddDataForm = withNewItem(DataForm, {addItem: registerDataset}, {to: '/datastore/', text: 'Data successuflly added. Return to Data Store'}, true)
+const AddDataForm = withNewItem(DataForm, { addItem: registerDataset }, { to: '/datastore/', text: 'Data successuflly added. Return to Data Store' }, true)
 
 export default class AddData extends React.Component {
   render () {

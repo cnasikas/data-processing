@@ -15,7 +15,7 @@ const getDataStore = datastoreActions.getDataStore
 const requestProcessing = requestActions.requestProcessing
 
 const RequestForm = withReduxForm(AddRequestFormFields, 'add-request')
-const AddRequestForm = withNewItem(RequestForm, {addItem: requestProcessing}, {to: '/requests/', text: 'Request successuflly added. Return to requests'})
+const AddRequestForm = withNewItem(RequestForm, { addItem: requestProcessing }, { to: '/requests/', text: 'Request successuflly added. Return to requests' })
 
 class AddRequestPage extends React.Component {
   componentDidMount () {
@@ -23,7 +23,7 @@ class AddRequestPage extends React.Component {
   }
 
   render () {
-    let toPass = {datastore: this.props.datastore}
+    let toPass = { datastore: this.props.datastore }
     return (
       <div>
         <AddRequestForm toPass={toPass} />

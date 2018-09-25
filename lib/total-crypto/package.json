@@ -22,7 +22,8 @@
   },
   "standard": {
     "ignore": [
-      "build"
+      "build",
+      "test"
     ]
   }
 }

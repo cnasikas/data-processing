@@ -1,5 +1,3 @@
-/* global FormData */
-
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -26,7 +24,7 @@ export default function withAddItemForm (FormComponent, actions, link, multipart
       this.props.actions.addItem(values).then((response) => {
         let message = <Link to={link.to} >{link.text}</Link>
 
-        this.props.actions.addNotification({type: 'success', message: message, class: 'success'})
+        this.props.actions.addNotification({ type: 'success', message: message, class: 'success' })
       }).catch(e => console.log(e))
     }
 

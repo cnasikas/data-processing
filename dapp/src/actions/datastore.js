@@ -1,5 +1,5 @@
 import types from './ActionTypes'
-import {buildActions, createBlockchainAction} from '../utils/actions'
+import { buildActions, createBlockchainAction } from '../utils/actions'
 
 const dataToArgs = (data) => {
   data.metadata = JSON.stringify({ iv: data.iv })

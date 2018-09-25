@@ -10,7 +10,7 @@ import {
 
 const getRequests = requestActions.getRequests
 
-const Requests = withList(Request, 'requests', {getList: getRequests}, 'Request for processing')
+const Requests = withList(Request, 'requests', { getList: getRequests }, 'Request for processing')
 
 export default class RequestPage extends React.Component {
   render () {

@@ -1,12 +1,11 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import AddResourceBtn from '../components/AddResourceBtn.js'
 
 export default function withList (ListComponent, key, actions, buttonTxt) {
   const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators({...actions}, dispatch)
+    actions: bindActionCreators({ ...actions }, dispatch)
   })
 
   const mapStateToProps = state => ({

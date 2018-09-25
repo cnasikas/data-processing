@@ -1,5 +1,4 @@
 import Crypto from 'total-crypto'
-import assert from 'assert'
 
 import dsm from 'dataset-manager'
 
@@ -20,7 +19,7 @@ const processData = async (symKey, location) => {
     const hmacKey = '191a416b8e6e646e3787e3c5601a91985a8df8fdb1444e9d8862ed68719b8e8e'
 
     console.log(`[*] Decrypting dataset...`)
-    const {absPath} = await crypto.decryptFile(symKey, hmacKey, filePath, iv)
+    const { absPath } = await crypto.decryptFile(symKey, hmacKey, filePath, iv)
     console.log(`[*] Done! At: ${absPath}`)
   } catch (e) {
     console.log(e.message)
@@ -30,7 +29,7 @@ const processData = async (symKey, location) => {
 const handleProcess = async (node, data) => {
   try {
     // TODO: Check if the address of the processor is the one that passed with the request
-    let {_processorAddress, _requestID, encryptedKey} = data
+    let { _requestID, encryptedKey } = data
     console.log(`[*] Got new processing request with id: ${_requestID}`)
 
     // let account = node.getDefaultAccount()

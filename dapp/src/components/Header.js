@@ -7,11 +7,11 @@ export default class Header extends React.Component {
     this.state = {
       title: 'Data Sharing',
       menuItems: [
-        {id: 'datastore', title: 'Datastore', url: '/datastore'},
-        {id: 'requests', title: 'Requests', url: '/requests'},
-        {id: 'processors', title: 'Processors', url: '/processors'},
-        {id: 'controllers', title: 'Controllers', url: '/controllers'},
-        {id: 'account', title: 'Account', url: '/account'}
+        { id: 'datastore', title: 'Datastore', url: '/datastore' },
+        { id: 'requests', title: 'Requests', url: '/requests' },
+        { id: 'processors', title: 'Processors', url: '/processors' },
+        { id: 'controllers', title: 'Controllers', url: '/controllers' },
+        { id: 'account', title: 'Account', url: '/account' }
       ]
     }
   }
