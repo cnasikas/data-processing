@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 
 import store from './store'
 import indexRoutes from './routes/index.js'
-import registerServiceWorker from './registerServiceWorker'
+import { unregister } from './registerServiceWorker'
 import './index.css'
 
 const hist = createBrowserHistory()
@@ -24,4 +24,4 @@ ReactDOM.render(
   document.getElementById('app')
 )
 
-registerServiceWorker()
+unregister()
