@@ -21,7 +21,7 @@ const buildActionTypes = (types) => {
 
 const createSimpleAction = (type) => {
   return (data = {}) => {
-    return {type, payload: {...data}}
+    return { type, payload: { ...data } }
   }
 }
 
@@ -74,7 +74,7 @@ const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreproces
 }
 
 const buildActions = (actions) => {
-  actions = {...actions}
+  actions = { ...actions }
 
   for (let action in actions) {
     if (actions.hasOwnProperty(action)) {
