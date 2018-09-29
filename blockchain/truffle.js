@@ -9,7 +9,10 @@ module.exports = {
     ropsten: {
       host: '127.0.0.1',
       port: '8545',
-      network_id: 3
+      network_id: 3,
+      from: '0x6c93277650539ef27bf479bb9cf9f178d49d0a19',
+      gas: 4500000,
+      gasPrice: 10000000000
     }
   }
 }
