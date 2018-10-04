@@ -1,11 +1,10 @@
 import types from './ActionTypes'
 import blockchain from 'blockchain'
+import notificationsActions from './notifications'
 
-const ledger = blockchain()
-const NodeClass = ledger.NodeClass
-const node = new NodeClass()
+const addNotification = notificationsActions.addNotification
 
-const getBalances = (accounts) => {
+const getBalances = (accounts, node) => {
   const promises = accounts.map(async (account) => {
     return {
       address: account,
@@ -18,14 +17,22 @@ const getBalances = (accounts) => {
 
 const getAccounts = () => {
   return async dispatch => {
-    dispatch({ type: types.GET_ACCOUNTS, payload: {} })
+    try {
+      const ledger = blockchain()
+      const NodeClass = ledger.NodeClass
+      const node = new NodeClass()
 
-    let payload = { data: {} }
-    const accounts = await node.getAccounts()
-    payload.data.accounts = await getBalances(accounts)
-    payload.data.default = { ...payload.data.accounts[0] }
+      dispatch({ type: types.GET_ACCOUNTS, payload: {} })
 
-    dispatch({ type: types.GET_ACCOUNTS_SUCCESS, payload })
+      let payload = { data: {} }
+      const accounts = await node.getAccounts()
+      payload.data.accounts = await getBalances(accounts, node)
+      payload.data.default = { ...payload.data.accounts[0] }
+
+      dispatch({ type: types.GET_ACCOUNTS_SUCCESS, payload })
+    } catch (err) {
+      dispatch(addNotification({ type: 'error', message: err.message, class: 'danger' }))
+    }
   }
 }
 
