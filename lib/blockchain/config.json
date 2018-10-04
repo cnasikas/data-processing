@@ -1,0 +1,23 @@
+{
+  "contracts": [
+    {
+      "name": "Migrations",
+      "networks": {
+        "ropsten": {
+          "address": "0x9872cCd8552daa360c57FA64380ebAF0708f68Ac",
+          "transactionHash": "0x94a847e9867a4a1594083de049452d53d6f326cb9bdc22eb0907c33e694588bb"
+        }
+      }
+    },
+    {
+      "name": "DataStore",
+      "networks": {
+        "ropsten": {
+          "address": "0x838a1a5B26703Ef098572c58bfdE6c3202168ef4",
+          "transactionHash": "0xf6ae69aa074f1073163251ca886cd3104cfb6dfe34d48dec2b53757c1a1507f8"
+        }
+      }
+    }
+  ],
+  "etherscan_path": "https://ropsten.etherscan.io"
+}
