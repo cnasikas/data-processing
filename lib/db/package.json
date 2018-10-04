@@ -30,6 +30,7 @@
   "author": "Christos Nasikas",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^6.0.0",
     "mysql2": "^1.5.3",
     "pg": "^7.4.3",
     "run.env": "^1.0.2",
