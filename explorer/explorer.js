@@ -7,11 +7,15 @@ dotenv.config({ path: path.join(__dirname, '.env') })
 
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 
-const registerEvent = async (eventListener, event) => {
-  await eventListener.registerToEvent(event)
+const registerEvents = (contract, key, handler) => {
+  console.log(`[*] Starting ${key} listener`)
+
+  contract[key]()
+    .on('data', event => handler(event))
+    .on('error', console.error)
 }
 
-const listenToEvents = async (node, eventListener) => {
+const listenToEvents = async (node) => {
   /*
    NewDataSet
    NewController
@@ -19,35 +23,39 @@ const listenToEvents = async (node, eventListener) => {
    NewRequest
    Process
   */
-
-  const events = ['NewProcessor', 'NewController', 'NewDataSet', 'NewRequest']
-
-  for (const event of events) {
-    registerEvent(eventListener, event)
-  }
-
-  eventListener.on('NewProcessor', async (req) => {
+  const NewProcessorHandler = async (req) => {
     req.args.name = node.fromBytes(req.args.name)
     await eventHandlers.handleEntity(models.Processor, req)
-  })
+  }
 
-  eventListener.on('NewController', async (req) => {
+  const NewControllerHandler = async (req) => {
     req.args.name = node.fromBytes(req.args.name)
     await eventHandlers.handleEntity(models.Controller, req)
-  })
+  }
 
-  eventListener.on('NewDataSet', async (req) => {
+  const NewDataSetHandler = async (req) => {
     req.args.name = node.fromBytes(req.args.name)
     req.args.hash = req.args.hash.substring(2)
     req.args.category = node.fromBytes(req.args.category)
     await eventHandlers.handleDataset(req)
-  })
+  }
 
-  eventListener.on('NewRequest', async (req) => {
+  const NewRequestHandler = async (req) => {
     req.args.algorithmID = node.fromBytes(req.args.algorithmID)
     req.args._dataSetID = req.args._dataSetID.substring(2)
     await eventHandlers.handleRequest(req)
-  })
+  }
+
+  const events = {
+    NewProcessor: NewProcessorHandler,
+    NewController: NewControllerHandler,
+    NewDataSet: NewDataSetHandler,
+    NewRequest: NewRequestHandler
+  }
+
+  for (const key in events) {
+    registerEvents(node.contract, key, events[key])
+  }
 }
 
 const main = async () => {
@@ -56,8 +64,7 @@ const main = async () => {
 
   try {
     await node.init()
-    const eventListener = new ledger.Listener(node.contractInstance)
-    await listenToEvents(node, eventListener)
+    await listenToEvents(node)
   } catch (e) {
     console.log(e.message)
     process.exit(1)
