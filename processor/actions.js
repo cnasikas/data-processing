@@ -35,16 +35,14 @@ const handleProcess = async (node, data) => {
     // let account = node.getDefaultAccount()
     console.log(`[*] Getting request info...`)
     let request = await node.getRequestInfo(_requestID)
-    let [_dataSetID, algorithmID, pubKey] = request
+    let { 0: _dataSetID, 1: algorithmID, 2: pubKey } = request
 
     console.log(`[*] Done: datasetID: ${_dataSetID}, algorithmID: ${algorithmID}, pubKey: ${pubKey}`)
     console.log(`[*] Getting dataset info...`)
     let dataset = await node.getDataSetInfo(_dataSetID)
-    let [name, location] = dataset // name, location, category, metaHash, controller
+    let { 0: name, 1: location } = dataset // name, location, category, metaHash, controller
     console.log(`[*] Done: name: ${name}, location: ${location}`)
 
-    // let hash = this.crypto.hash([dataset[0], dataset[1], dataset[2], dataset[3]]) // name, location, category, account (controller)
-    // assert.equal(hash, dataset[4], 'Metadata hash not match!!')
     console.log(`[*] Decrypting symetric key...`)
     let symKey = decryptKey(encryptedKey)
     console.log(`[*] Done!`)
