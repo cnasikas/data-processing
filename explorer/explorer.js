@@ -7,23 +7,11 @@ dotenv.config({ path: path.join(__dirname, '.env') })
 
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 
-const ledger = blockchain()
-let node = null
-
-try {
-  node = new ledger.NodeClass(PROVIDER)
-} catch (e) {
-  console.log(e.message)
-  process.exit(1)
-}
-
-const eventListener = new ledger.Listener(node.contract)
-
-const registerEvent = async (event) => {
+const registerEvent = async (eventListener, event) => {
   await eventListener.registerToEvent(event)
 }
 
-const main = async () => {
+const listenToEvents = async (node, eventListener) => {
   /*
    NewDataSet
    NewController
@@ -34,8 +22,8 @@ const main = async () => {
 
   const events = ['NewProcessor', 'NewController', 'NewDataSet', 'NewRequest']
 
-  for (const e of events) {
-    registerEvent(e)
+  for (const event of events) {
+    registerEvent(eventListener, event)
   }
 
   eventListener.on('NewProcessor', async (req) => {
@@ -60,6 +48,20 @@ const main = async () => {
     req.args._dataSetID = req.args._dataSetID.substring(2)
     await eventHandlers.handleRequest(req)
   })
+}
+
+const main = async () => {
+  const ledger = blockchain()
+  const node = new ledger.NodeClass(PROVIDER)
+
+  try {
+    await node.init()
+    const eventListener = new ledger.Listener(node.contractInstance)
+    await listenToEvents(node, eventListener)
+  } catch (e) {
+    console.log(e.message)
+    process.exit(1)
+  }
 }
 
 main()
