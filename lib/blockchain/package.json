@@ -32,7 +32,8 @@
   },
   "standard": {
     "ignore": [
-      "build"
+      "build",
+      "*/migrations/*"
     ]
   }
 }

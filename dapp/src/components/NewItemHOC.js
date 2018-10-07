@@ -22,10 +22,13 @@ export default function withAddItemForm (FormComponent, actions, link, multipart
 
     submit (values) {
       this.props.actions.addItem(values).then((response) => {
-        let message = <Link to={link.to} >{link.text}</Link>
+        let message = <Link to={link.to} ><span>{link.text}</span> <br /> <span>{response}</span></Link>
 
         this.props.actions.addNotification({ type: 'success', message: message, class: 'success' })
-      }).catch(e => console.log(e))
+      }).catch(e => {
+        console.log(e)
+        this.props.actions.addNotification({ type: 'error', message: 'An error has occured!', class: 'danger' })
+      })
     }
 
     render () {

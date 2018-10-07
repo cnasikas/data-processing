@@ -38,5 +38,17 @@
   },
   "dependencies": {
     "truffle-contract": "^3.0.6"
+  },
+  "standard": {
+    "ignore": [
+      "**/build/**",
+      "**/node_modules/**",
+      "**/migrations/**",
+      "**/seeders/**",
+      "**/sjcl-all/**",
+      "**/test/**",
+      "**/db/models/index.js",
+      "**/registerServiceWorker.js"
+    ]
   }
 }

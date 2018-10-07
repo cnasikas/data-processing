@@ -56,20 +56,21 @@ const createAPIAction = (type, url, action = 'get', options = {}) => {
 const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreprocess = (data) => data) => {
   return (data) => {
     return async dispatch => {
-      const contractInstance = new NodeClass()
+      const node = new NodeClass()
+      await node.init()
 
       data = dataPreprocess(data)
       const dataArgs = dataToArgs(data)
-      const res = await contractInstance[contractMethod](...dataArgs)
+      const tx = await node[contractMethod](...dataArgs)
 
       const obj = {
         ...data,
-        txId: res.tx
+        txId: tx
       }
 
       dispatch(after({}, obj))
 
-      return res.tx
+      return `Tx: ${tx}`
     }
   }
 }
