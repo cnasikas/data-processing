@@ -15,9 +15,7 @@ contract BaseDataStoreInterface {
         bytes32 dataSetID,
         bytes32 algorithmID,
         string pubKey,
-        address processor,
-        string proof,
-        string out
+        address requestor
     );
 
     function getController(address _controller) public view returns(
