@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "standard",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "cd contracts && truffle test"
   },
   "repository": {
     "type": "git",
