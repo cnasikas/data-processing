@@ -33,7 +33,9 @@
   "standard": {
     "ignore": [
       "build",
-      "*/migrations/*"
+      "*/migrations/*",
+      "*/contracts/*",
+      "*/test/*"
     ]
   }
 }
