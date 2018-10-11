@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "truffle": "^4.1.14",
     "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
