@@ -7,7 +7,9 @@
   "scripts": {
     "lint": "standard",
     "build": "webpack",
-    "test": "cd contracts && truffle test"
+    "test": "cd contracts && truffle test",
+    "compile": "cd contracts && truffle compile",
+    "migrate": "cd contracts && truffle migrate"
   },
   "repository": {
     "type": "git",
