@@ -129,6 +129,19 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         );
     }
 
+    function getRequestProcessingInfo(bytes32 _requestID)
+    public
+    view
+    requestExist(_requestID)
+    returns(address, bool, string, string) {
+        return (
+            requests[_requestID].processor,
+            requests[_requestID].processed,
+            requests[_requestID].proof,
+            requests[_requestID].out
+        );
+    }
+
     function getController(address _controller)
     public
     view
