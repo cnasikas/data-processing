@@ -236,6 +236,31 @@ jobs:
       - run: cd lib/db && yarn lint
       - run: cd lib/total-crypto && yarn lint
 
+  smart_contracts:
+    docker:
+        - image: circleci/node:8.11.4
+        - image: trufflesuite/ganache-cli
+          command: ganache-cli -i 5777 -e 100000000000 -l 100000000 -p 7545
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - node-v1-lib-blockchain{{ checksum "./lib/blockchain/package.json" }}-{{ arch }}
+            - node-v1-lib-blockchain
+
+      - run: cd lib/blockchain && yarn install
+
+      - save_cache:
+          key: node-v1-lib-blockchain{{ checksum "./lib/blockchain/package.json" }}-{{ arch }}
+          paths:
+            - ./lib/blockchain/node_modules
+
+      - run: cd lib/blockchain && yarn test
+
 workflows:
   version: 2
   all:
@@ -247,3 +272,4 @@ workflows:
       - controller
       - processor
       - explorer
+      - smart_contracts

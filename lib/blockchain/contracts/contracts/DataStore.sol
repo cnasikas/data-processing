@@ -16,9 +16,8 @@ contract DataStore is BaseDataStore, DataStoreInterface {
         string metadata
     )
     public
-    // uniqueDataSet(hash)
-    // TODO: Restrict only to registered controllers
-    // onlyController(msg.sender)
+    isValidDataset(hash)
+    onlyController(msg.sender)
     returns (bool)
     {
         dataStore[hash] = DataSet({
@@ -38,8 +37,8 @@ contract DataStore is BaseDataStore, DataStoreInterface {
     function registerController(address _controllerAddress, bytes32 name, string pubKey)
     public
     onlyOwner
-    // TODO: Check if already registed
     isValidAddress(_controllerAddress)
+    onlyUnregisteredController(_controllerAddress)
     returns (bool)
     {
         controllers[_controllerAddress] = Controller({
@@ -56,8 +55,8 @@ contract DataStore is BaseDataStore, DataStoreInterface {
     function registerProcessor(address _processorAddress, bytes32 name, string pubKey)
     public
     onlyOwner
-    // TODO: Check if already registed
     isValidAddress(_processorAddress)
+    onlyUnregisteredProcessor(_processorAddress)
     returns (bool)
     {
         processors[_processorAddress] = Processor({
@@ -73,8 +72,8 @@ contract DataStore is BaseDataStore, DataStoreInterface {
 
     function requestProcessing(bytes32 _dataSetID, bytes32 algorithmID, string pubKey)
     public
-    // dataSetExist(_dataSetID)
-    // TODO: Check if the same request has been made
+    dataSetExist(_dataSetID)
+    uniqueRequest(_dataSetID, msg.sender)
     returns (bool)
     {
         bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, msg.sender));
@@ -105,6 +104,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
     public
     isValidAddress(msg.sender)
     requestExist(_requestID)
+    onlyOwnerOfDataset(msg.sender, _requestID)
     returns (bool)
     {
         requests[_requestID].processor = _processorAddress;

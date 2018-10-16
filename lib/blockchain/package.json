@@ -6,7 +6,10 @@
   "license": "MIT",
   "scripts": {
     "lint": "standard",
-    "build": "webpack"
+    "build": "webpack",
+    "test": "cd contracts && truffle test",
+    "compile": "cd contracts && truffle compile",
+    "migrate": "cd contracts && truffle migrate"
   },
   "repository": {
     "type": "git",
@@ -14,9 +17,13 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "truffle": "^4.1.14",
     "truffle-artifactor": "^2.1.5",
     "truffle-contract": "^2.0.4",
-    "web3": "^0.20.3"
+    "web3": "^0.20.3",
+    "web3-utils": "^1.0.0-beta.36"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.0",
@@ -33,7 +40,9 @@
   "standard": {
     "ignore": [
       "build",
-      "*/migrations/*"
+      "*/migrations/*",
+      "*/contracts/*",
+      "*/test/*"
     ]
   }
 }

@@ -58,26 +58,41 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     }
 
     /* modifiers */
-    modifier uniqueDataSet(bytes32 _dataSetID) {
-        require(_dataSetID.length > 0, "Empty dataset id is not allowed");
-        require(!dataStore[_dataSetID].isDataSet, "Dataset already declared");
+    modifier isValidDataset(bytes32 _dataSetID) {
+        require(_dataSetID != 0, "Empty dataset id is not allowed");
         _;
     }
 
     modifier dataSetExist(bytes32 _dataSetID) {
-        require(_dataSetID.length > 0, "Empty dataset id is not allowed");
         require(dataStore[_dataSetID].isDataSet, "Dataset not found");
         _;
     }
 
     modifier requestExist(bytes32 _requestID) {
-        require(_requestID.length > 0, "Empty request id is not allowed");
+        require(_requestID != 0, "Empty request id is not allowed");
         require(requests[_requestID].isRequest, "Request not found");
         _;
     }
 
+    modifier uniqueRequest(bytes32 _dataSetID, address requestor) {
+      bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, requestor));
+      require(requests[_requestID].isRequest == false, "Request already exists");
+      _;
+    }
+
+    modifier onlyOwnerOfDataset(address _controllerAddress, bytes32 _requestID) {
+      bytes32 _dataSetID = requests[_requestID].dataSetID;
+      require(dataStore[_dataSetID].controller == _controllerAddress, "Sender is not the controller of the dataset");
+      _;
+    }
+
     modifier processorExist(address _processorAddress) {
         require(processors[_processorAddress].isProcessor, "Processor not found");
+        _;
+    }
+
+    modifier onlyUnregisteredProcessor(address _processorAddress) {
+        require(processors[_processorAddress].isProcessor == false, "Processor already registered");
         _;
     }
 
@@ -86,9 +101,13 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         _;
     }
 
+    modifier onlyUnregisteredController(address _controllerAddress) {
+        require(controllers[_controllerAddress].isController == false, "Controller already registered");
+        _;
+    }
+
     modifier onlyController(address _controllerAddress) {
-        require(controllers[_controllerAddress].isController, "Controller not found");
-        require(_controllerAddress == msg.sender, "Only a trusted controller is allowed");
+        require(controllers[_controllerAddress].isController, "Unregistered controllers cannot register a dataset");
         _;
     }
 
@@ -126,6 +145,19 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
             requests[_requestID].algorithmID,
             requests[_requestID].pubKey,
             requests[_requestID].requestor
+        );
+    }
+
+    function getRequestProcessingInfo(bytes32 _requestID)
+    public
+    view
+    requestExist(_requestID)
+    returns(address, bool, string, string) {
+        return (
+            requests[_requestID].processor,
+            requests[_requestID].processed,
+            requests[_requestID].proof,
+            requests[_requestID].out
         );
     }
 
