@@ -3,5 +3,8 @@
 cd "$(dirname "$0")"
 
 ./install.sh
-./build.sh
 ./link_libraries.sh
+
+yarn compile
+
+./build.sh

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "standard",
-    "contracts": "cd ./lib/blockchain/contracts && truffle migrate",
+    "compile": "cd ./lib/blockchain/contracts && truffle compile",
+    "migrate": "cd ./lib/blockchain/contracts && truffle migrate",
     "api": "cd ./api && yarn start",
     "dapp": "cd ./dapp && yarn start",
     "processor": "cd ./processor && yarn start",
