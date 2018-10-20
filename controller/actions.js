@@ -9,20 +9,16 @@ const encryptKey = (key) => {
 }
 
 const forwardToProcessor = async (node, data) => {
-  try {
-    let { _requestID } = data
-    console.log(`[*] Got new request with id: ${_requestID}`)
-    // const bytes = node.toBytes(hex)
-    let account = node.getDefaultAccount()
-    let processor = await node.getProcessor(account)
-    let [name, pubkey] = processor
-    let cipher = encryptKey(pubkey)
-    console.log(`[*] Forwarding to processor: name: ${node.fromBytes(name)}, address: ${account}`)
-    const tx = await node.notifyProcessor(account, _requestID, cipher)
-    console.log(`[*] Fordward done. Tx: ${tx}`)
-  } catch (e) {
-    throw new Error(e)
-  }
+  let { _requestID } = data
+  console.log(`[*] Got new request with id: ${_requestID}`)
+  // const bytes = node.toBytes(hex)
+  let account = node.getDefaultAccount()
+  let processor = await node.getProcessor(account)
+  let { 0: name, 1: pubkey } = processor
+  let cipher = encryptKey(pubkey)
+  console.log(`[*] Forwarding to processor: name: ${node.fromBytes(name)}, address: ${account}`)
+  const tx = await node.notifyProcessor(account, _requestID, cipher)
+  console.log(`[*] Fordward done. Tx: ${tx}`)
 }
 
 export {

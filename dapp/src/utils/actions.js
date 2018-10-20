@@ -53,7 +53,7 @@ const createAPIAction = (type, url, action = 'get', options = {}) => {
   }
 }
 
-const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreprocess = (data) => data) => {
+const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreprocess = data => data) => {
   return (data) => {
     return async dispatch => {
       const node = new NodeClass()

@@ -4,24 +4,19 @@ import blockchain from 'blockchain'
 
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
 
-const register = async (node, eventListener) => {
-  await eventListener.registerToEvent('Process')
-
-  eventListener.on('Process', (req) => {
-    handleProcess(node, req.args)
-  })
-}
-
 const main = async () => {
   const ledger = blockchain()
   const node = new ledger.NodeClass(PROVIDER)
 
-  console.log('[*] Processor node started')
-  await node.init()
-  const eventListener = new ledger.Listener(node.contractInstance)
-
-  register(node, eventListener)
-    .catch((err) => { console.log(err) })
+  try {
+    console.log('[*] Processor node started')
+    await node.init()
+    const emiter = node.contract.Process()
+    emiter.on('data', event => handleProcess(node, event.args).catch((err) => { emiter.emit('error', err) }))
+    emiter.on('error', console.error)
+  } catch (e) {
+    throw e
+  }
 }
 
 main().catch((err) => {
