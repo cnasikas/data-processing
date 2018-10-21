@@ -119,6 +119,9 @@ Vagrant.configure("2") do |config|
 
     mkdir /data_sharing_node_modules_lib_util
     chown vagrant:vagrant /data_sharing_node_modules_lib_util
+
+    mkdir /pequin
+    chown vagrant:vagrant /pequin
     echo "[*] Done!"
   SHELL
 
@@ -135,6 +138,7 @@ Vagrant.configure("2") do |config|
     mount --bind /data_sharing_node_modules_lib_db /data_sharing/lib/db/node_modules
     mount --bind /data_sharing_node_modules_lib_total_crypto /data_sharing/lib/total-crypto/node_modules
     mount --bind /data_sharing_node_modules_lib_util /data_sharing/lib/util/node_modules
+    mount --bind /pequin /data_sharing/zkp/pequin
     echo "[*] Done!"
   SHELL
 
