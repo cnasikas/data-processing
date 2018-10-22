@@ -9,7 +9,8 @@
     "build": "webpack",
     "test": "cd contracts && truffle test",
     "compile": "cd contracts && truffle compile",
-    "migrate": "cd contracts && truffle migrate"
+    "migrate": "cd contracts && truffle migrate",
+    "clean": "cd contracts && truffle networks --clean"
   },
   "repository": {
     "type": "git",
