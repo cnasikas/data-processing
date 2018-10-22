@@ -1,12 +1,25 @@
-import Crypto from 'total-crypto'
+import util from 'util'
+import childProcess from 'child_process'
 
+import Crypto from 'total-crypto'
 import dsm from 'dataset-manager'
+
+const PROVE_CMD = process.env.PROVE_CMD || 'prove.sh'
 
 const crypto = new Crypto()
 const datasetManager = dsm('http')
+const exec = util.promisify(childProcess.exec)
 
 const decryptKey = (cipher) => {
   return crypto.pubDecrypt(process.env.SEC_KEY, cipher)
+}
+
+const compute = async (filePath, symKey) => {
+  console.log(`[*] Start generating proof of computation...`)
+  const { stdout, stderr } = await exec(`${PROVE_CMD} sum`)
+  console.log('stdout:', stdout)
+  console.log('stderr:', stderr)
+  console.log(`[*] Done!`)
 }
 
 const processData = async (symKey, location) => {
@@ -21,6 +34,7 @@ const processData = async (symKey, location) => {
     console.log(`[*] Decrypting dataset...`)
     const { absPath } = await crypto.decryptFile(symKey, hmacKey, filePath, iv)
     console.log(`[*] Done! At: ${absPath}`)
+    compute(absPath, symKey)
   } catch (e) {
     console.log(e.message)
   }
