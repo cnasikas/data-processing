@@ -168,7 +168,8 @@ Vagrant.configure("2") do |config|
     echo "[*] Deploying contracts..."
     cd /data_sharing/lib/blockchain/contracts
     rm -rf build
-    truffle migrate
+    truffle networks --clean
+    truffle migrate --reset
     echo "[*] Done!"
   SHELL
 
