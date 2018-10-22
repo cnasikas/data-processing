@@ -86,7 +86,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.provision "shell", inline: <<-SHELL
-    echo "[*] Preparing local node_modules folder..."
+    echo "[*] Preparing local folders..."
     mkdir /data_sharing_node_modules_main
     chown vagrant:vagrant /data_sharing_node_modules_main
 
@@ -126,7 +126,7 @@ Vagrant.configure("2") do |config|
   SHELL
 
   config.vm.provision "shell", run: "always", inline: <<-SHELL
-    echo "[*] Mounting local node_modules folder..."
+    echo "[*] Mounting local folders..."
     mount --bind /data_sharing_node_modules_main /data_sharing/node_modules
     mount --bind /data_sharing_node_modules_api /data_sharing/api/node_modules
     mount --bind /data_sharing_node_modules_dapp /data_sharing/dapp/node_modules
