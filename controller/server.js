@@ -8,8 +8,10 @@ const register = async (node, eventListener) => {
   await eventListener.registerToEvent('NewRequest')
 
   eventListener.on('NewRequest', (req) => {
-    forwardToProcessor(node, req.args)
+    forwardToProcessor(node, req.args).catch((err) => { eventListener.emit('error', err) })
   })
+
+  eventListener.on('error', console.error)
 }
 
 const main = async () => {
