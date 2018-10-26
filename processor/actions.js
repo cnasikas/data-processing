@@ -1,14 +1,18 @@
 import util from 'util'
 import childProcess from 'child_process'
+import fs from 'fs'
+import path from 'path'
 
 import Crypto from 'total-crypto'
 import dsm from 'dataset-manager'
 
 const PROVE_CMD = process.env.PROVE_CMD || 'prove.sh'
+const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
 
 const crypto = new Crypto()
-const datasetManager = dsm('http')
+const datasetManager = dsm('http', DATASET_FOLDER)
 const exec = util.promisify(childProcess.exec)
+const writeFile = util.promisify(fs.writeFile)
 
 const decryptKey = (cipher) => {
   return crypto.pubDecrypt(process.env.SEC_KEY, cipher)
@@ -23,46 +27,55 @@ const compute = async (filePath, symKey) => {
 }
 
 const processData = async (symKey, location) => {
-  try {
-    console.log(`[*] Downloading dataset...`)
-    const filePath = await datasetManager.download(location)
-    console.log(`[*] Done!`)
+  console.log(`[*] Downloading dataset...`)
+  const filePath = await datasetManager.download(location)
+  console.log(`[*] Done!`)
 
-    const iv = '3ec7cf091636fd12d28aeaa5e4d614e6'
-    const hmacKey = '191a416b8e6e646e3787e3c5601a91985a8df8fdb1444e9d8862ed68719b8e8e'
+  const iv = '3ec7cf091636fd12d28aeaa5e4d614e6'
+  const hmacKey = '191a416b8e6e646e3787e3c5601a91985a8df8fdb1444e9d8862ed68719b8e8e'
 
-    console.log(`[*] Decrypting dataset...`)
-    const { absPath } = await crypto.decryptFile(symKey, hmacKey, filePath, iv)
-    console.log(`[*] Done! At: ${absPath}`)
-    compute(absPath, symKey)
-  } catch (e) {
-    console.log(e.message)
-  }
+  console.log(`[*] Decrypting dataset...`)
+  const { absPath } = await crypto.decryptFile(symKey, hmacKey, filePath, iv)
+  console.log(`[*] Done! At: ${absPath}`)
+  await compute(absPath, symKey)
+}
+
+const saveSymKey = async (symKey, datasetID, filePath) => {
+  const fileName = `${datasetID}.sym`
+  const file = path.join(filePath, fileName)
+  await writeFile(file, symKey)
 }
 
 const handleProcess = async (node, data) => {
   try {
-    // TODO: Check if the address of the processor is the one that passed with the request
-    let { _requestID, encryptedKey } = data
-    console.log(`[*] Got new processing request with id: ${_requestID}`)
+    let { _processorAddress, _requestID, encryptedKey } = data
 
-    // let account = node.getDefaultAccount()
-    console.log(`[*] Getting request info...`)
-    let request = await node.getRequestInfo(_requestID)
-    let [_dataSetID, algorithmID, pubKey] = request
+    if (_processorAddress === node.getDefaultAccount()) {
+      console.log(`[*] Got new processing request with id: ${_requestID}`)
 
-    console.log(`[*] Done: datasetID: ${_dataSetID}, algorithmID: ${algorithmID}, pubKey: ${pubKey}`)
-    console.log(`[*] Getting dataset info...`)
-    let dataset = await node.getDataSetInfo(_dataSetID)
-    let [name, location] = dataset // name, location, category, metaHash, controller
-    console.log(`[*] Done: name: ${name}, location: ${location}`)
+      // let account = node.getDefaultAccount()
+      console.log(`[*] Getting request info...`)
+      let request = await node.getRequestInfo(_requestID)
+      let [_dataSetID, algorithmID, pubKey] = request
 
-    // let hash = this.crypto.hash([dataset[0], dataset[1], dataset[2], dataset[3]]) // name, location, category, account (controller)
-    // assert.equal(hash, dataset[4], 'Metadata hash not match!!')
-    console.log(`[*] Decrypting symetric key...`)
-    let symKey = decryptKey(encryptedKey)
-    console.log(`[*] Done!`)
-    processData(symKey, location)
+      console.log(`[*] Done: datasetID: ${_dataSetID}, algorithmID: ${algorithmID}, pubKey: ${pubKey}`)
+      console.log(`[*] Getting dataset info...`)
+      let dataset = await node.getDataSetInfo(_dataSetID)
+      let [name, location] = dataset // name, location, category, metaHash, controller
+      console.log(`[*] Done: name: ${name}, location: ${location}`)
+
+      // let hash = this.crypto.hash([dataset[0], dataset[1], dataset[2], dataset[3]]) // name, location, category, account (controller)
+      // assert.equal(hash, dataset[4], 'Metadata hash not match!!')
+      console.log(`[*] Decrypting symetric key...`)
+      let symKey = decryptKey(encryptedKey)
+      console.log(`[*] Done!`)
+      console.log(`[*] Saving symetric key...`)
+      await saveSymKey(symKey, _dataSetID.substring(2), path.join(__dirname, DATASET_FOLDER))
+      console.log(`[*] Done!`)
+      await processData(symKey, location)
+    } else {
+      console.log(`[*] Process request not assigned to me!`)
+    }
   } catch (e) {
     throw new Error(e)
   }
