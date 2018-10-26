@@ -21,8 +21,7 @@ contract BaseDataStoreInterface {
     function getRequestProcessingInfo(bytes32 _requestID) public view returns(
         address processor,
         bool processed,
-        string proof,
-        string out
+        uint[] publicInput
     );
 
     function getController(address _controller) public view returns(

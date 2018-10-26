@@ -30,13 +30,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         bytes32 dataSetID;
         address requestor;
         bool hasProof;
-        bool processed;
         bytes32 algorithmID;
         string pubKey;
-        bool isRequest;
         address processor;
-        string proof;
-        string out;
+        uint[] publicInput;
+        bool isRequest;
     }
 
     struct Processor {
@@ -77,6 +75,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     modifier uniqueRequest(bytes32 _dataSetID, address requestor) {
       bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, requestor));
       require(requests[_requestID].isRequest == false, "Request already exists");
+      _;
+    }
+
+    modifier hasProof(bytes32 _requestID) {
+      require(requests[_requestID].hasProof, "Proof not found");
       _;
     }
 
@@ -152,12 +155,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
     public
     view
     requestExist(_requestID)
-    returns(address, bool, string, string) {
+    returns(address, bool, uint[]) {
         return (
             requests[_requestID].processor,
-            requests[_requestID].processed,
-            requests[_requestID].proof,
-            requests[_requestID].out
+            requests[_requestID].hasProof,
+            requests[_requestID].publicInput
         );
     }
 
