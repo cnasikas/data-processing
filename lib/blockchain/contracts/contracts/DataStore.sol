@@ -73,10 +73,10 @@ contract DataStore is BaseDataStore, DataStoreInterface {
     function requestProcessing(bytes32 _dataSetID, bytes32 algorithmID, string pubKey)
     public
     dataSetExist(_dataSetID)
-    uniqueRequest(_dataSetID, msg.sender)
+    uniqueRequest(_dataSetID, msg.sender, algorithmID)
     returns (bool)
     {
-        bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, msg.sender));
+        bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, msg.sender, algorithmID));
         requests[_requestID].dataSetID = _dataSetID;
         requests[_requestID].requestor = msg.sender;
         requests[_requestID].algorithmID = algorithmID;

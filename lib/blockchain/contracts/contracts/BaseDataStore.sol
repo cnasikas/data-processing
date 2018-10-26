@@ -72,8 +72,8 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         _;
     }
 
-    modifier uniqueRequest(bytes32 _dataSetID, address requestor) {
-      bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, requestor));
+    modifier uniqueRequest(bytes32 _dataSetID, address requestor, bytes32 algorithmID) {
+      bytes32 _requestID = keccak256(abi.encodePacked(_dataSetID, requestor, algorithmID));
       require(requests[_requestID].isRequest == false, "Request already exists");
       _;
     }
