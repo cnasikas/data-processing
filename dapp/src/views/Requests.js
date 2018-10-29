@@ -9,8 +9,9 @@ import {
 } from '../actions'
 
 const getRequests = requestActions.getRequests
+const options = { buttonTxt: 'Request for processing' }
 
-const Requests = withList(Request, 'requests', { getList: getRequests }, 'Request for processing')
+const Requests = withList(Request, 'requests', { getList: getRequests }, { ...options })
 
 export default class RequestPage extends React.Component {
   render () {

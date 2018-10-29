@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import AddResourceBtn from '../components/AddResourceBtn.js'
 
-export default function withList (ListComponent, key, actions, buttonTxt) {
+export default function withList (ListComponent, key, actions, options = {}) {
   const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({ ...actions }, dispatch)
   })
@@ -21,14 +21,14 @@ export default function withList (ListComponent, key, actions, buttonTxt) {
       let items = ''
       if (this.props[key].length > 0) {
         items = this.props[key].map((data, index) => {
-          return <ListComponent {...data} key={index} index={index} />
+          return <ListComponent {...data} key={index} index={index} type={key} {...options} />
         })
       }
 
       return (
-        <section id={key} className='list-group'>
+        <section id={key} className='list-group entities'>
           {items}
-          <AddResourceBtn to={'/' + key + '/add'} text={buttonTxt} />
+          <AddResourceBtn to={'/' + key + '/add'} text={options.buttonTxt} />
         </section>
       )
     }

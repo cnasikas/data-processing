@@ -9,8 +9,9 @@ import {
 } from '../actions'
 
 const getDataStore = datastoreActions.getDataStore
+const options = { buttonTxt: 'Add dataset' }
 
-const DataList = withList(Data, 'datastore', { getList: getDataStore }, 'Add dataset')
+const DataList = withList(Data, 'datastore', { getList: getDataStore }, { ...options })
 
 export default class DataStore extends React.Component {
   render () {
