@@ -5,6 +5,7 @@ import path from 'path'
 
 import Crypto from 'total-crypto'
 import dsm from 'dataset-manager'
+import { parseProof } from 'data-market-utils'
 
 const PROVE_CMD = process.env.PROVE_CMD || 'prove.sh'
 const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
@@ -12,6 +13,7 @@ const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
 const crypto = new Crypto()
 const datasetManager = dsm('http', DATASET_FOLDER)
 const exec = util.promisify(childProcess.exec)
+const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 
 const decryptKey = (cipher) => {
@@ -46,6 +48,16 @@ const saveSymKey = async (symKey, datasetID, filePath) => {
   await writeFile(file, symKey)
 }
 
+const saveProofToBlockchain = async (node, datasetID, requestID) => {
+  const proofFile = `${DATASET_FOLDER}/${datasetID}.proof`
+
+  /* Proof is small and constant so it is ok to load the file to memory */
+  let proof = await readFile(path.join(__dirname, proofFile))
+  proof = parseProof(proof)
+  const tx = await node.addProof(requestID, proof)
+  console.log(`[*] Proof saved. Tx: ${tx}`)
+}
+
 const handleProcess = async (node, data) => {
   try {
     let { _processorAddress, _requestID, encryptedKey } = data
@@ -69,10 +81,16 @@ const handleProcess = async (node, data) => {
       console.log(`[*] Decrypting symetric key...`)
       let symKey = decryptKey(encryptedKey)
       console.log(`[*] Done!`)
+
       console.log(`[*] Saving symetric key...`)
       await saveSymKey(symKey, _dataSetID.substring(2), path.join(__dirname, DATASET_FOLDER))
       console.log(`[*] Done!`)
+
       await processData(symKey, location)
+
+      console.log(`[*] Saving proof to the blockchain...`)
+      await saveProofToBlockchain(node, _dataSetID.substring(2), _requestID)
+      console.log(`[*] Done!`)
     } else {
       console.log(`[*] Process request not assigned to me!`)
     }
