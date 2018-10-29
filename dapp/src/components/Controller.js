@@ -17,7 +17,7 @@ export default class Controller extends React.Component {
           </div>
           <p className='mb-1'><b>Name:</b> {this.props.name}</p>
           <p className='mb-1'><b>Public key:</b> {this.props.pubkey}</p>
-          <small><b>Address:</b> {this.props.owner}</small>
+          <small><b>Address:</b> {this.props.address}</small>
         </Link>
       </article>
     )

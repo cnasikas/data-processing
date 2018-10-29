@@ -14,7 +14,7 @@ export default class EntityController extends BaseController {
       tx_id: 'tx_id',
       pubkey: 'pub_key',
       status: 'status',
-      owner: 'Address.address',
+      address: 'Address.address',
       createdAt: 'createdAt'
     }
 
