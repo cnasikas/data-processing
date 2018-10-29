@@ -17,10 +17,9 @@ export default class Request extends React.Component {
             </h5>
             <small>{formatDate(this.props.createdAt)}</small>
           </div>
-          <p className='mb-1'>
-            Data set: {this.props.dataset}
-          </p>
-          <small>By: {this.props.requestor}</small>
+          <p className='mb-1'><b>ID:</b> {this.props.blockchain_id}</p>
+          <p className='mb-1'><b>Data set:</b> {this.props.dataset}</p>
+          <small><b>Requestor:</b> {this.props.requestor}</small>
         </Link>
       </article>
     )

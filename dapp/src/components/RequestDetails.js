@@ -29,7 +29,10 @@ class RequestDetails extends React.Component {
           <Badge type={getBadgeType(this.props.request.status)} msg={this.props.request.status} />
         </h5>
         <div className='card-body'>
-          <h5 className='card-title'>Data set: {this.props.request.dataset}</h5>
+          <h5 className='card-title'>ID: {this.props.request.blockchain_id}</h5>
+          <h6 className='card-subtitle mb-2'>Data set:
+            <span className='text-muted'> {this.props.request.dataset}</span>
+          </h6>
           <h6 className='card-subtitle mb-2'>Tx:
             <span className='text-muted'> {this.props.request.tx_id}</span>
           </h6>
