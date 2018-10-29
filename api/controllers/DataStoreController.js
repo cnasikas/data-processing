@@ -82,31 +82,4 @@ export default class DataController extends BaseController {
       res.status(500).json({ error: err.message })
     }
   }
-
-  async download (req, res, id) {
-    let data = await this.fetch({ ...this.options }, { hash: id })
-    data = data.length > 0 ? data : null
-
-    this.requireResourceFound(data)
-
-    data = data[0]
-    const { location, hash } = data
-    const host = req.get('host')
-
-    if (!location.includes(host)) {
-      return res.status(404).json({ success: false, msg: 'Dataset is not saved on this server' })
-    }
-
-    const fileType = 'enc'
-
-    const options = {
-      dotfiles: 'deny',
-      headers: {
-        'x-timestamp': Date.now(),
-        'x-sent': true
-      }
-    }
-
-    return res.download(`${process.env.UPLOAD_FOLDER}/${hash}.${fileType}`, `${hash}.${fileType}`, options)
-  }
 }

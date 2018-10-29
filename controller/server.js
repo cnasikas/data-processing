@@ -1,8 +1,11 @@
 import _ from './env' // eslint-disable-line no-unused-vars
 import { forwardToProcessor } from './actions'
+import api from './api'
 import blockchain from 'blockchain'
 
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
+
+api()
 
 const register = async (node, eventListener) => {
   await eventListener.registerToEvent('NewRequest')
