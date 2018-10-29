@@ -23,7 +23,7 @@ const main = async () => {
 
   console.log('[*] Controller node started')
   await node.init()
-  const eventListener = new ledger.Listener(node.contractInstance)
+  const eventListener = new ledger.Listener(node.getDataStore())
 
   register(node, eventListener)
     .catch((err) => { console.log(err.message) })
