@@ -7,6 +7,7 @@ yarn link
 
 cd ../dataset-manager
 yarn link
+yarn link "data-market-utils"
 
 cd ../blockchain
 yarn link
@@ -15,6 +16,7 @@ yarn link "data-market-utils"
 cd ../db
 yarn link
 yarn link "blockchain"
+yarn link "data-market-utils"
 
 cd ../sjcl-all
 yarn link
