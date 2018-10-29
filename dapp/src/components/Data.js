@@ -20,7 +20,7 @@ export default class Data extends React.Component {
           <p className='mb-1'><b>Name:</b> {this.props.name}</p>
           <p className='mb-1'><b>Location:</b> {this.props.location}</p>
           <p className='mb-1'><b>Category:</b> {this.props.category}</p>
-          <small><b>Owner:</b> {this.props.owner}</small>
+          <small><b>Controller:</b> {this.props.controller}</small>
         </Link>
       </article>
     )

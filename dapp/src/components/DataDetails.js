@@ -49,7 +49,7 @@ class DataDetails extends React.Component {
             <span className='text-muted'> {this.props.data.tx_id}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Controller:
-            <span className='text-muted'> {this.props.data.owner}</span>
+            <span className='text-muted'> {this.props.data.controller}</span>
           </h6>
         </div>
         <div className='card-body'>
