@@ -13,6 +13,7 @@ export default class RequestController extends BaseController {
 
     this.mapping = {
       id: 'id',
+      blockchain_id: 'blockchain_id',
       dataset: 'Dataset.hash',
       algorithm: 'Algorithm.name',
       tx_id: 'tx_id',
@@ -26,6 +27,7 @@ export default class RequestController extends BaseController {
     this.options = {
       attributes: [
         'id',
+        'blockchain_id',
         'tx_id',
         'status',
         'pub_key',
