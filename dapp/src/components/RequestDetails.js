@@ -2,7 +2,7 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Badge from './Badge.js'
-import { formatDate } from '../utils/helpers'
+import { formatDate, getBadgeType, getReguestBadgeInfo } from '../utils/helpers'
 
 import {
   requestActions
@@ -20,24 +20,13 @@ class RequestDetails extends React.Component {
       return null
     }
 
-    const processed = this.props.request.processed
-    const proof = this.props.request.proof
-
-    const prcType = processed ? 'success' : 'warning'
-    const prcMsg = processed ? 'Processed' : 'On hold'
-
-    const prClass = proof ? 'success' : 'warning'
-    const prMsg = proof ? 'Proof' : 'No proof'
-
-    const confirmed = this.props.request.status === 'confirmed'
-    const badgeType = confirmed ? 'success' : 'warning'
+    const badgeInfo = getReguestBadgeInfo(this.props.request.processed)
 
     return (
       <article className='card request-details'>
         <h5 className='card-header'>Request details
-          <Badge type={prcType} msg={prcMsg} />
-          <Badge type={prClass} msg={prMsg} />
-          <Badge type={badgeType} msg={this.props.request.status} />
+          <Badge type={getBadgeType(badgeInfo.processStatus)} msg={badgeInfo.processMessage} />
+          <Badge type={getBadgeType(this.props.request.status)} msg={this.props.request.status} />
         </h5>
         <div className='card-body'>
           <h5 className='card-title'>Data set: {this.props.request.dataset}</h5>
