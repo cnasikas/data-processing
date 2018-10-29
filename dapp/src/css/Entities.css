@@ -1,6 +1,4 @@
-.processor-details .badge,
-.controller-details .badge,
-#processors .badge,
-#controllers .badge {
+.entity-details .badge,
+.entity .badge {
   margin-left: 15px;
 }
