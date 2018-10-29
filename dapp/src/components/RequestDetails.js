@@ -45,7 +45,7 @@ class RequestDetails extends React.Component {
             <span className='text-muted'> {this.props.request.tx_id}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Requestor:
-            <span className='text-muted'> {this.props.request.owner}</span>
+            <span className='text-muted'> {this.props.request.requestor}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Response public key:
             <span className='text-muted'> {this.props.request.pubkey}</span>

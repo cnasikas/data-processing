@@ -19,7 +19,7 @@ export default class RequestController extends BaseController {
       pubkey: 'pub_key',
       status: 'status',
       processed: 'processed',
-      owner: 'Address.address',
+      requestor: 'Address.address',
       createdAt: 'createdAt'
     }
 
