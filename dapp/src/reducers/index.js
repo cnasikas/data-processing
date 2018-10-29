@@ -8,7 +8,9 @@ import requests from './requests'
 import request from './request'
 import account from './account'
 import processors from './processors'
+import processor from './processor'
 import controllers from './controllers'
+import controller from './controller'
 
 export default combineReducers({
   notifications,
@@ -19,6 +21,8 @@ export default combineReducers({
   request,
   account,
   processors,
+  processor,
   controllers,
+  controller,
   form: formReducer
 })

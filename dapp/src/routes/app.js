@@ -13,6 +13,8 @@ import AddProcessor from '../views/AddProcessor.js'
 import AddController from '../views/AddController.js'
 import DataDetails from '../components/DataDetails'
 import RequestDetails from '../components/RequestDetails'
+import ProcessorDetails from '../components/ProcessorDetails.js'
+import ControllerDetails from '../components/ControllerDetails.js'
 
 const appRoutes = [
   {
@@ -48,12 +50,20 @@ const appRoutes = [
     component: AddProcessor
   },
   {
+    path: '/processors/:id',
+    component: ProcessorDetails
+  },
+  {
     path: '/controllers',
     component: Controllers
   },
   {
     path: '/controllers/add',
     component: AddController
+  },
+  {
+    path: '/controllers/:id',
+    component: ControllerDetails
   },
   {
     path: '/account',
