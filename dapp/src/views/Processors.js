@@ -1,6 +1,6 @@
 import React from 'react'
 import withList from '../components/ListHOC'
-import Processor from '../components/Processor'
+import Entity from '../components/Entity'
 
 import '../css/Entities.css'
 
@@ -9,8 +9,9 @@ import {
 } from '../actions'
 
 const getProcessors = processorActions.getProcessors
+const options = { buttonTxt: 'Register Processor', title: 'Processor' }
 
-const Processors = withList(Processor, 'processors', { getList: getProcessors }, 'Register Processor')
+const Processors = withList(Entity, 'processors', { getList: getProcessors }, { ...options })
 
 export default class ProcessorsPage extends React.Component {
   render () {

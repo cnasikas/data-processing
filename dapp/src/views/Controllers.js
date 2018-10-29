@@ -1,6 +1,6 @@
 import React from 'react'
 import withList from '../components/ListHOC'
-import Controller from '../components/Controller'
+import Entity from '../components/Entity'
 
 import '../css/Entities.css'
 
@@ -9,8 +9,9 @@ import {
 } from '../actions'
 
 const getControllers = controllerActions.getControllers
+const options = { buttonTxt: 'Register Controller', title: 'Controller' }
 
-const Controllers = withList(Controller, 'controllers', { getList: getControllers }, 'Register Controller')
+const Controllers = withList(Entity, 'controllers', { getList: getControllers }, { ...options })
 
 export default class ControllersPage extends React.Component {
   render () {
