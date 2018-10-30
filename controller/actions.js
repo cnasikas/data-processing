@@ -17,7 +17,7 @@ const forwardToProcessor = async (node, data) => {
     let processor = await node.getProcessor(account)
     let [name, pubkey] = processor
     let cipher = encryptKey(pubkey)
-    console.log(`[*] Forwarding to processor: name: ${node.fromBytes(name)}, address: ${account}`)
+    console.log(`[*] Forwarding to processor: name: ${name}, address: ${account}`)
     const tx = await node.notifyProcessor(account, _requestID, cipher)
     console.log(`[*] Fordward done. Tx: ${tx}`)
   } catch (e) {
