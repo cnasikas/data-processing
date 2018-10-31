@@ -3,7 +3,7 @@ import { models, methods } from 'data-market-db'
 
 const Dataset = models.Dataset
 const Address = models.Address
-const simpleSave = methods.simpleSave
+const createWithAddress = methods.createWithAddress
 
 export default class DataController extends BaseController {
   constructor () {
@@ -57,16 +57,15 @@ export default class DataController extends BaseController {
     const dataset = req.body
 
     try {
-      await simpleSave(Dataset, {
+      await createWithAddress(Dataset, {
         name: dataset.name,
         location: dataset.location,
         category: dataset.category,
         hash: dataset.digest,
         metadata: JSON.stringify({ iv: dataset.iv }),
-        address_id: 1,
         tx_id: dataset.txId,
         status: 'pending'
-      })
+      }, dataset.address)
 
       return res.json({})
     } catch (err) {

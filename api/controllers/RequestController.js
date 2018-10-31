@@ -5,7 +5,7 @@ const Address = models.Address
 const Request = models.Request
 const Dataset = models.Dataset
 const Algorithm = models.Algorithm
-const saveRequest = methods.saveRequest
+const createRequest = methods.createRequest
 
 export default class RequestController extends BaseController {
   constructor () {
@@ -65,14 +65,13 @@ export default class RequestController extends BaseController {
     const request = req.body
 
     try {
-      await saveRequest(request.dataset, {
-        address_id: 1,
+      await createRequest(request.dataset, {
         tx_id: request.txId,
         algorithm_id: 1, // request.query
         status: 'pending',
         processed: false,
         pub_key: request.pubkey
-      })
+      }, request.address)
 
       res.json({})
     } catch (err) {

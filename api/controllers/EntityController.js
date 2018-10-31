@@ -2,7 +2,7 @@ import BaseController from './BaseController'
 import { models, methods } from 'data-market-db'
 
 const Address = models.Address
-const simpleSave = methods.simpleSave
+const createWithAddress = methods.createWithAddress
 
 export default class EntityController extends BaseController {
   constructor (model, key, singular) {
@@ -50,19 +50,18 @@ export default class EntityController extends BaseController {
     const entity = req.body
 
     try {
-      await simpleSave(this.model, {
+      await createWithAddress(this.model, {
         name: entity.name,
         pub_key: entity.pubkey,
-        address_id: 1,
         tx_id: entity.txId,
         status: 'pending'
-      })
+      }, entity.address)
 
       res.status(200).json({})
       return res.json()
     } catch (err) {
       console.log(err)
-      res.status(500).json({ error: 'Failed saving pending entity' })
+      res.status(500).json({ error: 'Failed saving entity' })
     }
   }
 
