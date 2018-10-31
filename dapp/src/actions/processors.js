@@ -2,7 +2,7 @@ import types from './ActionTypes'
 import { buildActions, createBlockchainAction } from '../utils/actions'
 
 const dataToArgs = (data) => {
-  return [data.name, data.pubkey]
+  return [data.name, data.pubkey, data.address]
 }
 
 const actions = buildActions({
