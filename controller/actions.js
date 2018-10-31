@@ -8,6 +8,10 @@ const encryptKey = (key) => {
   return JSON.stringify({ iv, kemtag, ct })
 }
 
+const selectProcessor = async (node) => {
+  return node.getDefaultAccount()
+}
+
 const forwardToProcessor = async (node, data) => {
   try {
     let { _requestID } = data
