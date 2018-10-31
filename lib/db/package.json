@@ -9,6 +9,7 @@
     "seed:all": "sequelize db:seed:all",
     "seed": "sequelize db:seed --seed",
     "model:generate": "sequelize model:generate",
+    "db:init": "yarn seed:all",
     "sync": "node ./tools/sync-db/sync-db.js",
     "clean": "node ./tools/cleaner/cleanDB.js",
     "importer": "node ./tools/importer/index.js",
