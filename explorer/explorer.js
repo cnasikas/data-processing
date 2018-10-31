@@ -1,7 +1,7 @@
 const dotenv = require('dotenv')
 const path = require('path')
 const blockchain = require('blockchain')
-const { eventHandlers, models } = require('data-market-db')
+const { eventHandlers } = require('data-market-db')
 
 dotenv.config({ path: path.join(__dirname, '.env') })
 
@@ -18,6 +18,7 @@ const listenToEvents = async (node, contracts) => {
    NewProcessor
    NewRequest
    Process
+   NewProof
   */
 
   for (const contract of contracts) {
@@ -30,25 +31,18 @@ const listenToEvents = async (node, contracts) => {
   const proofStoreListener = contracts[1].listener
 
   dataStoreListener.on('NewProcessor', async (req) => {
-    req.args.name = node.fromBytes(req.args.name)
-    await eventHandlers.handleEntity(models.Processor, req)
+    await eventHandlers.handleEntity('Processor', req)
   })
 
   dataStoreListener.on('NewController', async (req) => {
-    req.args.name = node.fromBytes(req.args.name)
-    await eventHandlers.handleEntity(models.Controller, req)
+    await eventHandlers.handleEntity('Controller', req)
   })
 
   dataStoreListener.on('NewDataSet', async (req) => {
-    req.args.name = node.fromBytes(req.args.name)
-    req.args.hash = req.args.hash.substring(2)
-    req.args.category = node.fromBytes(req.args.category)
     await eventHandlers.handleDataset(req)
   })
 
   dataStoreListener.on('NewRequest', async (req) => {
-    req.args.algorithmID = node.fromBytes(req.args.algorithmID)
-    req.args._dataSetID = req.args._dataSetID.substring(2)
     await eventHandlers.handleRequest(req)
   })
 
