@@ -14,16 +14,26 @@ const selectProcessor = async (node) => {
 
 const forwardToProcessor = async (node, data) => {
   try {
-    let { _requestID } = data
+    let { _requestID, _dataSetID } = data
     console.log(`[*] Got new request with id: ${_requestID}`)
-    // const bytes = node.toBytes(hex)
-    let account = node.getDefaultAccount()
-    let processor = await node.getProcessor(account)
-    let [name, pubkey] = processor
-    let cipher = encryptKey(pubkey)
-    console.log(`[*] Forwarding to processor: name: ${name}, address: ${account}`)
-    const tx = await node.notifyProcessor(account, _requestID, cipher)
-    console.log(`[*] Fordward done. Tx: ${tx}`)
+
+    console.log(`[*] Getting dataset info...`)
+    let dataset = await node.getDataSetInfo(_dataSetID)
+
+    /* eslint-disable-next-line no-unused-vars */
+    let [name, location, category, metaHash, controller] = dataset
+
+    if (controller === node.getDefaultAccount()) {
+      let account = await selectProcessor(node)
+      let processor = await node.getProcessor(account)
+      let [name, pubkey] = processor
+      let cipher = encryptKey(pubkey)
+      console.log(`[*] Forwarding to processor: name: ${name}, address: ${account}`)
+      const tx = await node.notifyProcessor(account, _requestID, cipher)
+      console.log(`[*] Fordward done. Tx: ${tx}`)
+    } else {
+      console.log(`[*] Dataset is not mine!`)
+    }
   } catch (e) {
     throw new Error(e)
   }
