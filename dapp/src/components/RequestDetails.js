@@ -33,6 +33,8 @@ class RequestDetails extends React.Component {
           <h6 className='card-subtitle mb-2'>Data set:
             <span className='text-muted'> {this.props.request.dataset}</span>
           </h6>
+        </div>
+        <div className='card-body'>
           <h6 className='card-subtitle mb-2'>Tx:
             <span className='text-muted'> {this.props.request.tx_id}</span>
           </h6>
@@ -41,6 +43,14 @@ class RequestDetails extends React.Component {
           </h6>
           <h6 className='card-subtitle mb-2'>Response public key:
             <span className='text-muted'> {this.props.request.pubkey}</span>
+          </h6>
+        </div>
+        <div className='card-body'>
+          <h6 className='card-subtitle mb-2'>Controller:
+            <span className='text-muted'> {this.props.request.controller}</span>
+          </h6>
+          <h6 className='card-subtitle mb-2'>Processor:
+            <span className='text-muted'> {this.props.request.processor === null ? 'Not assigned' : this.props.request.processor}</span>
           </h6>
         </div>
         <div className='card-footer text-muted'>

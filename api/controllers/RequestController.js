@@ -5,6 +5,7 @@ const Address = models.Address
 const Request = models.Request
 const Dataset = models.Dataset
 const Algorithm = models.Algorithm
+const Processor = models.Processor
 const createRequest = methods.createRequest
 
 export default class RequestController extends BaseController {
@@ -21,6 +22,8 @@ export default class RequestController extends BaseController {
       status: 'status',
       processed: 'processed',
       requestor: 'Address.address',
+      controller: 'Dataset.Address.address',
+      processor: 'Processor.Address.address',
       createdAt: 'createdAt'
     }
 
@@ -41,11 +44,23 @@ export default class RequestController extends BaseController {
         },
         {
           model: Dataset,
-          attributes: ['hash']
+          attributes: ['hash'],
+          include: [{
+            model: Address,
+            attributes: ['address']
+          }]
         },
         {
           model: Algorithm,
           attributes: ['name']
+        },
+        {
+          model: Processor,
+          attributes: ['id'],
+          include: [{
+            model: Address,
+            attributes: ['address']
+          }]
         }
       ],
       raw: true
