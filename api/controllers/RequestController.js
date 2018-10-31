@@ -67,7 +67,7 @@ export default class RequestController extends BaseController {
     try {
       await createRequest(request.dataset, {
         tx_id: request.txId,
-        algorithm_id: 1, // request.query
+        algorithm_id: request.query,
         status: 'pending',
         processed: false,
         pub_key: request.pubkey
