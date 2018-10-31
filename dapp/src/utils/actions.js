@@ -59,16 +59,20 @@ const createBlockchainAction = (contractMethod, after, dataToArgs, dataPreproces
       const node = new NodeClass()
       await node.init()
 
-      data = dataPreprocess(data)
+      data = { ...dataPreprocess(data) }
       const dataArgs = dataToArgs(data)
       const tx = await node[contractMethod](...dataArgs)
+
+      if (data.address === undefined) {
+        data.address = node.getDefaultAccount()
+      }
 
       const obj = {
         ...data,
         txId: tx
       }
 
-      dispatch(after({}, obj))
+      dispatch(after({}, { ...obj }))
 
       return `Tx: ${tx}`
     }
