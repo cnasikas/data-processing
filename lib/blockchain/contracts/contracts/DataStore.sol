@@ -17,6 +17,7 @@ contract DataStore is BaseDataStore, DataStoreInterface {
     )
     public
     isValidDataset(hash)
+    uniqueDataset(hash)
     onlyController(msg.sender)
     returns (bool)
     {

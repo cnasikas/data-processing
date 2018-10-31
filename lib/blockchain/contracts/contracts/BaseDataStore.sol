@@ -66,6 +66,11 @@ contract BaseDataStore is BaseDataStoreInterface, Ownable {
         _;
     }
 
+    modifier uniqueDataset(bytes32 _dataSetID) {
+        require(dataStore[_dataSetID].isDataSet == false, "Dataset already exists");
+        _;
+    }
+
     modifier requestExist(bytes32 _requestID) {
         require(_requestID != 0, "Empty request id is not allowed");
         require(requests[_requestID].isRequest, "Request not found");
