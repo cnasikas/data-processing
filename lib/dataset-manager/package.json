@@ -5,13 +5,17 @@
   "author": "Christos Nasikas",
   "license": "MIT",
   "scripts": {
-    "lint": "standard"
+    "lint": "standard",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/cnasikas/data-market.git"
   },
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^5.2.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
@@ -19,7 +23,8 @@
   },
   "standard": {
     "ignore": [
-      "build"
+      "build",
+      "test"
     ]
   }
 }
