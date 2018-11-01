@@ -19,7 +19,7 @@ const download = async (req, res, id) => {
     await fh.accessFile(id)
   } catch (e) {
     console.log(e)
-    return res.status(404).json({ success: false, msg: 'I am not the owner of the dataset' })
+    return res.status(404).json({ success: false, msg: 'Dataset not found' })
   }
 
   const options = {
