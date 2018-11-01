@@ -1,6 +1,5 @@
 import util from 'util'
 import childProcess from 'child_process'
-import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
 
@@ -12,36 +11,48 @@ const PROVE_CMD = process.env.PROVE_CMD || 'prove.sh'
 const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
 
 const crypto = new Crypto()
-const datasetManager = dsm('http', DATASET_FOLDER)
+const datasetManager = dsm('http', path.join(__dirname, DATASET_FOLDER))
 const exec = util.promisify(childProcess.exec)
-const readFile = util.promisify(fs.readFile)
-const writeFile = util.promisify(fs.writeFile)
 
 const decryptKey = (cipher) => {
   return crypto.pubDecrypt(process.env.SEC_KEY, cipher)
 }
 
-const compute = async (filePath, symKey) => {
+const compute = async (processingInfo) => {
+  const datasetID = processingInfo.dataset.id.substring(2)
+  const algorithmID = processingInfo.request.algorithmID
+
+  if (await datasetManager.proofExists(datasetID, algorithmID)) {
+    console.log(`[*] Proof already exists! Skipping computation`)
+    return
+  }
+
   console.log(`[*] Start generating proof of computation...`)
   const { stdout, stderr } = await exec(`${PROVE_CMD} sum`)
+
   console.log('stdout:', stdout)
   console.log('stderr:', stderr)
+  await datasetManager.moveProof(path.join(__dirname, 'fake_proof.proof'), datasetID, processingInfo.request.algorithmID)
   console.log(`[*] Done!`)
 }
 
 const processData = async (processingInfo) => {
+  const datasetID = processingInfo.dataset.id.substring(2)
+
   console.log(`[*] Downloading dataset...`)
-  const filePath = await datasetManager.download(processingInfo.dataset.location)
+  await datasetManager.download(datasetID, processingInfo.dataset.location)
   console.log(`[*] Done!`)
 
   const iv = '3ec7cf091636fd12d28aeaa5e4d614e6'
   const hmacKey = '191a416b8e6e646e3787e3c5601a91985a8df8fdb1444e9d8862ed68719b8e8e'
 
+  const filePath = datasetManager.getEncPath(datasetID)
+
   console.log(`[*] Decrypting dataset...`)
   const { absPath } = await crypto.decryptFile(processingInfo.dataset.symKey, hmacKey, filePath, iv)
   console.log(`[*] Done! At: ${absPath}`)
 
-  await compute(absPath, processingInfo.dataset.symKey)
+  await compute(processingInfo)
 
   return {
     dataset: {
@@ -51,19 +62,12 @@ const processData = async (processingInfo) => {
   }
 }
 
-const saveSymKey = async (symKey, datasetID, filePath) => {
-  const fileName = `${datasetID}.sym`
-  const file = path.join(filePath, fileName)
-  await writeFile(file, symKey)
-}
-
 const saveProofToBlockchain = async (node, processingInfo) => {
   console.log(`[*] Saving proof to the blockchain...`)
   const datasetID = processingInfo.dataset.id.substring(2)
-  const proofFile = `${DATASET_FOLDER}/${datasetID}.proof`
 
-  /* Proof is small and constant so it is ok to load the file to memory */
-  let proof = await readFile(path.join(__dirname, proofFile))
+  /* Proof is small and constant so it is ok to load the file to memory   */
+  let proof = await datasetManager.readProof(datasetID, 'sum')
   proof = parseProof(proof)
   const tx = await node.addProof(processingInfo.request.id, proof)
   console.log(`[*] Proof saved. Tx: ${tx}`)
@@ -99,7 +103,7 @@ const handleFileKey = async (processingInfo) => {
   console.log(`[*] Done!`)
 
   console.log(`[*] Saving symetric key...`)
-  await saveSymKey(symKey, processingInfo.dataset.id.substring(2), path.join(__dirname, DATASET_FOLDER))
+  await datasetManager.writeKey(processingInfo.dataset.id.substring(2), symKey)
   console.log(`[*] Done!`)
 
   return {
