@@ -1,0 +1,13 @@
+node_modules
+bower_components
+dist
+build
+migrations
+db
+
+.node-xml*
+
+.DS_Store
+uploads
+datastore
+datasets
