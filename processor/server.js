@@ -1,8 +1,13 @@
 import _ from './env' // eslint-disable-line no-unused-vars
 import { handleProcess } from './actions'
 import blockchain from 'blockchain'
+import dsm from 'dataset-manager'
+import path from 'path'
 
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
+const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
+
+const datasetManager = dsm('http', path.join(__dirname, DATASET_FOLDER))
 
 const register = async (node, eventListener) => {
   await eventListener.registerToEvent('Process')
@@ -20,6 +25,7 @@ const main = async () => {
 
   console.log('[*] Processor node started')
   await node.init()
+  await datasetManager.initStructure()
   const eventListener = new ledger.Listener(node.getDataStore())
 
   register(node, eventListener)
