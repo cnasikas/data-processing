@@ -5,18 +5,18 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import sanitizer from 'express-sanitizer'
 import cors from 'cors'
-import FileHandler from './FileHandler'
+import dsm from 'dataset-manager'
 
 const PORT = process.env.PORT || 3003
 const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
 
 const app = express()
 const router = express.Router()
-const fh = new FileHandler(path.join(__dirname, DATASET_FOLDER))
+const datasetManager = dsm('http', path.join(__dirname, DATASET_FOLDER))
 
 const download = async (req, res, id) => {
   try {
-    await fh.accessFile(id)
+    await datasetManager.datasetExists(id)
   } catch (e) {
     console.log(e)
     return res.status(404).json({ success: false, msg: 'Dataset not found' })
@@ -30,7 +30,7 @@ const download = async (req, res, id) => {
     }
   }
 
-  return res.download(fh.getFilePath(id), fh.getFileWithExt(id), options)
+  return res.download(datasetManager.getEncPath(id), `${id}.${datasetManager.fm.fileExt['enc']}`, options)
 }
 
 const errorHandler = (err, req, res, next) => {
