@@ -11,6 +11,12 @@ contract BaseDataStore is Ownable {
     uint256 public totalRequests;
     uint256 public totalProcessors;
 
+    struct ProcessorCyclicList {
+      address current;
+      address head;
+      address tail;
+    }
+
     struct DataSet {
         bytes32 name;
         string location;
@@ -41,6 +47,7 @@ contract BaseDataStore is Ownable {
         bytes32 name;
         string pubKey;
         bool isProcessor;
+        address nextProcessor;
     }
 
     mapping(address => Controller) public controllers;
@@ -48,11 +55,16 @@ contract BaseDataStore is Ownable {
     mapping (bytes32 => Request) public requests;
     mapping (address => Processor) public processors;
 
+    ProcessorCyclicList public prList;
+
     constructor() public {
         totalDataSets = 0;
         totalControllers = 0;
         totalRequests = 0;
         totalProcessors = 0;
+        prList.current = address(0);
+        prList.head = address(0);
+        prList.tail = address(0);
     }
 
     /* modifiers */
@@ -182,5 +194,30 @@ contract BaseDataStore is Ownable {
     processorExist(_processor)
     returns(bytes32, string) {
         return (processors[_processor].name, processors[_processor].pubKey);
+    }
+
+    function addProcessorToList (address processor) internal {
+      if (totalProcessors == 0) {
+        prList.current = processor;
+        prList.head = processor;
+        prList.tail = processor;
+        return;
+      }
+
+      address currentTail = prList.tail;
+      processors[currentTail].nextProcessor = processor;
+      prList.tail = processor;
+    }
+
+    function getNextInLineProcessor()
+    internal
+    returns(address processor) {
+      address current = prList.current;
+      prList.current = processors[current].nextProcessor;
+      return current;
+    }
+
+    function getCurrentProcessor() public view returns(address processor) {
+      return prList.current;
     }
 }

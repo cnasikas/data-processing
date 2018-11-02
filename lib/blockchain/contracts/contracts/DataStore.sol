@@ -68,11 +68,13 @@ contract DataStore is BaseDataStore {
     onlyUnregisteredProcessor(_processorAddress)
     returns (bool)
     {
-        processors[_processorAddress] = Processor({
-            name: name,
-            pubKey: pubKey,
-            isProcessor: true
-        });
+        processors[_processorAddress].name = name;
+        processors[_processorAddress].pubKey = pubKey;
+        processors[_processorAddress].isProcessor = true;
+
+        addProcessorToList(_processorAddress);
+
+        processors[_processorAddress].nextProcessor = prList.head;
 
         totalProcessors++;
         emit NewProcessor(_processorAddress, name, pubKey);
@@ -97,13 +99,14 @@ contract DataStore is BaseDataStore {
         return true;
     }
 
-    function notifyProcessor(address _processorAddress, bytes32 _requestID, string encryptedKey)
+    function notifyProcessor(bytes32 _requestID, string encryptedKey)
     public
     isValidAddress(msg.sender)
     requestExist(_requestID)
     onlyOwnerOfDataset(msg.sender, _requestID)
     returns (bool)
     {
+        address _processorAddress = getNextInLineProcessor();
         requests[_requestID].processor = _processorAddress;
         emit Process(_processorAddress, _requestID, encryptedKey);
         return true;

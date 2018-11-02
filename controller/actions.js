@@ -25,11 +25,11 @@ const forwardToProcessor = async (node, data) => {
 
     if (controller === node.getDefaultAccount()) {
       let account = await selectProcessor(node)
-      let processor = await node.getProcessor(account)
+      let processor = await node.getProcessor(await node.getCurrentProcessor())
       let [name, pubkey] = processor
       let cipher = encryptKey(pubkey)
       console.log(`[*] Forwarding to processor: name: ${name}, address: ${account}`)
-      const tx = await node.notifyProcessor(account, _requestID, cipher)
+      const tx = await node.notifyProcessor(_requestID, cipher)
       console.log(`[*] Fordward done. Tx: ${tx}`)
     } else {
       console.log(`[*] Dataset is not mine!`)
