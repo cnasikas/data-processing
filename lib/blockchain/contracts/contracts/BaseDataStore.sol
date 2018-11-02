@@ -4,7 +4,7 @@ import "./zeppelin-solidity/Ownable.sol";
 import "./BaseDataStoreInterface.sol";
 
 
-contract BaseDataStore is BaseDataStoreInterface, Ownable {
+contract BaseDataStore is Ownable {
 
     uint256 public totalDataSets;
     uint256 public totalControllers;
