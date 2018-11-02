@@ -22,7 +22,7 @@ contract Evaluation {
     }
 
     function storeEvent(bytes _data) public {
-        StoreLog(_data);
+        emit StoreLog(_data);
     }
 
     function storeToHashMap(bytes _hash) public {
