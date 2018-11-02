@@ -27,6 +27,8 @@ contract ProofStore is Ownable {
       G1Point C_p;
       G1Point K;
       G1Point H;
+      string output;
+      uint256[] publicInput;
       bool hasProof;
   }
 
@@ -42,8 +44,7 @@ contract ProofStore is Ownable {
   }
 
   modifier onlyTheProcessorOfTheRequest(bytes32 _requestID) {
-      (address processor, ) = dataStore.getRequestProcessingInfo(_requestID);
-      require(msg.sender == processor, "Sender is not the assigned processor of the request");
+      require(msg.sender == dataStore.getRequestProcessor(_requestID), "Sender is not the assigned processor of the request");
       _;
   }
 
@@ -66,11 +67,12 @@ contract ProofStore is Ownable {
     uint[2] c,
     uint[2] c_p,
     uint[2] h,
-    uint[2] k
+    uint[2] k,
+    string output,
+    uint256[] publicInput
   )
   public
   onlyTheProcessorOfTheRequest(_requestID)
-  returns (bool)
   {
       Proof memory proof;
       proof.A = G1Point(a[0], a[1]);
@@ -81,14 +83,14 @@ contract ProofStore is Ownable {
       proof.C_p = G1Point(c_p[0], c_p[1]);
       proof.H = G1Point(h[0], h[1]);
       proof.K = G1Point(k[0], k[1]);
-
+      proof.output = output;
+      proof.publicInput = publicInput;
       proof.hasProof = true;
 
       proofs[_requestID] = proof;
       totalProofs++;
 
       emit NewProof(_requestID);
-      return true;
   }
 
   function getProof(bytes32 _requestID)
@@ -106,6 +108,20 @@ contract ProofStore is Ownable {
           [proof.H.X, proof.H.Y],
           [proof.K.X, proof.K.Y]
       );
+  }
+
+  function getOutput(bytes32 _requestID)
+  public
+  view
+  returns(string) {
+    return proofs[_requestID].output;
+  }
+
+  function getPublicInput(bytes32 _requestID)
+  public
+  view
+  returns(uint256[]) {
+    return proofs[_requestID].publicInput;
   }
 
   function hasProof(bytes32 _requestID) public view returns (bool) {

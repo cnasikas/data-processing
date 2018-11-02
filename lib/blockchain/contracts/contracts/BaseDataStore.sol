@@ -39,7 +39,6 @@ contract BaseDataStore is Ownable {
         bytes32 algorithmID;
         string pubKey;
         address processor;
-        uint256[] publicInput;
         bool isRequest;
     }
 
@@ -141,18 +140,6 @@ contract BaseDataStore is Ownable {
         _;
     }
 
-    function getRequestProcessingInfo(bytes32 _requestID)
-    public
-    view
-    requestExist(_requestID)
-    returns(address, bool, uint[]) {
-        return (
-            requests[_requestID].processor,
-            requests[_requestID].hasProof,
-            requests[_requestID].publicInput
-        );
-    }
-
     function addProcessorToList (address processor) internal {
       if (totalProcessors == 0) {
         prList.current = processor;
@@ -172,5 +159,12 @@ contract BaseDataStore is Ownable {
       address current = prList.current;
       prList.current = processors[current].nextProcessor;
       return current;
+    }
+
+    function getRequestProcessor(bytes32 _requestID)
+    public
+    view
+    returns(address processor) {
+      return requests[_requestID].processor;
     }
 }
