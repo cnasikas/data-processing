@@ -81,7 +81,7 @@ const getRequestInfo = async (node, processingInfo) => {
   console.log(`[*] Done: datasetID: ${_dataSetID}, algorithmID: ${algorithmID}, pubKey: ${pubKey}`)
   console.log(`[*] Getting dataset info...`)
   let dataset = await node.getDataSetInfo(_dataSetID)
-  let [name, location] = dataset // name, location, category, metaHash, controller
+  let [name, location] = dataset // name, location, category, metadata, controller
   console.log(`[*] Done: name: ${name}, location: ${location}`)
 
   return {

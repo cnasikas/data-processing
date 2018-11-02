@@ -39,7 +39,7 @@ contract BaseDataStore is Ownable {
         bytes32 algorithmID;
         string pubKey;
         address processor;
-        uint[] publicInput;
+        uint256[] publicInput;
         bool isRequest;
     }
 
@@ -141,33 +141,6 @@ contract BaseDataStore is Ownable {
         _;
     }
 
-    function getDataSetInfo(bytes32 _dataSetID)
-    public
-    view
-    dataSetExist(_dataSetID)
-    returns(bytes32, string, bytes32, string, address) {
-        return (
-            dataStore[_dataSetID].name,
-            dataStore[_dataSetID].location,
-            dataStore[_dataSetID].category,
-            dataStore[_dataSetID].metadata,
-            dataStore[_dataSetID].controller
-        );
-    }
-
-    function getRequestInfo(bytes32 _requestID)
-    public
-    view
-    requestExist(_requestID)
-    returns(bytes32, bytes32, string, address) {
-        return (
-            requests[_requestID].dataSetID,
-            requests[_requestID].algorithmID,
-            requests[_requestID].pubKey,
-            requests[_requestID].requestor
-        );
-    }
-
     function getRequestProcessingInfo(bytes32 _requestID)
     public
     view
@@ -178,22 +151,6 @@ contract BaseDataStore is Ownable {
             requests[_requestID].hasProof,
             requests[_requestID].publicInput
         );
-    }
-
-    function getController(address _controller)
-    public
-    view
-    controllerExist(_controller)
-    returns(bytes32, string) {
-        return (controllers[_controller].name, controllers[_controller].pubKey);
-    }
-
-    function getProcessor(address _processor)
-    public
-    view
-    processorExist(_processor)
-    returns(bytes32, string) {
-        return (processors[_processor].name, processors[_processor].pubKey);
     }
 
     function addProcessorToList (address processor) internal {
@@ -215,9 +172,5 @@ contract BaseDataStore is Ownable {
       address current = prList.current;
       prList.current = processors[current].nextProcessor;
       return current;
-    }
-
-    function getCurrentProcessor() public view returns(address processor) {
-      return prList.current;
     }
 }
