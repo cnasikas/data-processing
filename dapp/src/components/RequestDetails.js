@@ -2,6 +2,8 @@ import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Badge from './Badge.js'
+
+import config from '../config.json'
 import { formatDate, getBadgeType, getReguestBadgeInfo } from '../utils/helpers'
 
 import {
@@ -36,7 +38,9 @@ class RequestDetails extends React.Component {
         </div>
         <div className='card-body'>
           <h6 className='card-subtitle mb-2'>Tx:
-            <span className='text-muted'> {this.props.request.tx_id}</span>
+            <a href={`${config.etherscan}/tx/${this.props.request.tx_id}`} target='_blank'>
+              <span> {this.props.request.tx_id}</span>
+            </a>
           </h6>
           <h6 className='card-subtitle mb-2'>Requestor:
             <span className='text-muted'> {this.props.request.requestor}</span>

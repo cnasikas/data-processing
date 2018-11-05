@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Badge from './Badge.js'
 
+import config from '../config.json'
 import AddResourceBtn from '../components/AddResourceBtn.js'
 import { formatDate, getBadgeType } from '../utils/helpers'
 
@@ -43,7 +44,9 @@ class DataDetails extends React.Component {
             <span className='text-muted'> {this.props.data.metadata}</span>
           </h6>
           <h6 className='card-subtitle mb-2'>Tx:
-            <span className='text-muted'> {this.props.data.tx_id}</span>
+            <a href={`${config.etherscan}/tx/${this.props.data.tx_id}`} target='_blank'>
+              <span> {this.props.data.tx_id}</span>
+            </a>
           </h6>
           <h6 className='card-subtitle mb-2'>Controller:
             <span className='text-muted'> {this.props.data.controller}</span>

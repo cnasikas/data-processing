@@ -1,6 +1,7 @@
 import React from 'react'
 import Badge from './Badge.js'
 
+import config from '../config.json'
 import { formatDate, getBadgeType } from '../utils/helpers'
 
 export default class EntityDetails extends React.Component {
@@ -24,6 +25,11 @@ export default class EntityDetails extends React.Component {
           </h6>
           <h6 className='card-subtitle mb-2'>Address:
             <span className='text-muted'> {this.props[this.key].address}</span>
+          </h6>
+          <h6 className='card-subtitle mb-2'>Tx:
+            <a href={`${config.etherscan}/tx/${this.props[this.key].tx_id}`} target='_blank'>
+              <span> {this.props[this.key].tx_id}</span>
+            </a>
           </h6>
         </div>
         <div className='card-footer text-muted'>

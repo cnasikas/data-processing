@@ -1,3 +1,17 @@
+.card-body a {
+  color: #6c757d;
+}
+
+.card-body .btn-primary,
+.card-body .btn-primary:hover {
+  color: #fff;
+}
+
+.card-body a:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
 #datastore .data a,
 #requests .request a,
 #processors .entity a,
