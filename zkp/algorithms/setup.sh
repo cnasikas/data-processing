@@ -13,6 +13,6 @@ cp $APP/$APP.h ../apps/
 cd ../
 echo "$(date) verifier setup" | tee -a $LOG
 SECONDS=0
-./pepper_compile_and_setup_V.sh $APP $APP.vkey $APP.pkey
+./pepper_compile_and_setup_V.sh $APP $APP.vkey $APP.pkey $APP.raw_vkey
 ./pepper_compile_and_setup_P.sh $APP
 echo "$(date) Setup done, took $SECONDS seconds" | tee -a $LOG
