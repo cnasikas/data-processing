@@ -17,6 +17,12 @@ const decryptKey = (cipher) => {
   return crypto.pubDecrypt(process.env.SEC_KEY, cipher)
 }
 
+const encryptOutput = (pubKey, out) => {
+  let encKey = crypto.pubEncrypt(pubKey, JSON.stringify(out))
+  let { iv, kemtag, ct } = JSON.parse(encKey)
+  return JSON.stringify({ iv, kemtag, ct })
+}
+
 const compute = async (processingInfo) => {
   const datasetID = processingInfo.dataset.id.substring(2)
   const algorithmID = processingInfo.request.algorithmID
@@ -67,8 +73,13 @@ const saveProofToBlockchain = async (node, processingInfo) => {
 
   /* Proof is small and constant so it is ok to load the file to memory   */
   let proof = await datasetManager.readProof(datasetID, processingInfo.request.algorithmID)
+  let inputs = await datasetManager.readInput(datasetID, processingInfo.request.algorithmID)
+  let output = await datasetManager.readOutput(datasetID, processingInfo.request.algorithmID)
+
+  output = encryptOutput(processingInfo.request.pubKey, output)
   proof = JSON.parse(proof)
-  const tx = await node.addProof(processingInfo.request.id, proof, 'proof_out', [1, 1, 1, 30])
+
+  const tx = await node.addProof(processingInfo.request.id, proof, output, inputs)
   console.log(`[*] Proof saved. Tx: ${tx}`)
 }
 
