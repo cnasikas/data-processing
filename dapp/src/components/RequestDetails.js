@@ -1,6 +1,7 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import Badge from './Badge.js'
 
 import config from '../config.json'
@@ -33,7 +34,9 @@ class RequestDetails extends React.Component {
         <div className='card-body'>
           <h5 className='card-title'>ID: {this.props.request.blockchain_id}</h5>
           <h6 className='card-subtitle mb-2'>Data set:
-            <span className='text-muted'> {this.props.request.dataset}</span>
+            <Link to={`/datastore/${this.props.request.dataset}`}>
+              <span> {this.props.request.dataset}</span>
+            </Link>
           </h6>
         </div>
         <div className='card-body'>
