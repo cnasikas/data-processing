@@ -27,11 +27,11 @@ const compute = async (processingInfo) => {
   }
 
   console.log(`[*] Start generating proof of computation...`)
-  const { stdout, stderr } = await exec(`${PROVE_CMD} sum`)
+  const { stdout, stderr } = await exec(`${PROVE_CMD} ${algorithmID}`)
 
   console.log('stdout:', stdout)
   console.log('stderr:', stderr)
-  await datasetManager.moveProof(path.join(__dirname, 'fake_proof.proof'), datasetID, processingInfo.request.algorithmID)
+  await datasetManager.moveZKPFiles(process.env.PROOF_FOLDER, datasetID, processingInfo.request.algorithmID)
   console.log(`[*] Done!`)
 }
 
