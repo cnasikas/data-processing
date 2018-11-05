@@ -144,7 +144,7 @@ void export_proof(char *proof_fn) {
 
 void print_usage(char* argv[]) {
 	std::cout << "usage: " << std::endl <<
-		"(1) " << argv[0] << " contract <verification key file>" << std::endl <<
+		"(1) " << argv[0] << " vk <verification key file>" << std::endl <<
 		"(2) " << argv[0] << " proof <proof file>" << std::endl;
 }
 
