@@ -152,8 +152,7 @@ contract Verifier {
         Pairing.G1Point gammaBeta1;
         Pairing.G2Point gammaBeta2;
         Pairing.G2Point Z;
-        Pairing.G1Point[5] IC;
-        uint IC_length;
+        Pairing.G1Point[] IC;
     }
     VerifyingKey vk;
     struct Proof {
@@ -167,7 +166,7 @@ contract Verifier {
         Pairing.G1Point H;
     }
     function verify(uint[] input, Proof proof) internal returns (uint) {
-        require(input.length + 1 == vk.IC_length);
+        require(input.length + 1 == vk.IC.length, "Input length differs from IC");
         // Compute the linear combination vk_x
         Pairing.G1Point memory vk_x = Pairing.G1Point(0, 0);
         for (uint i = 0; i < input.length; i++)
@@ -206,10 +205,12 @@ contract Verifier {
         vk.gammaBeta1 = Pairing.G1Point(gamma_beta_1[0], gamma_beta_1[1]);
         vk.gammaBeta2 = Pairing.G2Point([gamma_beta_2[0][0], gamma_beta_2[0][1]], [gamma_beta_2[1][0], gamma_beta_2[1][1]]);
         vk.Z = Pairing.G2Point([Z[0][0], Z[0][1]], [Z[1][0], Z[1][1]]);
-        vk.IC_length = IC.length;
-        for(uint i=0; i<vk.IC_length; i++) {
+        vk.IC.length = IC.length;
+
+        for(uint i=0; i < IC.length; i++) {
             vk.IC[i] = Pairing.G1Point(IC[i][0], IC[i][1]);
         }
+
         verifyingKeySet = true;
     }
     event Verified(string);
