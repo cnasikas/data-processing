@@ -7,7 +7,7 @@ IFLAGS = -I$(LIBSNARK)/ -I$(LIBSNARK)/depends/libff -I$(LIBSNARK)/depends/libfqf
 LDFLAGS = -L$(LIBSNARK)/build/libsnark -L$(LIBSNARK)/build/depends/libff/libff
 LDFLAGS += -lsnark -lff -lgmp
 
-BINDIR = bin
+BINDIR = utils
 
 export: export.cpp check-env
 	@mkdir -p $(BINDIR)

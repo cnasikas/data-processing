@@ -43,3 +43,4 @@ boxes/*
 test/vagrant-spec/.vagrant/
 
 bin
+zkp/utils
