@@ -5,7 +5,6 @@ import _ from 'lodash'
 
 import Crypto from 'total-crypto'
 import dsm from 'dataset-manager'
-import { parseProof } from 'data-market-utils'
 
 const PROVE_CMD = process.env.PROVE_CMD || 'prove.sh'
 const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
@@ -67,9 +66,9 @@ const saveProofToBlockchain = async (node, processingInfo) => {
   const datasetID = processingInfo.dataset.id.substring(2)
 
   /* Proof is small and constant so it is ok to load the file to memory   */
-  let proof = await datasetManager.readProof(datasetID, 'sum')
-  proof = parseProof(proof)
-  const tx = await node.addProof(processingInfo.request.id, proof)
+  let proof = await datasetManager.readProof(datasetID, processingInfo.request.algorithmID)
+  proof = JSON.parse(proof)
+  const tx = await node.addProof(processingInfo.request.id, proof, 'proof_out', [1, 1, 1, 30])
   console.log(`[*] Proof saved. Tx: ${tx}`)
 }
 
