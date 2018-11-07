@@ -48,21 +48,19 @@ const processData = async (processingInfo) => {
   await datasetManager.download(datasetID, processingInfo.dataset.location)
   console.log(`[*] Done!`)
 
-  const iv = '3ec7cf091636fd12d28aeaa5e4d614e6'
-  const hmacKey = '191a416b8e6e646e3787e3c5601a91985a8df8fdb1444e9d8862ed68719b8e8e'
+  const metadata = JSON.parse(processingInfo.dataset.metadata)
 
-  const filePath = datasetManager.getEncPath(datasetID)
+  const src = datasetManager.getEncPath(datasetID)
+  const dest = datasetManager.getDecPath(datasetID)
 
-  console.log(`[*] Decrypting dataset...`)
-  const { absPath } = await crypto.decryptFile(processingInfo.dataset.symKey, hmacKey, filePath, iv)
-  console.log(`[*] Done! At: ${absPath}`)
+  await crypto.decryptFile(processingInfo.dataset.symKey, src, dest, metadata.iv)
 
   await compute(processingInfo)
 
   return {
     dataset: {
-      filePath,
-      absPath
+      src,
+      dest
     }
   }
 }
@@ -71,7 +69,7 @@ const saveProofToBlockchain = async (node, processingInfo) => {
   console.log(`[*] Saving proof to the blockchain...`)
   const datasetID = processingInfo.dataset.id.substring(2)
 
-  /* Proof is small and constant so it is ok to load the file to memory   */
+  /* Proof is small and constant (~300 bytes) so it is ok to load the file to memory   */
   let proof = await datasetManager.readProof(datasetID, processingInfo.request.algorithmID)
   let inputs = await datasetManager.readInput(datasetID, processingInfo.request.algorithmID)
   let output = await datasetManager.readOutput(datasetID, processingInfo.request.algorithmID)
@@ -91,8 +89,7 @@ const getRequestInfo = async (node, processingInfo) => {
   console.log(`[*] Done: datasetID: ${_dataSetID}, algorithmID: ${algorithmID}, pubKey: ${pubKey}`)
   console.log(`[*] Getting dataset info...`)
   let dataset = await node.getDataSetInfo(_dataSetID)
-  let [name, location] = dataset // name, location, category, metadata, controller
-  console.log(`[*] Done: name: ${name}, location: ${location}`)
+  let [name, location, category, metadata, controller] = dataset // name, location, category, metadata, controller
 
   return {
     request: {
@@ -102,7 +99,10 @@ const getRequestInfo = async (node, processingInfo) => {
     dataset: {
       id: _dataSetID,
       name,
-      location
+      location,
+      category,
+      metadata,
+      controller
     }
   }
 }
