@@ -1,3 +1,4 @@
+import logSymbols from 'log-symbols'
 import _ from './env' // eslint-disable-line no-unused-vars
 import { forwardToProcessor } from './actions'
 import api from './api'
@@ -14,22 +15,22 @@ const register = async (node, eventListener) => {
     forwardToProcessor(node, req.args).catch((err) => { eventListener.emit('error', err) })
   })
 
-  eventListener.on('error', console.error)
+  eventListener.on('error', (err) => console.log(logSymbols.error, err))
 }
 
 const main = async () => {
   const ledger = blockchain()
   const node = new ledger.NodeClass(PROVIDER)
 
-  console.log('[*] Controller node started')
+  console.log(logSymbols.info, 'Controller node started')
   await node.init()
   const eventListener = new ledger.Listener(node.getDataStore())
 
   register(node, eventListener)
-    .catch((err) => { console.log(err.message) })
+    .catch((err) => { console.log(logSymbols.error, err.message) })
 }
 
 main().catch((err) => {
-  console.log(err.message)
+  console.log(logSymbols.error, err.message)
   process.exit(1)
 })

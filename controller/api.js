@@ -5,6 +5,7 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import sanitizer from 'express-sanitizer'
 import cors from 'cors'
+import logSymbols from 'log-symbols'
 import dsm from 'dataset-manager'
 
 const PORT = process.env.PORT || 3003
@@ -73,7 +74,7 @@ const init = () => {
   app.use(errorHandler)
 
   app.listen(PORT, function () {
-    console.log(`[*] API: Started on port ${this.address().port}`)
+    console.log(logSymbols.info, `API: Started on port ${this.address().port}`)
   })
 }
 
