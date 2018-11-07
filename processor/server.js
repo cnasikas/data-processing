@@ -1,3 +1,4 @@
+import logSymbols from 'log-symbols'
 import _ from './env' // eslint-disable-line no-unused-vars
 import { handleProcess } from './actions'
 import blockchain from 'blockchain'
@@ -16,23 +17,23 @@ const register = async (node, eventListener) => {
     handleProcess(node, req.args).catch((err) => { eventListener.emit('error', err) })
   })
 
-  eventListener.on('error', console.error)
+  eventListener.on('error', (err) => console.log(logSymbols.error, err))
 }
 
 const main = async () => {
   const ledger = blockchain()
   const node = new ledger.NodeClass(PROVIDER)
 
-  console.log('[*] Processor node started')
+  console.log(logSymbols.info, 'Processor node started')
   await node.init()
   await datasetManager.initStructure()
   const eventListener = new ledger.Listener(node.getDataStore())
 
   register(node, eventListener)
-    .catch((err) => { console.log(err) })
+    .catch((err) => { console.log(logSymbols.error, err) })
 }
 
 main().catch((err) => {
-  console.log(err.message)
+  console.log(logSymbols.error, err.message)
   process.exit(1)
 })
