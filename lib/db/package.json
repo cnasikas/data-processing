@@ -12,7 +12,6 @@
     "db:init": "yarn seed:all",
     "sync": "node ./tools/sync-db/sync-db.js",
     "clean": "node ./tools/cleaner/cleanDB.js",
-    "importer": "node ./tools/importer/index.js",
     "lint": "standard"
   },
   "repository": {
@@ -32,6 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^6.0.0",
+    "log-symbols": "^2.2.0",
     "mysql2": "^1.5.3",
     "pg": "^7.4.3",
     "run.env": "^1.0.2",
