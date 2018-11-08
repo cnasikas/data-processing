@@ -132,12 +132,13 @@ const handleRequest = async (argv, key) => {
 
 const handleAll = async (argv, key) => {
   const node = await _initBlockchain(argv.p)
+  const account = node.getDefaultAccount()
 
   const processors = [
     {
       name: 'PR #1',
       pubkey: 'e768dba9090d778ecbeae58d08303c261d698e22c22b19243c6c8d82bcc67ec7c1459f4ff46c24ca64eaa356a39051794d586ca391a364a143beb850ee0ea472',
-      account: '0x0deD0E1cea8b62eb073BA285a8b8e199122E4509'
+      account
     }
   ]
 
@@ -145,7 +146,7 @@ const handleAll = async (argv, key) => {
     {
       name: 'CR #1',
       pubkey: '6b964b635b5203dacf66987c82a771117b1dc63ecd88f05a28545a8b3b2e9fdceff97590e194fc0e43c41bae719fb63bdd8c645c03675ec29ebab497be496257',
-      account: '0x0deD0E1cea8b62eb073BA285a8b8e199122E4509'
+      account
     }
   ]
 
