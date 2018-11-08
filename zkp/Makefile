@@ -9,7 +9,7 @@ LDFLAGS += -lsnark -lff -lgmp
 
 BINDIR = utils
 
-export: export.cpp check-env
+utils: export.cpp check-env
 	@mkdir -p $(BINDIR)
 	$(CXX) $(CXXFLAGS) $(IFLAGS) $< -o $(BINDIR)/$@ $(LDFLAGS)
 
