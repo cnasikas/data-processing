@@ -91,7 +91,7 @@ const handleEntity = async (argv, key) => {
 
   const entity = {
     name: argv.n,
-    pubkey: argv.p,
+    pubkey: argv.k,
     account: argv.a
   }
 
