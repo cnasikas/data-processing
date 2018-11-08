@@ -3,8 +3,13 @@ import _ from './env' // eslint-disable-line no-unused-vars
 import { forwardToProcessor } from './actions'
 import api from './api'
 import blockchain from 'blockchain'
+import dsm from 'dataset-manager'
+import path from 'path'
 
 const PROVIDER = process.env.PROVIDER || 'http://localhost:7545'
+const DATASET_FOLDER = process.env.DATASET_FOLDER || 'datasets'
+
+const datasetManager = dsm('http', path.join(__dirname, DATASET_FOLDER))
 
 api()
 
@@ -24,6 +29,7 @@ const main = async () => {
 
   console.log(logSymbols.info, 'Controller node started')
   await node.init()
+  await datasetManager.initStructure()
   const eventListener = new ledger.Listener(node.getDataStore())
 
   register(node, eventListener)
