@@ -52,7 +52,7 @@ const setRoutes = () => {
   })
 }
 
-const init = () => {
+export default () => {
   app.use(morgan('dev'))
   app.use(cors({
     exposedHeaders: ['Link']
@@ -77,5 +77,3 @@ const init = () => {
     console.log(logSymbols.info, `API: Started on port ${this.address().port}`)
   })
 }
-
-module.exports = init
