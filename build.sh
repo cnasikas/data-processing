@@ -2,7 +2,10 @@
 
 cd "$(dirname "$0")"
 
-cd lib/blockchain
+cd lib/util
+yarn build
+
+cd ../blockchain
 yarn build
 
 cd ../../api

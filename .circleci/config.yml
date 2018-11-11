@@ -256,9 +256,8 @@ jobs:
             - node-v1-lib-util{{ checksum "./lib/util/package.json" }}-{{ arch }}
             - node-v1-lib-util
 
-      - run: cd lib/blockchain && yarn install
-      - run: cd lib/util && yarn install && yarn link
-      - run: cd lib/blockchain && yarn link "data-market-utils"
+      - run: cd lib/util && yarn install && yarn build && yarn link
+      - run: cd lib/blockchain && yarn install && yarn link "data-market-utils"
 
       - save_cache:
           key: node-v1-lib-blockchain{{ checksum "./lib/blockchain/package.json" }}-{{ arch }}

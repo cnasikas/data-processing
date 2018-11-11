@@ -1,7 +1,7 @@
 {
   "name": "blockchain",
   "version": "0.0.3",
-  "main": "blockchain.js",
+  "main": "build/blockchain.js",
   "author": "Christos Nasikas",
   "license": "MIT",
   "scripts": {

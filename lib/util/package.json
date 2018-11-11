@@ -1,14 +1,15 @@
 {
   "name": "data-market-utils",
   "version": "0.0.1",
-  "main": "util.js",
+  "main": "build/util.js",
   "author": "Christos Nasikas",
   "license": "MIT",
   "engines": {
     "node": ">=8.6.0"
   },
   "scripts": {
-    "lint": "standard"
+    "lint": "standard",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,16 @@
     "validator": "^9.4.1"
   },
   "devDependencies": {
-    "standard": "^12.0.1"
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-loader": "^8.0.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "standard": "^12.0.1",
+    "webpack": "^4.19.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "standard": {
     "ignore": [
