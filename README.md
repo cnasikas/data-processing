@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/cnasikas/data-processing.svg?style=svg&circle-token=57a51759111d9f1fc809fad574e35afb233a9903)](https://circleci.com/gh/cnasikas/data-processing)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 # Data processing
 
